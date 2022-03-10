@@ -1,0 +1,15 @@
+.headerContainer {
+  position: relative;
+  z-index: 2;
+}
+
+.drawerContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.pressureChartContainer {
+  margin-left: 6rem;
+  width: 50%;
+  height: 50%;
+}

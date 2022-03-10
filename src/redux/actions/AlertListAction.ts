@@ -1,0 +1,13 @@
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
+
+export const getAlertsList = createAsyncThunk(
+  "AlertListReducer/GetAlertList",
+  async () => {
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/get_alerts_list`
+    );
+    return res.data;
+  }
+);
