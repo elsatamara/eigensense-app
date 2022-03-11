@@ -1,5 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { AlertListInterface } from "../../interfaces/AlertInterface";
+import {
+  AlertInterface,
+  AlertListInterface,
+} from "../../interfaces/AlertInterface";
+import { AlertStatus } from "../../utils/AlertStatus";
 import { getAlertsList } from "../actions/AlertListAction";
 
 const initialState: AlertListInterface = {
@@ -9,8 +13,7 @@ const initialState: AlertListInterface = {
 export const alertList = createReducer(initialState, (builder) => {
   builder.addCase(getAlertsList.pending, (state, action) => {});
   builder.addCase(getAlertsList.fulfilled, (state, action) => {
-    console.log(action.payload);
-    initialState.alerts = action.payload;
+    state.alerts = action.payload;
   });
   builder.addCase(getAlertsList.rejected, (state, action) => {});
 });

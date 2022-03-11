@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import AlertListObject from "../../lib/AlertListObject/AlertListObject";
+import DashboardTableHeader from "../../lib/DashboardTableHeader/DashboardTableHeader";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
 import PageTabs from "../../lib/Tabs/Tabs";
 import { getAlertsList } from "../../redux/actions/AlertListAction";
@@ -15,9 +16,11 @@ const DashboardPage = () => {
   const [notesData, setNotesData] = React.useState("");
   const alertListState = useAppSelector((state) => state.alertList);
 
+  console.log("Alert", alertListState);
+
   useEffect(() => {
     dispatch(getAlertsList());
-  });
+  }, []);
   return (
     <div>
       <div className={styles.headerContainer}>
@@ -26,10 +29,25 @@ const DashboardPage = () => {
       <div className={styles.drawerContainer}>
         <PageTabs />
       </div>
+      <div className={styles.tableHeaderContainer}>
+        <DashboardTableHeader />
+      </div>
 
       <div>
-        {alertListState.alerts.map((item) => {
-          <AlertListObject alert={item} />;
+        {alertListState.alerts.map((elem) => {
+          return (
+            <li key={elem.patternId}>
+              <AlertListObject
+                patternName={elem.patternName}
+                patternID={elem.patternId}
+                date={elem.date}
+                preview={elem.preview}
+                location={elem.location}
+                regulator={elem.regulator}
+                status={elem.status}
+              />
+            </li>
+          );
         })}
       </div>
 
@@ -40,12 +58,11 @@ const DashboardPage = () => {
       <div>
         {/* <Button
           onClick={() => {
-            dispatch(getChartDataAction("reg_278"));
-            setChartAvailable(true);
+            dispatch(getAlertsList());
           }}
         >
           {" "}
-          Generate Chart{" "}
+          Get Alerts List{" "}
         </Button> */}
       </div>
       {/* <div>

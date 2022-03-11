@@ -6,14 +6,14 @@ import clsx from "clsx";
 import SearchIcon from "@mui/icons-material/Search";
 
 const PageTabs = () => {
-  // const [isDrawerOpen, setDrawerOpen] = React.useState(false);
+  const [isDrawerOpen, setDrawerOpen] = React.useState(false);
 
-  // const handleChange = (
-  //   event: React.SyntheticEvent,
-  //   newDrawerStatus: boolean
-  // ) => {
-  //   setDrawerOpen(newDrawerStatus);
-  // };
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newDrawerStatus: boolean
+  ) => {
+    setDrawerOpen(newDrawerStatus);
+  };
 
   const theme = useTheme();
 
@@ -51,16 +51,16 @@ const PageTabs = () => {
     <div>
       <div className={styles.tabsContainer}>
         <Tabs
-          // onChange={handleChange}
+          onChange={handleChange}
           textColor="primary"
           indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           <Tab value={false} label="Dashboard" />
-          {/* <Tab value={!isDrawerOpen} label="Search Patterns" /> */}
+          <Tab value={!isDrawerOpen} label="Search Patterns" />
         </Tabs>
       </div>
-      {/* <div>
+      <div>
         <Drawer
           variant="permanent"
           anchor="left"
@@ -91,7 +91,7 @@ const PageTabs = () => {
             )}
           </List>
         </Drawer>
-      </div> */}
+      </div>
     </div>
   );
 };

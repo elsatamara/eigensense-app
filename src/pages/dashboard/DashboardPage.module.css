@@ -13,3 +13,10 @@
   width: 50%;
   height: 50%;
 }
+
+.tableHeaderContainer {
+  position: relative;
+  border: solid 2px;
+  width: 90%;
+  left: 5%;
+}
