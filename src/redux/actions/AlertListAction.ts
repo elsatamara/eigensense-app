@@ -11,3 +11,5 @@ export const getAlertsList = createAsyncThunk(
     return res.data;
   }
 );
+
+export const setSearchDrawerState = createAction("SET_SEARCH_DRAWER_STATE");

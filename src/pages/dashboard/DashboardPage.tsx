@@ -1,8 +1,12 @@
+import { StyleSharp } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import AlertListObject from "../../lib/AlertListObject/AlertListObject";
+import AlertObjectTable from "../../lib/AlertObjectTable/AlertObjectTable";
 import DashboardTableHeader from "../../lib/DashboardTableHeader/DashboardTableHeader";
+import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
+import SideSearchBar from "../../lib/SideSearchBar/SideSearchBar";
 import PageTabs from "../../lib/Tabs/Tabs";
 import { getAlertsList } from "../../redux/actions/AlertListAction";
 import { addNotesAction } from "../../redux/actions/ChartActions";
@@ -12,8 +16,8 @@ import styles from "./DashboardPage.module.css";
 
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
-  const [isChartAvailable, setChartAvailable] = React.useState(false);
-  const [notesData, setNotesData] = React.useState("");
+  // const [isChartAvailable, setChartAvailable] = React.useState(false);
+  // const [notesData, setNotesData] = React.useState("");
   const alertListState = useAppSelector((state) => state.alertList);
 
   console.log("Alert", alertListState);
@@ -22,18 +26,42 @@ const DashboardPage = () => {
     dispatch(getAlertsList());
   }, []);
   return (
-    <div>
+    <div className={styles.mainPage}>
       <div className={styles.headerContainer}>
         <HeaderBar />
       </div>
-      <div className={styles.drawerContainer}>
+      <div className={styles.tabsContainer}>
         <PageTabs />
       </div>
-      <div className={styles.tableHeaderContainer}>
+      <div className={styles.drawerContainer}>
+        <SideSearchBar />
+      </div>
+      <div
+        className={
+          alertListState.isDrawerOpen
+            ? styles.tableHeaderContainerOpen
+            : styles.tableHeaderContainerClosed
+        }
+      >
         <DashboardTableHeader />
+        <AlertObjectTable />
       </div>
 
-      <div>
+      <div className={styles.footerContainer}>
+        <FooterBar />
+      </div>
+
+      {/* <div
+        className={
+          alertListState.isDrawerOpen
+            ? styles.tableContainerOpen
+            : styles.tableContainerClosed
+        }
+      >
+        <AlertObjectTable />
+      </div> */}
+
+      {/* <div className={styles.alertListObject}>
         {alertListState.alerts.map((elem) => {
           return (
             <li key={elem.patternId}>
@@ -49,7 +77,7 @@ const DashboardPage = () => {
             </li>
           );
         })}
-      </div>
+      </div> */}
 
       {/* <div className={styles.pressureChartContainer}>
         {isChartAvailable ? <PressureChart /> : null}

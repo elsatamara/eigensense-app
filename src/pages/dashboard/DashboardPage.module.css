@@ -1,11 +1,20 @@
-.headerContainer {
-  position: relative;
-  z-index: 2;
+.mainPage {
+  background-color: #f5f6f6;
 }
 
-.drawerContainer {
+.headerContainer {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+
+.footerContainer {
+  position: relative;
+  z-index: 3;
+}
+
+.tabsContainer {
+  position: relative;
+  z-index: 2;
 }
 
 .pressureChartContainer {
@@ -14,9 +23,19 @@
   height: 50%;
 }
 
-.tableHeaderContainer {
+.tableHeaderContainerOpen {
   position: relative;
-  border: solid 2px;
-  width: 90%;
-  left: 5%;
+  z-index: 1;
+  margin-left: 15rem;
+}
+
+.tableHeaderContainerClosed {
+  position: relative;
+  z-index: 1;
+  margin-left: 5rem;
+}
+
+.drawerContainer {
+  position: relative;
+  z-index: 2;
 }

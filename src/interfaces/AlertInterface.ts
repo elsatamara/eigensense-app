@@ -13,4 +13,5 @@ export interface AlertInterface {
 
 export interface AlertListInterface {
   alerts: AlertInterface[];
+  isDrawerOpen: boolean;
 }

@@ -4,10 +4,14 @@ import {
   AlertListInterface,
 } from "../../interfaces/AlertInterface";
 import { AlertStatus } from "../../utils/AlertStatus";
-import { getAlertsList } from "../actions/AlertListAction";
+import {
+  getAlertsList,
+  setSearchDrawerState,
+} from "../actions/AlertListAction";
 
 const initialState: AlertListInterface = {
   alerts: [],
+  isDrawerOpen: false,
 };
 
 export const alertList = createReducer(initialState, (builder) => {
@@ -16,4 +20,7 @@ export const alertList = createReducer(initialState, (builder) => {
     state.alerts = action.payload;
   });
   builder.addCase(getAlertsList.rejected, (state, action) => {});
+  builder.addCase(setSearchDrawerState, (state) => {
+    state.isDrawerOpen = !state.isDrawerOpen;
+  });
 });

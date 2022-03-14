@@ -6,11 +6,15 @@ import styles from "./DashboardTableHeader.module.css";
 const DashboardTableHeader = () => {
   const alertListState = useAppSelector((state) => state.alertList);
   return (
-    <Box p={5}>
+    <Box p={2}>
       <Paper>
         <div className={styles.headerContainer}>
-          <div>Search Results</div>
-          <div>{alertListState.alerts.length} Results</div>
+          <div>
+            <h2>SEARCH RESULTS</h2>
+          </div>
+          <div className={styles.resultContainer}>
+            {alertListState.alerts.length} Results
+          </div>
         </div>
       </Paper>
     </Box>
