@@ -1,0 +1,25 @@
+.headerContainer {
+  display: flex;
+  padding: 1.5rem;
+  justify-content: space-between;
+}
+
+.headerBeginning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+
+.headerEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

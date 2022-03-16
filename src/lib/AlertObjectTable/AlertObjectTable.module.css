@@ -1,4 +1,10 @@
+img {
+  height: 75px;
+  width: 150px;
+  /* margin-left: 6.5rem; */
+}
+
 .preview {
-  height: 100px;
-  width: 100px;
+  display: flex;
+  justify-content: center;
 }

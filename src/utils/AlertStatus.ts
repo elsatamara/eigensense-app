@@ -1,7 +1,7 @@
 export enum AlertStatus {
-  Pending,
-  InReview,
-  Closed,
-  Supressed,
+  Pending = "pending",
+  InReview = "in review",
+  Closed = "closed",
+  Supressed = "supressed",
   //Reassigned: needs to figure out how to go forward with this
 }

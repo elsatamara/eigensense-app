@@ -1,0 +1,18 @@
+.pendingIcon {
+  display: flex;
+  color: #00ff00;
+  justify-content: center;
+  align-content: center;
+}
+
+.inreviewIcon {
+  font-color: #0047ab;
+}
+
+.closedIcon {
+  font-color: #fff000;
+}
+
+.suppressedIcon {
+  font-color: #ffff00;
+}
