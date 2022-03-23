@@ -16,11 +16,21 @@ import styles from "./DashboardPage.module.css";
 
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
-  // const [isChartAvailable, setChartAvailable] = React.useState(false);
-  // const [notesData, setNotesData] = React.useState("");
   const alertListState = useAppSelector((state) => state.alertList);
 
-  console.log("Alert", alertListState);
+  if (localStorage.getItem("alertList") !== null) {
+    let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
+    localStorage.setItem(
+      "alertList",
+      JSON.stringify(
+        Array.from(new Set(storedAlertList.concat(alertListState.alerts)))
+      )
+    );
+  } else {
+    localStorage.setItem("alertList", JSON.stringify(alertListState.alerts));
+  }
+
+  console.log(localStorage.getItem("alertList"));
 
   useEffect(() => {
     dispatch(getAlertsList());
@@ -50,67 +60,6 @@ const DashboardPage = () => {
       <div className={styles.footerContainer}>
         <FooterBar />
       </div>
-
-      {/* <div
-        className={
-          alertListState.isDrawerOpen
-            ? styles.tableContainerOpen
-            : styles.tableContainerClosed
-        }
-      >
-        <AlertObjectTable />
-      </div> */}
-
-      {/* <div className={styles.alertListObject}>
-        {alertListState.alerts.map((elem) => {
-          return (
-            <li key={elem.patternId}>
-              <AlertListObject
-                patternName={elem.patternName}
-                patternID={elem.patternId}
-                date={elem.date}
-                preview={elem.preview}
-                location={elem.location}
-                regulator={elem.regulator}
-                status={elem.status}
-              />
-            </li>
-          );
-        })}
-      </div> */}
-
-      {/* <div className={styles.pressureChartContainer}>
-        {isChartAvailable ? <PressureChart /> : null}
-      </div> */}
-
-      <div>
-        {/* <Button
-          onClick={() => {
-            dispatch(getAlertsList());
-          }}
-        >
-          {" "}
-          Get Alerts List{" "}
-        </Button> */}
-      </div>
-      {/* <div>
-        <TextField
-          id="notes-textbox"
-          value={notesData}
-          onChange={(e) => setNotesData(e.target.value)}
-          multiline
-        />
-        <Button
-          form="notes-form"
-          onClick={() => {
-            if (notesData != "") {
-              dispatch(addNotesAction(notesData));
-            }
-          }}
-        >
-          Add notes
-        </Button>
-      </div> */}
     </div>
   );
 };

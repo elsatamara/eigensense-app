@@ -9,6 +9,7 @@ export interface AlertInterface {
   // notes: string;
   status: AlertStatus;
   preview: string;
+  dateLastOpened: Date;
 }
 
 export interface AlertListInterface {

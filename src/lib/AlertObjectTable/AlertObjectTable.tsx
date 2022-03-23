@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./AlertObjectTable.module.css";
 import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
+import { useNavigate } from "react-router-dom";
 
 interface Column {
   id:
@@ -86,6 +87,7 @@ function setRowValue(columnID: string, value: string) {
 }
 
 const AlertObjectTable = () => {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -144,6 +146,9 @@ const AlertObjectTable = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.patternId}
+                    onClick={() => {
+                      navigate(`/single-alert/${row.patternId}`);
+                    }}
                   >
                     {columns.map((column) => {
                       const value = row[column.id];

@@ -1,3 +1,14 @@
 .mainPage {
   background-color: #f5f6f6;
 }
+
+.pageHeaderContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.chartTableContainer {
+  width: 300px;
+  margin-left: auto;
+  margin-right: 3rem;
+}

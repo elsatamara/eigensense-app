@@ -15,14 +15,14 @@ const AlertStatusObject = ({ alertStatus }: Props) => {
         Pending
       </div>
     );
-  } else if (alertStatus == AlertStatus.InReview) {
+  } else if (alertStatus === AlertStatus.InReview) {
     return (
       <div className={styles.inreviewIcon}>
         <CircleIcon sx={{ color: "#0047AB" }} />
         In Review
       </div>
     );
-  } else if (alertStatus == AlertStatus.Closed) {
+  } else if (alertStatus === AlertStatus.Closed) {
     return (
       <div className={styles.closedIcon}>
         <CircleIcon sx={{ color: "#FF0000" }} />

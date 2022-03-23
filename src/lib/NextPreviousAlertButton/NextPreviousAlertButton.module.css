@@ -1,0 +1,9 @@
+.buttonText {
+  margin-left: 2.25rem;
+}
+
+.nextButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
