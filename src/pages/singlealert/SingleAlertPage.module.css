@@ -3,20 +3,20 @@
 }
 
 .pageHeaderContainer {
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  align-content: center; */
+  align-content: center;
 }
 
 .chartTableContainer {
-  /* display: flex;
-  justify-content: center; */
+  display: flex;
+  justify-content: center;
 }
 
 .notesTableContainer {
-  position: absolute;
+  /* position: absolute;
   left: 72.92%;
   right: 1.9%;
   bottom: 9.42%;
-  top: 87.19%;
+  top: 87.19%; */
 }

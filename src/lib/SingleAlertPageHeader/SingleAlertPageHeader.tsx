@@ -12,16 +12,7 @@ interface Props {
 
 const SingleAlertPageHeader = ({ regulatorName, location }: Props) => {
   return (
-    // <Box p={2.7} width={1000} m={2.7} mb={0} pb={0.75}>
-    <Box
-      sx={{
-        position: "absolute",
-        left: "10.5%",
-        right: "0%",
-        top: "12%",
-        bottom: "0.36%",
-      }}
-    >
+    <Box p={2.7} width={1000} m={2.7} mb={0} pb={0.75}>
       <Paper sx={{ width: 996 }}>
         <div className={styles.headerContainer}>
           <div className={styles.headerBeginning}>

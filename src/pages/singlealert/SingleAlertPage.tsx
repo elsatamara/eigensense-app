@@ -1,4 +1,4 @@
-import { alertTitleClasses } from "@mui/material";
+import { alertTitleClasses, Box, Paper } from "@mui/material";
 import React from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import FooterBar from "../../lib/FooterBar/FooterBar";
@@ -70,9 +70,15 @@ const SingleAlertPage = () => {
           keyAttributes="...."
           date={new Date()}
         />
+
         <RecentlyViewedTable />
       </div>
       <div className={styles.notesTableContainer}>
+        <SingleAlertChartHeader
+          alertType="Sulfur"
+          keyAttributes="...."
+          date={new Date()}
+        />
         <NotesTable patternId={patternId} />
       </div>
       <FooterBar />

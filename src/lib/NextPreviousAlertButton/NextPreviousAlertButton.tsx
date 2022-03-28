@@ -12,16 +12,7 @@ interface Props {
 const NextPreviousAlertButton = ({ next, previous }: Props) => {
   const navigate = useNavigate();
   return (
-    // <Box sx={{ width: 363, p: 2.7, m: 2.7, mb: 0, pb: 2 }}>
-    <Box
-      sx={{
-        position: "absolute",
-        left: "72.92%",
-        right: "1.9%",
-        top: "12%",
-        bottom: "87.19%",
-      }}
-    >
+    <Box sx={{ width: 363, p: 2.7, m: 2.7, mb: 0, pb: 2 }}>
       <Paper sx={{ height: 70, width: 363 }}>
         <Grid container sx={{ height: 70 }}>
           <Grid item xs>
