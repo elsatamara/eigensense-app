@@ -1,9 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import {
-  AlertInterface,
-  AlertListInterface,
-} from "../../interfaces/AlertInterface";
-import { AlertStatus } from "../../utils/AlertStatus";
+import { AlertListInterface } from "../../interfaces/AlertInterface";
 import {
   getAlertsList,
   setSearchDrawerState,

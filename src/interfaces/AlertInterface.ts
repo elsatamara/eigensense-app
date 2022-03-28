@@ -6,7 +6,6 @@ export interface AlertInterface {
   date: Date;
   location: string;
   regulator: string;
-  // notes: string;
   status: AlertStatus;
   preview: string;
   dateLastOpened: Date;

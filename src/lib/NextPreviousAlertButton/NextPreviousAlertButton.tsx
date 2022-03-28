@@ -12,31 +12,38 @@ interface Props {
 const NextPreviousAlertButton = ({ next, previous }: Props) => {
   const navigate = useNavigate();
   return (
-    <Box sx={{ minWidth: 300, margin: 4 }}>
-      <Paper sx={{ height: 70 }}>
+    // <Box sx={{ width: 363, p: 2.7, m: 2.7, mb: 0, pb: 2 }}>
+    <Box
+      sx={{
+        position: "absolute",
+        left: "72.92%",
+        right: "1.9%",
+        top: "12%",
+        bottom: "87.19%",
+      }}
+    >
+      <Paper sx={{ height: 70, width: 363 }}>
         <Grid container sx={{ height: 70 }}>
           <Grid item xs>
             {previous === undefined ? (
-              <Button
-                variant="text"
-                sx={{ width: 150, paddingBottom: 0, mt: 0.75 }}
-                disabled
-              >
-                &lt; &nbsp; &nbsp; Previous
-              </Button>
+              <div className={styles.disabledButton}>
+                <Link underline="none" color={"#818181"}>
+                  {" "}
+                  &lt; &nbsp; &nbsp; PREVIOUS
+                </Link>
+              </div>
             ) : (
               <>
-                <Button
-                  variant="text"
-                  sx={{ width: 150, paddingBottom: 0, mt: 0.75 }}
-                  onClick={() => {
-                    navigate(`/single-alert/${previous.patternId}`);
-                  }}
-                >
-                  &lt; &nbsp; &nbsp; Previous
-                </Button>
-                <div className={styles.buttonText}>
-                  <h2>{previous.regulator}</h2>
+                <div className={styles.nextButton}>
+                  <Link
+                    href={`/single-alert/${previous.patternId}`}
+                    underline="none"
+                  >
+                    &lt; &nbsp; &nbsp; PREVIOUS
+                  </Link>
+                </div>
+                <div className={styles.buttonRegText}>
+                  <h3>{previous.regulator}</h3>
                 </div>
               </>
             )}
@@ -44,27 +51,13 @@ const NextPreviousAlertButton = ({ next, previous }: Props) => {
           <Divider orientation="vertical" flexItem></Divider>
           <Grid item xs>
             {next === undefined ? (
-              <Button
-                variant="text"
-                sx={{ width: 150, paddingBottom: 0, mt: 0.75 }}
-                disabled
-              >
-                Next &nbsp; &nbsp; &nbsp; &gt;
-              </Button>
+              <div className={styles.nextButton}>
+                <Link underline="none" color={"#818181"}>
+                  NEXT &nbsp; &nbsp; &nbsp; &gt;
+                </Link>
+              </div>
             ) : (
               <>
-                {/* <Button
-                  variant="text"
-                  sx={{ width: 150, paddingBottom: 0, mt: 0.75 }}
-                  onClick={() => {
-                    navigate(`/single-alert/${next.patternId}`);
-                  }}
-                >
-                  Next &nbsp; &nbsp; &nbsp; &gt;
-                </Button>
-                <div className={styles.buttonText}>
-                  <h2>{next.regulator}</h2>
-                </div> */}
                 <div className={styles.nextButton}>
                   <Link
                     href={`/single-alert/${next.patternId}`}
@@ -73,8 +66,8 @@ const NextPreviousAlertButton = ({ next, previous }: Props) => {
                     NEXT &nbsp; &nbsp; &nbsp; &gt;
                   </Link>
                 </div>
-                <div className={styles.buttonText}>
-                  <h2>{next.regulator}</h2>
+                <div className={styles.buttonRegText}>
+                  <h3>{next.regulator}</h3>
                 </div>
               </>
             )}

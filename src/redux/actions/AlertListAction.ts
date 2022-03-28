@@ -1,4 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { AlertListInterface } from "../../interfaces/AlertInterface";
 import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
 export const getAlertsList = createAsyncThunk(

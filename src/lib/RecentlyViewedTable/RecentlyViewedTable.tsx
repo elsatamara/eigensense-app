@@ -1,4 +1,5 @@
 import {
+  Box,
   Divider,
   List,
   ListItem,
@@ -8,6 +9,7 @@ import {
 import React from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import styles from "./RecentlyViewedTable.module.css";
 
 const RecentlyViewedTable = () => {
   const [page, setPage] = React.useState(1);
@@ -23,33 +25,35 @@ const RecentlyViewedTable = () => {
     localStorage.getItem("recentlyViewed")!
   );
 
-  console.log(rows);
+  console.log("ROWS", rows.slice(0, 4));
 
-  const [numPages] = React.useState(Math.ceil(rows.length) / itemsPerPage);
+  const [numPages] = React.useState(Math.ceil(rows.length / itemsPerPage));
 
   return (
-    <>
-      Recently Viewed
-      <List sx={{ minWidth: 300 }}>
-        {rows
-          .slice(page - 1 * rowsPerPage, page - 1 * rowsPerPage + rowsPerPage)
-          .map((row) => {
-            return (
-              <>
-                <ListItem>
+    <div className={styles.recentlyViewed}>
+      <Box sx={{ mt: 0 }}>
+        Recently Viewed
+        <List sx={{ width: 363 }}>
+          {rows
+            .slice(
+              (page - 1) * rowsPerPage,
+              (page - 1) * rowsPerPage + rowsPerPage
+            )
+            .map((row) => {
+              return (
+                <ListItem key={row.patternId}>
                   <ListItemText
                     primary={row.regulator}
                     secondary={new Date(row.dateLastOpened).toDateString()}
                   />
                   <MoreVertIcon />
                 </ListItem>
-                <Divider />
-              </>
-            );
-          })}
-      </List>
-      <Pagination count={numPages} page={page} onChange={handleChangePage} />
-    </>
+              );
+            })}
+        </List>
+        <Pagination count={numPages} page={page} onChange={handleChangePage} />
+      </Box>
+    </div>
   );
 };
 

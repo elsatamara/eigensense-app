@@ -1,0 +1,9 @@
+.assignUpload {
+  display: flex;
+  margin: 0.25rem;
+  justify-content: center;
+}
+
+.notesInput {
+  margin: 0.25rem;
+}

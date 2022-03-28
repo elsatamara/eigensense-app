@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Button, Paper } from "@mui/material";
 import React from "react";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
@@ -12,8 +12,17 @@ interface Props {
 
 const SingleAlertPageHeader = ({ regulatorName, location }: Props) => {
   return (
-    <Box p={2} m={2}>
-      <Paper sx={{ width: 900 }}>
+    // <Box p={2.7} width={1000} m={2.7} mb={0} pb={0.75}>
+    <Box
+      sx={{
+        position: "absolute",
+        left: "10.5%",
+        right: "0%",
+        top: "12%",
+        bottom: "0.36%",
+      }}
+    >
+      <Paper sx={{ width: 996 }}>
         <div className={styles.headerContainer}>
           <div className={styles.headerBeginning}>
             <div className={styles.icon}>
@@ -24,12 +33,23 @@ const SingleAlertPageHeader = ({ regulatorName, location }: Props) => {
           </div>
           <div className={styles.headerEnd}>
             <div className={styles.icon}>
-              <FileDownloadIcon fontSize="small" sx={{ mr: 1 }} />
-              <h2>Export</h2>
+              <Button
+                startIcon={<FileDownloadIcon sx={{ color: "#414141" }} />}
+              >
+                <h2>Export</h2>
+              </Button>
             </div>
             <div className={styles.icon}>
-              <LocalPrintshopOutlinedIcon fontSize="small" sx={{ mr: 1 }} />
-              <h2>Print</h2>
+              <Button
+                startIcon={
+                  <LocalPrintshopOutlinedIcon sx={{ color: "#414141" }} />
+                }
+                onClick={() => {
+                  window.print();
+                }}
+              >
+                <h2>Print</h2>
+              </Button>
             </div>
           </div>
         </div>

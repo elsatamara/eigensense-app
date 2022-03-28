@@ -4,17 +4,21 @@ import { AlertInterface } from "../../interfaces/AlertInterface";
 import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
+import NotesTable from "../../lib/NotesTable/NotesTable";
 import RecentlyViewedTable from "../../lib/RecentlyViewedTable/RecentlyViewedTable";
+import SingleAlertChartHeader from "../../lib/SingleAlertChartHeader/SingleAlertChartHeader";
 import SingleAlertPageHeader from "../../lib/SingleAlertPageHeader/SingleAlertPageHeader";
+import PageTabs from "../../lib/Tabs/Tabs";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./SingleAlertPage.module.css";
 
 const SingleAlertPage = () => {
   const alertListStored = JSON.parse(localStorage.getItem("alertList")!);
+  let patternId = window.location.href.substring(
+    window.location.href.length - 5
+  );
   const alertObjectIndex = alertListStored.findIndex(
-    (alert: { patternId: string }) =>
-      alert.patternId ===
-      window.location.href.substring(window.location.href.length - 5)
+    (alert: { patternId: string }) => alert.patternId === patternId
   );
   const alertObject: AlertInterface = alertListStored[alertObjectIndex];
 
@@ -49,6 +53,9 @@ const SingleAlertPage = () => {
   return (
     <div className={styles.mainPage}>
       <HeaderBar />
+      <div className={styles.tabsContainer}>
+        <PageTabs />
+      </div>
       <div className={styles.pageHeaderContainer}>
         <SingleAlertPageHeader
           regulatorName={alertObject.regulator}
@@ -56,8 +63,17 @@ const SingleAlertPage = () => {
         />
         <NextPreviousAlertButton previous={prevAlert} next={nextAlert} />
       </div>
+
       <div className={styles.chartTableContainer}>
+        <SingleAlertChartHeader
+          alertType="Sulfur"
+          keyAttributes="...."
+          date={new Date()}
+        />
         <RecentlyViewedTable />
+      </div>
+      <div className={styles.notesTableContainer}>
+        <NotesTable patternId={patternId} />
       </div>
       <FooterBar />
     </div>
