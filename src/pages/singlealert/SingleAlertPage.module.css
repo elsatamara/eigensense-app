@@ -2,15 +2,17 @@
   background-color: #f5f6f6;
 }
 
-.pageHeaderContainer {
+.columnContainer {
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
 .chartTableContainer {
-  display: flex;
-  justify-content: center;
+  align-content: center;
+}
+
+.rightColumnContainer {
 }
 
 .notesTableContainer {

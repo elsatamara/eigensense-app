@@ -63,7 +63,7 @@ const SideSearchBar = () => {
           {isDrawerOpen ? (
             <>
               <ListItem>
-                <h2>Search Patterns</h2>
+                <h3>Search Patterns</h3>
               </ListItem>
             </>
           ) : (

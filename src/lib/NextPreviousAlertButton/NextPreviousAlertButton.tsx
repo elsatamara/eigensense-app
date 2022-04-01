@@ -12,9 +12,9 @@ interface Props {
 const NextPreviousAlertButton = ({ next, previous }: Props) => {
   const navigate = useNavigate();
   return (
-    <Box sx={{ width: 363, p: 2.7, m: 2.7, mb: 0, pb: 2 }}>
-      <Paper sx={{ height: 70, width: 363 }}>
-        <Grid container sx={{ height: 70 }}>
+    <Box sx={{ mx: 1.5, p: 1, mb: 2 }}>
+      <Paper sx={{ height: 78, width: 363 }}>
+        <Grid container sx={{ height: 78 }}>
           <Grid item xs>
             {previous === undefined ? (
               <div className={styles.disabledButton}>
@@ -34,7 +34,7 @@ const NextPreviousAlertButton = ({ next, previous }: Props) => {
                   </Link>
                 </div>
                 <div className={styles.buttonRegText}>
-                  <h3>{previous.regulator}</h3>
+                  <h4>{previous.regulator}</h4>
                 </div>
               </>
             )}
@@ -58,7 +58,7 @@ const NextPreviousAlertButton = ({ next, previous }: Props) => {
                   </Link>
                 </div>
                 <div className={styles.buttonRegText}>
-                  <h3>{next.regulator}</h3>
+                  <h4>{next.regulator}</h4>
                 </div>
               </>
             )}

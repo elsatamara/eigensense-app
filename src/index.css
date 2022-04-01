@@ -2,14 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700;800&display=swap");
 
 h2 {
   font-family: "Rubik", sans-serif;
   font-style: normal;
-  font-weight: 500;
+  /* font-weight: 650; */
+  font-size: 15px;
+  line-height: 17px;
+  color: #414141;
+}
+
+h3 {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  /* font-weight: 450; */
   font-size: 14px;
   line-height: 17px;
-  text-transform: uppercase;
   color: #414141;
+}
+
+h4 {
+  font-size: 12px;
+  color: #8b94a3;
 }

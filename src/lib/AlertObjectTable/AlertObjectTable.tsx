@@ -131,7 +131,7 @@ const AlertObjectTable = () => {
                     borderBottom: "none",
                   }}
                 >
-                  <h2>{column.label}</h2>
+                  <h3>{column.label}</h3>
                 </TableCell>
               ))}
             </TableRow>

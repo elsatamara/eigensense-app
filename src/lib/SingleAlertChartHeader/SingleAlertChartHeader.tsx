@@ -28,7 +28,7 @@ const SingleAlertChartHeader = ({ alertType, keyAttributes, date }: Props) => {
     "Agent",
   ];
   return (
-    <Box sx={{ m: 2.7, mt: 0 }}>
+    <Box sx={{ mx: 1.5, p: 1, mt: 0, pt: 0, pb: 0.5 }}>
       <Paper
         sx={{
           width: 996,

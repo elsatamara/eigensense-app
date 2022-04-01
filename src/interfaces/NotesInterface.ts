@@ -7,4 +7,5 @@ export interface NotesInterface {
   date: Date;
   agent: string;
   text: string;
+  patternId: string;
 }

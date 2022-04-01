@@ -1,0 +1,26 @@
+.editNotesModal {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  transform: translate(-35%; -35%);
+  background-color: white;
+  border-radius: 8px;
+  height: 308px;
+}
+
+.modalHeader {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 17px;
+  color: #414141;
+  padding: 2rem;
+  padding-bottom: 0;
+  padding-top: 2.5rem;
+}
+
+.cancelSaveButtons {
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+}

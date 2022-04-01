@@ -56,30 +56,23 @@ const SingleAlertPage = () => {
       <div className={styles.tabsContainer}>
         <PageTabs />
       </div>
-      <div className={styles.pageHeaderContainer}>
-        <SingleAlertPageHeader
-          regulatorName={alertObject.regulator}
-          location={alertObject.location}
-        />
-        <NextPreviousAlertButton previous={prevAlert} next={nextAlert} />
-      </div>
-
-      <div className={styles.chartTableContainer}>
-        <SingleAlertChartHeader
-          alertType="Sulfur"
-          keyAttributes="...."
-          date={new Date()}
-        />
-
-        <RecentlyViewedTable />
-      </div>
-      <div className={styles.notesTableContainer}>
-        <SingleAlertChartHeader
-          alertType="Sulfur"
-          keyAttributes="...."
-          date={new Date()}
-        />
-        <NotesTable patternId={patternId} />
+      <div className={styles.columnContainer}>
+        <div className={styles.rightColumnContainer}>
+          <SingleAlertPageHeader
+            regulatorName={alertObject.regulator}
+            location={alertObject.location}
+          />
+          <SingleAlertChartHeader
+            alertType="Sulfur"
+            keyAttributes="...."
+            date={new Date()}
+          />
+        </div>
+        <div className={styles.chartTableContainer}>
+          <NextPreviousAlertButton previous={prevAlert} next={nextAlert} />
+          <RecentlyViewedTable />
+          <NotesTable patternId={patternId} />
+        </div>
       </div>
       <FooterBar />
     </div>

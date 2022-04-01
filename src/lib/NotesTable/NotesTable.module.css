@@ -6,4 +6,18 @@
 
 .notesInput {
   margin: 0.25rem;
+  /* position: absolute; */
+}
+
+.notesItemHeader {
+  display: flex;
+  align-content: center;
+  width: 330px;
+  /* border: solid 2px; */
+}
+
+.notesItem {
+  display: flex;
+  flex-direction: column;
+  /* border: solid 1px; */
 }
