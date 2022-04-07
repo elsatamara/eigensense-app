@@ -2,8 +2,23 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import React, { Fragment } from "react";
+import { AlertInterface } from "../../interfaces/AlertInterface";
+import { storeRecentlyViewedItems } from "../../redux/actions/AgentActions";
+import { useAppDispatch } from "../../redux/hooks";
 
 const HeaderBar = () => {
+  const dispatch = useAppDispatch();
+  function logout() {
+    if (localStorage.getItem("recentlyViewed")) {
+      let recentlyViewedItems: AlertInterface[] = JSON.parse(
+        localStorage.getItem("recentlyViewed")!
+      );
+      const patternId = recentlyViewedItems
+        .map((item) => item.patternId)
+        .join("");
+      dispatch(storeRecentlyViewedItems(patternId));
+    }
+  }
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -95,7 +110,7 @@ const HeaderBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            onClick={logout}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

@@ -1,6 +1,7 @@
 import { alertTitleClasses, Box, Paper } from "@mui/material";
 import React from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
+import ChartSingleAlert from "../../lib/ChartSingleAlert/ChartSingleAlert";
 import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
@@ -66,6 +67,10 @@ const SingleAlertPage = () => {
             alertType="Sulfur"
             keyAttributes="...."
             date={new Date()}
+          />
+          <ChartSingleAlert
+            chartData={alertObject.chartData}
+            date={new Date(alertObject.date).getTime() - 7889400000}
           />
         </div>
         <div className={styles.chartTableContainer}>
