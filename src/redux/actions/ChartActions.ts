@@ -1,17 +1,17 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
-// export const getChartDataAction = createAsyncThunk(
-//   "ChartReducer/getChartDataAction",
-//   async (regname: string) => {
-//     const res = await axiosServerRequest<any>(
-//       Methods.GET,
-//       `api/v1/getchart/${regname}`
-//     );
-//     console.log(res.data);
-//     return res.data;
-//   }
-// );
+export const getChartDataAction = createAsyncThunk(
+  "ChartReducer/getChartDataAction",
+  async () => {
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/getchartdemo`
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);
 
 export const addNotesAction = createAsyncThunk(
   "ChartReducer/addNotes",

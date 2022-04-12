@@ -4,6 +4,7 @@ import { AlertInterface } from "../../interfaces/AlertInterface";
 import ChartSingleAlert from "../../lib/ChartSingleAlert/ChartSingleAlert";
 import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
+import NavigatorRemote from "../../lib/NavigatorRemote/NavigatorRemote";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
 import NotesTable from "../../lib/NotesTable/NotesTable";
 import RecentlyViewedTable from "../../lib/RecentlyViewedTable/RecentlyViewedTable";
@@ -68,10 +69,8 @@ const SingleAlertPage = () => {
             keyAttributes="...."
             date={new Date()}
           />
-          <ChartSingleAlert
-            chartData={alertObject.chartData}
-            date={new Date(alertObject.date).getTime() - 7889400000}
-          />
+          <ChartSingleAlert />
+          <NavigatorRemote />
         </div>
         <div className={styles.chartTableContainer}>
           <NextPreviousAlertButton previous={prevAlert} next={nextAlert} />
