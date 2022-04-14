@@ -23,5 +23,5 @@ export interface ChartDataInterface {
 }
 
 export interface ChartDataListInterface {
-  list: any;
+  list: number[][];
 }

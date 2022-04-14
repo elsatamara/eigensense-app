@@ -7,10 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./AlertObjectTable.module.css";
 import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
 import { useNavigate } from "react-router-dom";
+import { getChartDataAction } from "../../redux/actions/ChartActions";
 
 interface Column {
   id:
@@ -87,6 +88,7 @@ function setRowValue(columnID: string, value: string) {
 }
 
 const AlertObjectTable = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
