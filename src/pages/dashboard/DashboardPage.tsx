@@ -20,17 +20,17 @@ const DashboardPage = () => {
 
   if (localStorage.getItem("alertList") !== null) {
     let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
-    localStorage.setItem(
-      "alertList",
-      JSON.stringify(
-        Array.from(new Set(storedAlertList.concat(alertListState.alerts)))
-      )
-    );
+    let combinedArray = storedAlertList.concat(alertListState.alerts);
+    let uniqueArray = [
+      ...new Map(
+        combinedArray.map((item: { [x: string]: any }) => [item["_id"], item])
+      ).values(),
+    ];
+    localStorage.setItem("alertList", JSON.stringify(uniqueArray));
   } else {
     localStorage.setItem("alertList", JSON.stringify(alertListState.alerts));
   }
-
-  console.log(localStorage.getItem("alertList"));
+  console.log(JSON.parse(localStorage.getItem("alertList")!));
 
   useEffect(() => {
     dispatch(getAlertsList());

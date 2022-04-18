@@ -2,11 +2,24 @@ import React from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./NavigatorRemote.module.css";
+import { useAppDispatch } from "../../redux/hooks";
+import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
+import { never_used } from "immer/dist/internal";
 
 const NavigatorRemote = () => {
-  const options = {
+  let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
+  console.log("N", storedAlertList);
+  const navigatorData = storedAlertList
+    .map((elem: { date: string | number | Date }) => {
+      return [new Date(elem.date).getTime(), 0];
+    })
+    .sort();
+
+  const dispatch = useAppDispatch();
+  const navigatorOptions = {
+    title: { text: "Regulator Remote", x: -410, y: 20 },
     chart: {
-      height: 120,
+      height: 150,
       width: 996,
     },
     tooltip: {
@@ -18,7 +31,7 @@ const NavigatorRemote = () => {
     },
 
     yAxis: {
-      height: 30,
+      height: 0,
       gridLineWidth: 0,
       labels: {
         enabled: false,
@@ -33,131 +46,85 @@ const NavigatorRemote = () => {
       },
     },
 
+    navigator: {
+      enabled: false,
+    },
+
+    plotOptions: {
+      series: {
+        allowPointSelect: true,
+        marker: {
+          states: {
+            select: {
+              fillColor: "red",
+              lineWidth: 0,
+            },
+          },
+        },
+        events: {
+          click: () => {
+            dispatch(getAnotherChartDataAction());
+          },
+        },
+      },
+    },
+
     series: [
       {
-        type: "scatter",
         lineWidth: 0,
         marker: {
           enabled: true,
-          radius: 6,
+          radius: 7,
           states: {
             hover: {
               enabled: false,
             },
           },
         },
-        data: [
-          [1147651200000, 0],
-          [1147737600000, 0],
-          [1147824000000, 0],
-          [1147910400000, 0],
-          [1147996800000, 0],
-          [1148256000000, 0],
-          [1148342400000, 0],
-          [1148428800000, 0],
-          [1148515200000, 0],
-          [1148601600000, 0],
-          [1148947200000, 0],
-          [1149033600000, 0],
-
-          [1149120000000, 0],
-          [1149206400000, 0],
-          [1149465600000, 0],
-          [1149552000000, 0],
-          [1149638400000, 0],
-          [1149724800000, 0],
-          [1149811200000, 0],
-          [1150070400000, 0],
-          [1150156800000, 0],
-          [1150243200000, 0],
-          [1150329600000, 0],
-          [1150416000000, 0],
-          [1150675200000, 0],
-          [1150761600000, 0],
-          [1150848000000, 0],
-          [1150934400000, 0],
-          [1151020800000, 0],
-          [1151280000000, 0],
-          [1151366400000, 0],
-          [1151452800000, 0],
-          [1151539200000, 0],
-          [1151625600000, 0],
-
-          [1151884800000, 0],
-          [1152057600000, 0],
-          [1152144000000, 0],
-          [1152230400000, 0],
-          [1152489600000, 0],
-          [1152576000000, 0],
-          [1152662400000, 0],
-          [1152748800000, 0],
-          [1152835200000, 0],
-          [1153094400000, 0],
-          [1153180800000, 0],
-          [1153267200000, 0],
-          [1153353600000, 0],
-          [1153440000000, 0],
-          [1153699200000, 0],
-          [1153785600000, 0],
-          [1153872000000, 0],
-          [1153958400000, 0],
-          [1154044800000, 0],
-          [1154304000000, 0],
-
-          [1154390400000, 0],
-          [1154476800000, 0],
-          [1154563200000, 0],
-          [1154649600000, 0],
-          [1154908800000, 0],
-          [1154995200000, 0],
-          [1155081600000, 0],
-          [1155168000000, 0],
-          [1155254400000, 0],
-          [1155513600000, 0],
-          [1155600000000, 0],
-          [1155686400000, 0],
-          [1155772800000, 0],
-          [1155859200000, 0],
-          [1156118400000, 0],
-          [1156204800000, 0],
-          [1156291200000, 0],
-          [1156377600000, 0],
-          [1156464000000, 0],
-          [1156723200000, 0],
-          [1156809600000, 0],
-          [1156896000000, 0],
-          [1156982400000, 0],
-
-          [1157068800000, 0],
-          [1157414400000, 0],
-          [1157500800000, 0],
-          [1157587200000, 0],
-          [1157673600000, 0],
-          [1157932800000, 0],
-          [1158019200000, 0],
-          [1158105600000, 0],
-          [1158192000000, 0],
-          [1158278400000, 0],
-          [1158537600000, 0],
-          [1158624000000, 0],
-          [1158710400000, 0],
-          [1158796800000, 0],
-          [1158883200000, 0],
-          [1159142400000, 0],
-          [1159228800000, 0],
-          [1159315200000, 0],
-          [1159401600000, 0],
-          [1159488000000, 0],
-        ],
+        data: navigatorData,
       },
     ],
+
+    rangeSelector: {
+      buttonPosition: {
+        align: "right",
+        y: -30,
+        x: -100,
+      },
+      inputPosition: {
+        y: -60,
+      },
+      dropdown: "never",
+      buttons: [
+        {
+          type: "day",
+          count: 1,
+          text: "1D",
+        },
+        {
+          type: "day",
+          count: 3,
+          text: "3D",
+        },
+        {
+          type: "day",
+          count: 7,
+          text: "7D",
+        },
+        {
+          type: "month",
+          count: 1,
+          text: "1m",
+        },
+      ],
+    },
   };
   return (
     <div className={styles.navigatorContainer}>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
-        options={options}
+        options={navigatorOptions}
       />
     </div>
   );

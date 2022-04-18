@@ -38,8 +38,6 @@ const RecentlyViewedTable = () => {
     }
   }
 
-  console.log("ROWS", rows.slice(0, 4));
-
   const [numPages] = React.useState(Math.ceil(rows.length / itemsPerPage));
 
   return (

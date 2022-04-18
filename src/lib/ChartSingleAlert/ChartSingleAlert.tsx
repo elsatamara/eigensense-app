@@ -4,25 +4,31 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./ChartSingleAlert.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getChartDataAction } from "../../redux/actions/ChartActions";
-import { ChartDataInterface } from "../../interfaces/ChartInterface";
-
-// interface Props {
-//   chartData: number[][];
-//   date: number;
-// }
+import {
+  getAnotherChartDataAction,
+  getChartDataAction,
+} from "../../redux/actions/ChartActions";
 
 const ChartSingleAlert = () => {
   const dispatch = useAppDispatch();
 
   const [isLoading, setLoading] = React.useState(true);
+
   useEffect(() => {
     const getChartData = async () => {
+      console.log("i fireee");
       await dispatch(getChartDataAction());
       setLoading(false);
     };
     getChartData();
   }, []);
+
+  let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
+  const navigatorData = storedAlertList.map(
+    (elem: { date: string | number | Date }) => {
+      return [new Date(elem.date).getTime(), 0];
+    }
+  );
 
   const chartData = useAppSelector((state) => state.chart.list);
 
@@ -58,7 +64,7 @@ const ChartSingleAlert = () => {
           text: "1m",
         },
       ],
-      selected: 1,
+      // selected: 1,
     },
     navigator: {
       enabled: false,
@@ -70,7 +76,6 @@ const ChartSingleAlert = () => {
 
   return !isLoading ? (
     <div className={styles.chartContainer}>
-      {console.log("CHART DATA", chartData)}
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
@@ -78,7 +83,7 @@ const ChartSingleAlert = () => {
       />
     </div>
   ) : (
-    <></> //TODO: ADD A LOAD SPINNER OR SKELETON
+    <></>
   );
 };
 

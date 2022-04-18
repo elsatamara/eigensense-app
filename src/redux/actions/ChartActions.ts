@@ -13,6 +13,18 @@ export const getChartDataAction = createAsyncThunk(
   }
 );
 
+export const getAnotherChartDataAction = createAsyncThunk(
+  "ChartReducer/getAnotherChartDataAction",
+  async () => {
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/getanotherchartdemo`
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);
+
 export const addNotesAction = createAsyncThunk(
   "ChartReducer/addNotes",
   async (notesData: string) => {
