@@ -61,7 +61,7 @@ const columns: readonly Column[] = [
 ];
 
 interface Data {
-  checkBox: JSX.Element;
+  checkBox: null;
   patternId: string;
   patternName: string;
   date: string;
@@ -78,7 +78,7 @@ interface Data {
 }
 
 function createData(
-  checkBox: JSX.Element,
+  checkBox: null,
   patternId: string,
   patternName: string,
   date: string,
@@ -111,20 +111,6 @@ function createData(
   };
 }
 
-function setRowValue(columnID: string, value: any) {
-  if (columnID === "preview") {
-    return (
-      <div className={styles.preview}>
-        <img src={value} />
-      </div>
-    );
-  } else if (columnID === "status") {
-    return <AlertStatusObject alertStatus={value} />;
-  } else {
-    return value;
-  }
-}
-
 const AlertObjectTable = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -145,33 +131,50 @@ const AlertObjectTable = () => {
   };
 
   const handleSelectAlertClick = (patternId: string) => {
-    console.log("here");
-    alertClicked.push(patternId);
-    setAlertClicked(alertClicked);
+    var newAlertClicked = [...alertClicked];
+    newAlertClicked.push(patternId);
+    setAlertClicked(newAlertClicked);
   };
 
   const handleDeselectAlertClick = (patternId: string) => {
-    alertClicked.filter((alert) => alert !== patternId);
-    setAlertClicked(alertClicked);
+    var newAlertClicked = [...alertClicked];
+    newAlertClicked = newAlertClicked.filter((alert) => alert !== patternId);
+    setAlertClicked(newAlertClicked);
   };
 
-  const alertListState = useAppSelector((state) => state.alertList);
-
-  const rows = alertListState.alerts.map((elem) => {
-    return createData(
-      !alertClicked.includes(elem.patternId) ? (
+  function setRowValue(columnID: string, value: any, patternId: string) {
+    if (columnID === "preview") {
+      return (
+        <div className={styles.preview}>
+          <img src={value} />
+        </div>
+      );
+    } else if (columnID === "status") {
+      return <AlertStatusObject alertStatus={value} />;
+    } else if (columnID === "checkBox") {
+      return !alertClicked.includes(patternId) ? (
         <CheckBoxOutlineBlankOutlinedIcon
           onClick={() => {
-            handleSelectAlertClick(elem.patternId);
+            handleSelectAlertClick(patternId);
           }}
         />
       ) : (
         <CheckBoxOutlinedIcon
           onClick={() => {
-            handleDeselectAlertClick(elem.patternId);
+            handleDeselectAlertClick(patternId);
           }}
         />
-      ),
+      );
+    } else {
+      return value;
+    }
+  }
+
+  const alertListState = useAppSelector((state) => state.alertList);
+
+  const rows = alertListState.alerts.map((elem) => {
+    return createData(
+      null,
       elem.patternId,
       elem.patternName,
       elem.date.toString().slice(0, 10),
@@ -225,7 +228,7 @@ const AlertObjectTable = () => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align="center" sx={{ p: 1 }}>
-                          {setRowValue(column.id, value)}
+                          {setRowValue(column.id, value, row.patternId)}
                         </TableCell>
                       );
                     })}
