@@ -17,10 +17,14 @@ const NavigatorRemote = () => {
 
   const dispatch = useAppDispatch();
   const navigatorOptions = {
-    title: { text: "Regulator Remote", x: -410, y: 20 },
+    title: { text: "Regulator Remote", x: -410, y: 20, margin: 0 },
     chart: {
-      height: 150,
+      height: 170,
       width: 996,
+      spacingRight: 50,
+      spacingLeft: 50,
+      marginTop: 0,
+      plotBorderWidth: 1,
     },
     tooltip: {
       enabled: false,
@@ -31,7 +35,7 @@ const NavigatorRemote = () => {
     },
 
     yAxis: {
-      height: 0,
+      height: 20,
       gridLineWidth: 0,
       labels: {
         enabled: false,
@@ -88,11 +92,13 @@ const NavigatorRemote = () => {
     rangeSelector: {
       buttonPosition: {
         align: "right",
-        y: -30,
+        y: -5,
         x: -100,
+        margin: 0,
       },
       inputPosition: {
-        y: -60,
+        y: -35,
+        margin: 0,
       },
       dropdown: "never",
       buttons: [

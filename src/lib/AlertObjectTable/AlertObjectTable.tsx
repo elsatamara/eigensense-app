@@ -11,10 +11,15 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./AlertObjectTable.module.css";
 import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
 import { useNavigate } from "react-router-dom";
+import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import { getChartDataAction } from "../../redux/actions/ChartActions";
+import { JsxEmit } from "typescript";
 
 interface Column {
   id:
+    | "checkBox"
     | "patternId"
     | "patternName"
     | "preview"
@@ -22,58 +27,91 @@ interface Column {
     | "startTime"
     | "location"
     | "regulator"
+    | "eventStarts"
+    | "alertType"
+    | "keyAttribute"
+    | "agentName"
+    | "alertQueue"
     | "status";
-  label: string;
+  label: any;
   minWidth?: number;
   align?: "right";
   format?: (value: number) => string;
 }
 
 const columns: readonly Column[] = [
+  {
+    id: "checkBox",
+    label: <IndeterminateCheckBoxOutlinedIcon />,
+    minWidth: 25,
+  },
   { id: "patternId", label: "Pattern ID", minWidth: 50 },
   { id: "patternName", label: "Pattern Name", minWidth: 50 },
   { id: "preview", label: "Preview", minWidth: 100 },
   { id: "date", label: "Date", minWidth: 50 },
   { id: "startTime", label: "Start Time", minWidth: 50 },
+  { id: "eventStarts", label: "Event Start", minWidth: 50 },
+  { id: "keyAttribute", label: "Key Attribute", minWidth: 50 },
+  { id: "alertType", label: "Alert Type", minWidth: 50 },
   { id: "location", label: "Location", minWidth: 50 },
   { id: "regulator", label: "Regulator", minWidth: 50 },
   { id: "status", label: "Alert Status", minWidth: 50 },
+  { id: "alertQueue", label: "Alert Queue", minWidth: 50 },
+  { id: "agentName", label: "Agent Name", minWidth: 50 },
 ];
 
 interface Data {
+  checkBox: JSX.Element;
   patternId: string;
   patternName: string;
-  preview: string;
   date: string;
   startTime: string;
+  eventStarts: string;
   location: string;
   regulator: string;
+  alertType: string;
+  keyAttribute: string;
+  alertQueue: string;
+  preview: string;
   status: string;
+  agentName: string;
 }
 
 function createData(
+  checkBox: JSX.Element,
   patternId: string,
   patternName: string,
-  preview: string,
   date: string,
   startTime: string,
+  eventStarts: string,
   location: string,
   regulator: string,
-  status: string
+  alertType: string,
+  keyAttribute: string,
+  alertQueue: string,
+  preview: string,
+  status: string,
+  agentName: string
 ): Data {
   return {
+    checkBox,
     patternId,
     patternName,
-    preview,
     date,
     startTime,
+    eventStarts,
     location,
     regulator,
+    alertType,
+    keyAttribute,
+    alertQueue,
+    preview,
     status,
+    agentName,
   };
 }
 
-function setRowValue(columnID: string, value: string) {
+function setRowValue(columnID: string, value: any) {
   if (columnID === "preview") {
     return (
       <div className={styles.preview}>
@@ -93,6 +131,8 @@ const AlertObjectTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  const [alertClicked, setAlertClicked] = React.useState<string[]>([]);
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -104,18 +144,47 @@ const AlertObjectTable = () => {
     setPage(0);
   };
 
+  const handleSelectAlertClick = (patternId: string) => {
+    console.log("here");
+    alertClicked.push(patternId);
+    setAlertClicked(alertClicked);
+  };
+
+  const handleDeselectAlertClick = (patternId: string) => {
+    alertClicked.filter((alert) => alert !== patternId);
+    setAlertClicked(alertClicked);
+  };
+
   const alertListState = useAppSelector((state) => state.alertList);
 
   const rows = alertListState.alerts.map((elem) => {
     return createData(
+      !alertClicked.includes(elem.patternId) ? (
+        <CheckBoxOutlineBlankOutlinedIcon
+          onClick={() => {
+            handleSelectAlertClick(elem.patternId);
+          }}
+        />
+      ) : (
+        <CheckBoxOutlinedIcon
+          onClick={() => {
+            handleDeselectAlertClick(elem.patternId);
+          }}
+        />
+      ),
       elem.patternId,
       elem.patternName,
-      elem.preview,
       elem.date.toString().slice(0, 10),
       elem.date.toString().slice(11, 16),
+      elem.date.toString(),
       elem.location,
       elem.regulator,
-      elem.status.toString()
+      elem.alertType,
+      elem.keyAttribute,
+      elem.alertQueue,
+      elem.preview,
+      elem.status.toString(),
+      elem.agentName
     );
   });
   return (
@@ -148,9 +217,9 @@ const AlertObjectTable = () => {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.patternId}
-                    onClick={() => {
-                      navigate(`/single-alert/${row.patternId}`);
-                    }}
+                    // onClick={() => {
+                    //   navigate(`/single-alert/${row.patternId}`);
+                    // }}
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
