@@ -16,6 +16,8 @@ import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlin
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import { getChartDataAction } from "../../redux/actions/ChartActions";
 import { JsxEmit } from "typescript";
+import { Box } from "@mui/material";
+import AlertStatusFilter from "../AlertStatusFilter/AlertStatusFilter";
 
 interface Column {
   id:
@@ -43,7 +45,7 @@ const columns: readonly Column[] = [
   {
     id: "checkBox",
     label: <IndeterminateCheckBoxOutlinedIcon />,
-    minWidth: 25,
+    minWidth: 50,
   },
   { id: "patternId", label: "Pattern ID", minWidth: 50 },
   { id: "patternName", label: "Pattern Name", minWidth: 50 },
@@ -112,7 +114,6 @@ function createData(
 }
 
 const AlertObjectTable = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -191,63 +192,120 @@ const AlertObjectTable = () => {
     );
   });
   return (
-    <Paper sx={{ width: "97.8%", overflow: "hidden", mx: 2 }}>
-      <TableContainer sx={{ maxHeight: 520 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align="center"
-                  sx={{
-                    minWidth: column.minWidth,
-                    borderBottom: "none",
-                  }}
-                >
-                  <h3>{column.label}</h3>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.patternId}
-                    // onClick={() => {
-                    //   navigate(`/single-alert/${row.patternId}`);
-                    // }}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align="center" sx={{ p: 1 }}>
-                          {setRowValue(column.id, value, row.patternId)}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <div>
+      {console.log("length", alertClicked.length)}
+      {alertClicked.length > 0 ? (
+        <AlertStatusFilter numAlertSelected={alertClicked.length} />
+      ) : (
+        <></>
+      )}
+      <Paper sx={{ width: "97.8%", overflow: "hidden", mx: 2 }}>
+        <TableContainer sx={{ maxHeight: 520 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => {
+                  if (column.id == "checkBox") {
+                    return (
+                      <TableCell
+                        key={column.id}
+                        align="center"
+                        sx={{
+                          p: 1,
+                          position: "sticky",
+                          left: 0,
+                          backgroundColor: "#f7fafb",
+                          minWidth: column.minWidth,
+                          borderBottom: "none",
+                          zIndex: 2,
+                        }}
+                      >
+                        <h3>{column.label}</h3>
+                      </TableCell>
+                    );
+                  } else {
+                    return (
+                      <TableCell
+                        key={column.id}
+                        align="center"
+                        sx={{
+                          minWidth: column.minWidth,
+                          borderBottom: "none",
+                          zIndex: 1,
+                        }}
+                      >
+                        <h3>{column.label}</h3>
+                      </TableCell>
+                    );
+                  }
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.patternId}
+                      sx={{
+                        backgroundColor: alertClicked.includes(row.patternId)
+                          ? "#f3fdf7"
+                          : "white",
+                      }}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        if (column.id == "checkBox") {
+                          return (
+                            <TableCell
+                              key={column.id}
+                              align="center"
+                              sx={{
+                                p: 1,
+                                position: "sticky",
+                                left: 0,
+                                backgroundColor: "#f7fafb",
+                              }}
+                            >
+                              {setRowValue(column.id, value, row.patternId)}
+                            </TableCell>
+                          );
+                        } else {
+                          return (
+                            <TableCell
+                              key={column.id}
+                              align="center"
+                              sx={{ p: 1 }}
+                              onClick={() => {
+                                navigate(`/single-alert/${row.patternId}`);
+                              }}
+                            >
+                              {setRowValue(column.id, value, row.patternId)}
+                            </TableCell>
+                          );
+                        }
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </div>
   );
 };
 
