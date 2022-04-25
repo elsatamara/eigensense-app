@@ -13,15 +13,6 @@
   display: flex;
 }
 
-.dropdownsContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  width: 100%;
-  margin-top: 0;
-}
-
 select {
   width: 176px;
   height: 34px;

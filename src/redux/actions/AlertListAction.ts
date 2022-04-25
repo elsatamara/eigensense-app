@@ -13,4 +13,11 @@ export const getAlertsList = createAsyncThunk(
   }
 );
 
+export const filterAlertList = createAction<{
+  filter_id: string;
+  filters: Array<string>;
+}>("FILTER_ALERT_LIST");
+
+export const resetAlertList = createAction<any>("RESET_ALERT_LIST");
+
 export const setSearchDrawerState = createAction("SET_SEARCH_DRAWER_STATE");

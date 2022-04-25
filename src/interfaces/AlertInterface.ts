@@ -13,7 +13,6 @@ export interface AlertInterface {
   status: AlertStatus;
   preview: string;
   dateLastOpened: Date;
-  chartData: number[][];
 }
 
 export interface AlertListInterface {

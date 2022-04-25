@@ -5,12 +5,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Stack from "@mui/material/Stack";
 
-const ViewsDatePicker = () => {
+const CalendarPicker = () => {
   const [value, setValue] = React.useState<Date | null>(new Date());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Stack spacing={3} sx={{ width: "160px" }}>
+      <Stack spacing={3} sx={{ width: "176px" }}>
         <DatePicker
           views={["day"]}
           value={value}
@@ -26,4 +26,4 @@ const ViewsDatePicker = () => {
   );
 };
 
-export default ViewsDatePicker;
+export default CalendarPicker;

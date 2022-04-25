@@ -1,0 +1,64 @@
+.dropdownsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  margin-top: 0;
+}
+
+.newFilterModal {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  transform: translate(-20%; -35%);
+  background-color: white;
+  border-radius: 8px;
+  width: 493px;
+}
+
+.modalHeader {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 17px;
+  color: #414141;
+  padding: 2rem;
+}
+
+.alertTypeFilterContainer {
+  display: flex;
+  margin-left: 3rem;
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.alertTypeFilterHeader {
+  padding: 1rem;
+  color: #778ca2;
+}
+
+.filterModalCalendarTypeContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.customFilterModalContainer {
+  width: 493px;
+  height: 459px;
+}
+
+.filterDropdownContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.customFilterModalButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 3rem;
+}

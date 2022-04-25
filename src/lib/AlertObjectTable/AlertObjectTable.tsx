@@ -7,16 +7,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import styles from "./AlertObjectTable.module.css";
 import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
 import { useNavigate } from "react-router-dom";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
-import { getChartDataAction } from "../../redux/actions/ChartActions";
-import { JsxEmit } from "typescript";
-import { Box } from "@mui/material";
 import AlertStatusFilter from "../AlertStatusFilter/AlertStatusFilter";
 
 interface Column {
@@ -191,6 +188,9 @@ const AlertObjectTable = () => {
       elem.agentName
     );
   });
+
+  console.log(rows);
+
   return (
     <div>
       {console.log("length", alertClicked.length)}
@@ -245,6 +245,7 @@ const AlertObjectTable = () => {
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
+                  console.log("here");
                   return (
                     <TableRow
                       hover
