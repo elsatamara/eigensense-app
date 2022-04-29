@@ -148,7 +148,16 @@ const AlertObjectTable = () => {
         </div>
       );
     } else if (columnID === "status") {
-      return <AlertStatusObject alertStatus={value} />;
+      return (
+        <div
+          className={styles.alertStatusObject}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <AlertStatusObject alertStatus={value} patternId={[patternId]} />
+        </div>
+      );
     } else if (columnID === "checkBox") {
       return !alertClicked.includes(patternId) ? (
         <CheckBoxOutlineBlankOutlinedIcon
@@ -193,9 +202,8 @@ const AlertObjectTable = () => {
 
   return (
     <div>
-      {console.log("length", alertClicked.length)}
       {alertClicked.length > 0 ? (
-        <AlertStatusFilter numAlertSelected={alertClicked.length} />
+        <AlertStatusFilter alertSelected={alertClicked} />
       ) : (
         <></>
       )}

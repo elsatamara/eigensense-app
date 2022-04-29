@@ -1,9 +1,9 @@
 import { Box, Button, Paper, Tab, Tabs } from "@mui/material";
 import React from "react";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
-import styles from "./DashboardTableHeader.module.css";
-import MoreFilterPicker from "../DashboardFilters/MoreFilterPicker";
 import AlertTypeFilter from "../DashboardFilters/AlertTypeFilter";
+import MoreFilterPicker from "../DashboardFilters/MoreFilterPicker";
+import styles from "./DashboardTableHeader.module.css";
 
 const DashboardTableHeader = () => {
   const [moreFilters, setMoreFilters] = React.useState(false);

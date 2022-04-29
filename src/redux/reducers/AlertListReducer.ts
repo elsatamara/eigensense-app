@@ -5,6 +5,7 @@ import {
   setSearchDrawerState,
   filterAlertList,
   resetAlertList,
+  changeAlertStatus,
 } from "../actions/AlertListAction";
 
 const initialState: AlertListInterface = {
@@ -31,5 +32,14 @@ export const alertList = createReducer(initialState, (builder) => {
   });
   builder.addCase(resetAlertList, (state, action) => {
     state.alerts = action.payload;
+  });
+  builder.addCase(changeAlertStatus, (state, action) => {
+    let changeAction = action.payload.changeAction;
+    let alertToChange = action.payload.alertToChange;
+    state.alerts.forEach((elem) => {
+      if (alertToChange.includes(elem.patternId)) {
+        elem.status = changeAction;
+      }
+    });
   });
 });

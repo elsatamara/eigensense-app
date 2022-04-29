@@ -1,22 +1,73 @@
-import {
-  Box,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "@mui/material";
+import { Box, Paper, Button } from "@mui/material";
 import React from "react";
+import {
+  changeAlertStatus,
+  changeAlertStatusDb,
+} from "../../redux/actions/AlertListAction";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import styles from "./AlertStatusFilter.module.css";
+import { AlertStatus } from "../../utils/AlertStatus";
+import ReassignModal from "../ReassignModal/ReassignModal";
 
-interface Props {
-  numAlertSelected: number;
+interface AlertStatusButtonProps {
+  header: string;
+  alertSelected: string[];
 }
 
-const AlertStatusFilter = ({ numAlertSelected }: Props) => {
-  const [selected, setSelected] = React.useState("");
+const AlertStatusButton = ({
+  header,
+  alertSelected,
+}: AlertStatusButtonProps) => {
+  const dispatch = useAppDispatch();
+  const [isReassignModalOpen, setReassignModalOpen] = React.useState(false);
+  return (
+    <div>
+      {header === "Reassign" ? (
+        <Button onClick={() => setReassignModalOpen(true)} sx={{ m: 1 }}>
+          {header}
+        </Button>
+      ) : (
+        <Button
+          id="regularAlertStatusButton"
+          onClick={() => {
+            dispatch(
+              changeAlertStatus({
+                changeAction: header as AlertStatus,
+                alertToChange: alertSelected,
+              })
+            );
+            dispatch(
+              changeAlertStatusDb({
+                changeAction: header as AlertStatus,
+                alertToChange: alertSelected,
+              })
+            );
+          }}
+          sx={{ m: 1 }}
+        >
+          {header}
+        </Button>
+      )}
+      {isReassignModalOpen ? (
+        <ReassignModal
+          onClose={() => {
+            setReassignModalOpen(false);
+          }}
+        />
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
 
+interface Props {
+  alertSelected: string[];
+}
+
+const AlertStatusFilter = ({ alertSelected }: Props) => {
   const headers = [
-    "(" + numAlertSelected + " Selected)",
+    "(" + alertSelected.length + " Selected)",
     "Select Label: ",
     "Review",
     "Reassign",
@@ -37,11 +88,33 @@ const AlertStatusFilter = ({ numAlertSelected }: Props) => {
         elevation={0}
         sx={{ p: 1.5, backgroundColor: "#ebf3fa", right: 0 }}
       >
-        <Table sx={{ width: "50%", ml: "50%" }}>
+        <div className={styles.alertStatusFilterContainer}>
+          <div className={styles.alertStatusNumberSelected}>
+            <h3>({alertSelected.length} Selected)</h3>
+          </div>
+          <div className={styles.alertStatusNumberSelected}>
+            <h3>Select label: </h3>
+          </div>
+          <AlertStatusButton header={"pending"} alertSelected={alertSelected} />
+          <AlertStatusButton
+            header={"Reassign"}
+            alertSelected={alertSelected}
+          />
+          <AlertStatusButton
+            header={"suppressed"}
+            alertSelected={alertSelected}
+          />
+          <AlertStatusButton header={"closed"} alertSelected={alertSelected} />
+        </div>
+
+        {/* <Table sx={{ width: "50%", ml: "50%" }}>
           <TableHead>
             <TableRow>
               {headers.map((header) => {
-                if (header == "(" + numAlertSelected + " Selected)") {
+                if (
+                  header == "(" + numAlertSelected + " Selected)" ||
+                  header == "Select Label: "
+                ) {
                   return (
                     <TableCell
                       key={header}
@@ -67,13 +140,13 @@ const AlertStatusFilter = ({ numAlertSelected }: Props) => {
                       setSelected(header);
                     }}
                   >
-                    {header}
+                    <Button>{header}</Button>
                   </TableCell>
                 );
               })}
             </TableRow>
           </TableHead>
-        </Table>
+        </Table> */}
       </Paper>
     </Box>
   );

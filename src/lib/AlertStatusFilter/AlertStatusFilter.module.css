@@ -1,0 +1,8 @@
+.alertStatusFilterContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.alertStatusNumberSelected {
+  margin: 1rem;
+}

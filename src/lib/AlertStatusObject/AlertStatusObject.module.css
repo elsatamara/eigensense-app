@@ -6,13 +6,22 @@
 }
 
 .inreviewIcon {
-  font-color: #0047ab;
+  display: flex;
+  color: #0047ab;
+  justify-content: center;
+  align-content: center;
 }
 
 .closedIcon {
-  font-color: #fff000;
+  display: flex;
+  color: red;
+  justify-content: center;
+  align-content: center;
 }
 
 .suppressedIcon {
-  font-color: #ffff00;
+  display: flex;
+  color: #ffff00;
+  justify-content: center;
+  align-content: center;
 }
