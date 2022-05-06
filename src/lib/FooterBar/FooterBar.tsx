@@ -5,7 +5,7 @@ const FooterBar = () => {
   return (
     <AppBar
       position="fixed"
-      sx={{ top: "auto", bottom: 0, bgcolor: "#202c34" }}
+      sx={{ top: "auto", bottom: 0, bgcolor: "#202c34", height: "60px" }}
     >
       <Toolbar>
         <div>

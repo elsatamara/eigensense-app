@@ -19,8 +19,6 @@ export const filterAlertList = createAction<{
   filters: Array<string>;
 }>("FILTER_ALERT_LIST");
 
-export const resetAlertList = createAction<any>("RESET_ALERT_LIST");
-
 export const setSearchDrawerState = createAction("SET_SEARCH_DRAWER_STATE");
 
 export const changeAlertStatus = createAction<{
@@ -37,4 +35,13 @@ export const changeAlertStatusDb = createAsyncThunk(
       `api/v1/change_status/${urlQuery}`
     );
   }
+);
+
+export const filterAlertListByDate = createAction<{
+  from: Date | undefined;
+  to: Date | undefined;
+}>("FILTER_ALERT_LIST_BY_DATE");
+
+export const submitCustomFilterAlertList = createAction(
+  "SUBMIT_CUSTOM_FILTER_ALERT_LIST"
 );

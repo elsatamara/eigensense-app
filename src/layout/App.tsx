@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import HomePage from "../pages/home/HomePage";
+import NotificationPage from "../pages/notification/NotificationPage";
 import SingleAlertPage from "../pages/singlealert/SingleAlertPage";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="single-alert" element={<SingleAlertPage />}>
             <Route path=":id" element={<SingleAlertPage />} />
           </Route>
+          <Route path="/notification" element={<NotificationPage />} />
         </Routes>
       </div>
     </BrowserRouter>

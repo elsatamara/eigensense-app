@@ -106,47 +106,6 @@ const AlertStatusFilter = ({ alertSelected }: Props) => {
           />
           <AlertStatusButton header={"closed"} alertSelected={alertSelected} />
         </div>
-
-        {/* <Table sx={{ width: "50%", ml: "50%" }}>
-          <TableHead>
-            <TableRow>
-              {headers.map((header) => {
-                if (
-                  header == "(" + numAlertSelected + " Selected)" ||
-                  header == "Select Label: "
-                ) {
-                  return (
-                    <TableCell
-                      key={header}
-                      sx={{
-                        borderBottom: "none",
-                        color: "#147ddd",
-                        fontFamily: "Rubik",
-                      }}
-                    >
-                      {header}
-                    </TableCell>
-                  );
-                }
-                return (
-                  <TableCell
-                    key={header}
-                    sx={{
-                      borderBottom: "none",
-                      fontFamily: "Rubik",
-                      color: header == selected ? "#147ddd" : "black",
-                    }}
-                    onClick={() => {
-                      setSelected(header);
-                    }}
-                  >
-                    <Button>{header}</Button>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-        </Table> */}
       </Paper>
     </Box>
   );

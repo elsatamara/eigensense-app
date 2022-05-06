@@ -1,5 +1,7 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import React from "react";
+import { submitCustomFilterAlertList } from "../../redux/actions/AlertListAction";
+import { clearCustomFilterState } from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import AlertTypeFilter from "./AlertTypeFilter";
@@ -21,25 +23,17 @@ interface Props {
 }
 
 const NewFilterModal = ({ onClose }: Props) => {
-  const alertListState = useAppSelector((state) => state.alertList.alerts);
   const dispatch = useAppDispatch();
-  const locations: Set<string> = new Set();
-  const regulators: Set<string> = new Set();
-  const agents: Set<string> = new Set();
-  const alertQueues: Set<string> = new Set();
   const [modalOpen, setModalOpen] = React.useState(true);
   const handleClose = () => {
     setModalOpen(false);
     onClose();
   };
-  alertListState.forEach((elem) => {
-    locations.add(elem.location);
-    regulators.add(elem.regulator);
-    agents.add(elem.agentName);
-    alertQueues.add(elem.alertQueue);
-  });
 
-  const handleSaveButton = () => {};
+  const handleSaveButton = () => {
+    dispatch(submitCustomFilterAlertList());
+    dispatch(clearCustomFilterState());
+  };
   return (
     <Modal open={modalOpen} onClose={handleClose}>
       <Box className={styles.newFilterModal} sx={{ p: 3.5 }}>
@@ -54,16 +48,16 @@ const NewFilterModal = ({ onClose }: Props) => {
           required
         />
         <div className={styles.filterDropdownContainer}>
-          <CalendarPicker />
+          <CalendarPicker isCustomFilter />
           <AlertTypeFilter />
         </div>
         <div className={styles.filterDropdownContainer}>
-          <FilterDropdown filters={locations} header={"Location"} />
-          <FilterDropdown filters={agents} header={"Agent"} />
+          <FilterDropdown header={"Location"} isCustomFilter />
+          <FilterDropdown header={"Agent"} isCustomFilter />
         </div>
         <div className={styles.filterDropdownContainer}>
-          <FilterDropdown filters={alertQueues} header={"Alert Queue"} />
-          <FilterDropdown filters={alertQueues} header={"Alert Status"} />
+          <FilterDropdown header={"Queue"} isCustomFilter />
+          <FilterDropdown header={"Status"} isCustomFilter />
         </div>
         <div className={styles.customFilterModalButtons}>
           <Button
@@ -89,6 +83,7 @@ const NewFilterModal = ({ onClose }: Props) => {
             sx={{ m: 1, mr: 3.5, mt: 2 }}
             variant="contained"
             disableElevation
+            onClick={handleSaveButton}
           >
             Save
           </Button>

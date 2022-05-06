@@ -2,6 +2,7 @@ import { Modal, Box, Button } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../redux/hooks";
 import ChangeAlertStatusDropdown from "../AlertStatusFilter/ChangeAlertStatusDropdown";
+import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import FilterDropdown from "../DashboardFilters/FilterDropdown";
 import styles from "./ReassignModal.module.css";
 
@@ -30,7 +31,7 @@ const ReassignModal = ({ onClose }: Props) => {
         <div className={styles.reassignModalHeader}>Change alert status</div>
         <hr></hr>
         <ChangeAlertStatusDropdown />
-        <FilterDropdown filters={agents} header={"Agent"} />
+        <FilterDropdown header={"Location"} />
         <div className={styles.customFilterModalButtons}>
           <Button
             sx={{

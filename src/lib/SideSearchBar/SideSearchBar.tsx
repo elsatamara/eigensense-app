@@ -1,15 +1,26 @@
 import React from "react";
-import { Drawer, List, ListItem, useTheme, Tab, Tabs } from "@mui/material";
+import {
+  Drawer,
+  List,
+  ListItem,
+  useTheme,
+  Tab,
+  Tabs,
+  Button,
+} from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import clsx from "clsx";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./SideSearchBar.module.css";
+import CalendarPicker from "../CalendarPicker/CalendarPicker";
+import FilterDropdown from "../DashboardFilters/FilterDropdown";
+import { setSearchDrawerState } from "../../redux/actions/AlertListAction";
 
 const SideSearchBar = () => {
   const theme = useTheme();
   const isDrawerOpen = useAppSelector((state) => state.alertList.isDrawerOpen);
-
+  const dispatch = useAppDispatch();
   const useStyles = makeStyles(() =>
     createStyles({
       drawer: {
@@ -62,13 +73,35 @@ const SideSearchBar = () => {
         <List sx={{ pt: 10 }}>
           {isDrawerOpen ? (
             <>
+              <ListItem
+                onClick={() => {
+                  dispatch(setSearchDrawerState());
+                }}
+              >
+                <h3>SEARCH PATTERNS</h3>
+              </ListItem>
               <ListItem>
-                <h3>Search Patterns</h3>
+                <CalendarPicker />
+              </ListItem>
+              <ListItem>
+                <FilterDropdown header={"Location"} isPatternSearchFilter />
+              </ListItem>
+              <ListItem>
+                <FilterDropdown header={"Regulator"} isPatternSearchFilter />
+              </ListItem>
+              <ListItem>
+                <Button>Reset All</Button>
+                <Button>Submit</Button>
               </ListItem>
             </>
           ) : (
             <>
-              <ListItem style={{ display: "flex", justifyContent: "center" }}>
+              <ListItem
+                style={{ display: "flex", justifyContent: "center" }}
+                onClick={() => {
+                  dispatch(setSearchDrawerState());
+                }}
+              >
                 <SearchIcon fontSize="medium" />
               </ListItem>
               <ListItem sx={{ pt: 0 }}>

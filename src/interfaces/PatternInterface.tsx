@@ -1,0 +1,13 @@
+export interface PatternInterface {
+  patternId: string;
+  patternName: string;
+  preview: string;
+  date: Date;
+  startTime: Date;
+  location: string;
+  regulator: string;
+}
+
+export interface PatternListInterface {
+  patternList: PatternInterface[];
+}

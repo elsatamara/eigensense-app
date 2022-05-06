@@ -1,0 +1,55 @@
+.rightItemsContainer {
+  margin-right: 4rem;
+  margin-top: 0.2rem;
+}
+
+.parentHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.notificationList {
+  padding: 1rem;
+  width: 344px;
+}
+
+.notificationHeader {
+  color: #157ddd;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  margin-bottom: 1rem;
+}
+
+.notificationText {
+  width: 344px;
+  white-space: normal;
+  color: #98a9bc;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 14px;
+  margin-bottom: 1rem;
+}
+
+.pText {
+  white-space: normal;
+}
+
+.notificationLocationId {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.notificationLocationIdText {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+}

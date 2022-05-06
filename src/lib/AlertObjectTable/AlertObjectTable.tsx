@@ -201,14 +201,16 @@ const AlertObjectTable = () => {
   console.log(rows);
 
   return (
-    <div>
+    <div id="tableFirstDiv" className={styles.alertTableContainer}>
       {alertClicked.length > 0 ? (
         <AlertStatusFilter alertSelected={alertClicked} />
       ) : (
         <></>
       )}
-      <Paper sx={{ width: "97.8%", overflow: "hidden", mx: 2 }}>
-        <TableContainer sx={{ maxHeight: 520 }}>
+      <Paper sx={{ width: "97.8%", overflow: "hidden", mx: 2, mb: 4 }}>
+        <TableContainer
+          sx={{ maxHeight: alertClicked.length == 0 ? 520 : 420, mb: 0 }}
+        >
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -253,7 +255,6 @@ const AlertObjectTable = () => {
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
-                  console.log("here");
                   return (
                     <TableRow
                       hover

@@ -2,35 +2,53 @@ import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  filterAlertList,
-  resetAlertList,
-} from "../../redux/actions/AlertListAction";
+import { filterAlertList } from "../../redux/actions/AlertListAction";
 import {
   Button,
   Checkbox,
-  ListItemIcon,
-  ListItemText,
+  FormControlLabel,
   Menu,
   MenuItem,
   TextField,
 } from "@mui/material";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import NewFilterModal from "./NewFilterModal";
+import { setCustomFilterAlertList } from "../../redux/actions/CustomFilterAction";
+import { AlertInterface } from "../../interfaces/AlertInterface";
+import { PatternInterface } from "../../interfaces/PatternInterface";
 
 interface FilterProps {
-  filters: Set<string> | Array<string>;
   header: string;
+  isCustomFilter?: boolean;
+  isPatternSearchFilter?: boolean;
 }
 
-const FilterDropdown = ({ filters, header }: FilterProps) => {
+const FilterDropdown = ({
+  header,
+  isCustomFilter,
+  isPatternSearchFilter,
+}: FilterProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [endArrow, setEndArrow] = React.useState(<KeyboardArrowDownIcon />);
-  const [filterToRender, setFilterToRender] = React.useState<string[]>([
-    ...filters,
-  ]);
+
+  const alerts = useAppSelector((state) => state.alertList.alerts);
+  const patterns = useAppSelector((state) => state.patternList.patternList);
+
+  const alertList: AlertInterface[] | PatternInterface[] = isPatternSearchFilter
+    ? patterns
+    : alerts;
+
+  var filterToRender =
+    header == "Saved Filter"
+      ? ["Apple", "Oranges"]
+      : [
+          ...new Set(
+            alertList.map((alert: any) => alert[header.toLowerCase()])
+          ),
+        ];
+
   const [textfieldValue, setTextfieldValue] = React.useState<string>("");
-  let checkedFilter: string[] = [];
+  let checkedFilter = new Set<string>();
   const handleDropdownClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setEndArrow(<KeyboardArrowUpIcon />);
     setAnchorEl(event.currentTarget);
@@ -39,23 +57,8 @@ const FilterDropdown = ({ filters, header }: FilterProps) => {
     setAnchorEl(null);
     setEndArrow(<KeyboardArrowDownIcon />);
   };
-  const handleTextFieldChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setTextfieldValue(event.target.value);
-    console.log("here");
-    let original: string[] = [...filters];
-    let pattern = /event.target.value/g;
-    let matched: string[] = [];
-    original.forEach((elem) => {
-      console.log(elem.match(pattern));
-    });
-    console.log(matched);
-    // let fruits: string[] = ["apple", "orange"];
-    event.target.value == ""
-      ? setFilterToRender(original)
-      : setFilterToRender(matched);
-  };
+  const handleMenuItemChange = () => {};
+
   const open = Boolean(anchorEl);
   let placeholder: string = "Type " + header + "...";
   const dispatch = useAppDispatch();
@@ -128,21 +131,27 @@ const FilterDropdown = ({ filters, header }: FilterProps) => {
             placeholder={placeholder}
             size="small"
             value={textfieldValue}
-            onChange={(e) => handleTextFieldChange(e)}
+            // onChange={(e) => handleTextFieldChange(e)}
           />
         </MenuItem>
-        {filterToRender.map((elem) => {
+        {filterToRender.map((elem: any) => {
           return (
-            <MenuItem
-              sx={{ width: "176px", zIndex: 0 }}
-              onClick={() => {
-                checkedFilter.push(elem);
-              }}
-            >
-              <ListItemIcon>
-                <Checkbox />
-              </ListItemIcon>
-              <ListItemText>{elem}</ListItemText>
+            <MenuItem sx={{ width: "176px", zIndex: 0 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      if (e.target.checked) {
+                        checkedFilter.add(elem);
+                      } else {
+                        checkedFilter.delete(elem);
+                      }
+                    }}
+                  />
+                }
+                label={elem}
+                sx={{ width: "100%" }}
+              />
             </MenuItem>
           );
         })}
@@ -160,11 +169,23 @@ const FilterDropdown = ({ filters, header }: FilterProps) => {
         >
           <Button
             id="applyFilter"
-            onClick={() => {
+            onClick={(e) => {
+              if (isCustomFilter) {
+                dispatch(
+                  setCustomFilterAlertList({
+                    filterHeaders: header,
+                    filterItems: [...checkedFilter],
+                  })
+                );
+              } else {
+                dispatch(
+                  filterAlertList({
+                    filter_id: header,
+                    filters: [...checkedFilter],
+                  })
+                );
+              }
               handleDropdownClose();
-              dispatch(
-                filterAlertList({ filter_id: header, filters: checkedFilter })
-              );
             }}
           >
             Apply

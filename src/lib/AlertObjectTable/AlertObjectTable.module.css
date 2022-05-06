@@ -12,3 +12,7 @@ img {
 .alertStatusObject {
   z-index: 2;
 }
+
+.alertTableContainer {
+  height: 100%;
+}

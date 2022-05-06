@@ -1,20 +1,17 @@
-.mainPage {
-  background-color: #f5f6f6;
-}
-
 .headerContainer {
   position: relative;
   z-index: 3;
 }
 
-.footerContainer {
+/* .footerContainer {
   position: relative;
   z-index: 3;
-}
+} */
 
 .tabsContainer {
   position: relative;
   z-index: 2;
+  margin-top: 4.6rem;
 }
 
 .pressureChartContainer {
@@ -33,6 +30,10 @@
   position: relative;
   z-index: 1;
   margin-left: 5rem;
+}
+
+.clearDiv {
+  height: 60px;
 }
 
 .drawerContainer {

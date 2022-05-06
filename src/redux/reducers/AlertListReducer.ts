@@ -4,9 +4,11 @@ import {
   getAlertsList,
   setSearchDrawerState,
   filterAlertList,
-  resetAlertList,
   changeAlertStatus,
+  filterAlertListByDate,
 } from "../actions/AlertListAction";
+import { submitCustomFilterAlertList } from "../actions/AlertListAction";
+import { useAppSelector } from "../hooks";
 
 const initialState: AlertListInterface = {
   alerts: [],
@@ -24,14 +26,9 @@ export const alertList = createReducer(initialState, (builder) => {
   });
   builder.addCase(filterAlertList, (state, action) => {
     let filter_id: string = action.payload.filter_id.toLowerCase();
-    console.log(action.payload.filters);
     state.alerts = state.alerts.filter((alert: any) =>
       action.payload.filters.includes(alert[filter_id])
     );
-    console.log(state.alerts);
-  });
-  builder.addCase(resetAlertList, (state, action) => {
-    state.alerts = action.payload;
   });
   builder.addCase(changeAlertStatus, (state, action) => {
     let changeAction = action.payload.changeAction;
@@ -41,5 +38,43 @@ export const alertList = createReducer(initialState, (builder) => {
         elem.status = changeAction;
       }
     });
+  });
+  builder.addCase(filterAlertListByDate, (state, action) => {
+    let from = action.payload.from;
+    let to = action.payload.to;
+    if (from !== undefined && to !== undefined) {
+      state.alerts = state.alerts.filter(
+        (alert) =>
+          new Date(alert.date).getTime() <= to!.getTime() &&
+          new Date(alert.date).getTime() >= from!.getTime()
+      );
+    }
+  });
+  builder.addCase(submitCustomFilterAlertList, (state, action) => {
+    const customFilterState = useAppSelector((state) => state.customFilter);
+    state.alerts = state.alerts.filter((alert) =>
+      customFilterState.location.includes(alert.location)
+    );
+    state.alerts = state.alerts.filter((alert) =>
+      customFilterState.agent.includes(alert.agentName)
+    );
+    state.alerts = state.alerts.filter((alert) =>
+      customFilterState.queue.includes(alert.alertQueue)
+    );
+    state.alerts = state.alerts.filter((alert) =>
+      customFilterState.status.includes(alert.status)
+    );
+    state.alerts = state.alerts.filter((alert) =>
+      customFilterState.type.includes(alert.alertType)
+    );
+    let from = customFilterState.from;
+    let to = customFilterState.to;
+    if (from !== undefined && to !== undefined) {
+      state.alerts = state.alerts.filter(
+        (alert) =>
+          new Date(alert.date).getTime() <= to!.getTime() &&
+          new Date(alert.date).getTime() >= from!.getTime()
+      );
+    }
   });
 });

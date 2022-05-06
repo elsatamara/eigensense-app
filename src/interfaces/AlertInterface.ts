@@ -7,7 +7,9 @@ export interface AlertInterface {
   agentName: string;
   patternId: string;
   patternName: string;
-  date: Date;
+  startTime: string;
+  eventStarts: string;
+  date: string;
   location: string;
   regulator: string;
   status: AlertStatus;
