@@ -22,7 +22,7 @@ export const customFilter = createReducer(initialState, (builder) => {
     if (filterHeaders == "from" || filterHeaders == "to") {
       state.filterHeaders = filterItems;
     } else {
-      state.filterHeaders = state[filterHeaders].concat(filterItems);
+      state[filterHeaders] = state[filterHeaders].concat(filterItems);
     }
   });
   builder.addCase(clearCustomFilterState, (state, action) => {

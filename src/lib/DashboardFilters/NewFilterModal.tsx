@@ -1,5 +1,6 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import React from "react";
+import { CustomFilterInterface } from "../../interfaces/CustomFilterInterface";
 import { submitCustomFilterAlertList } from "../../redux/actions/AlertListAction";
 import { clearCustomFilterState } from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -30,9 +31,14 @@ const NewFilterModal = ({ onClose }: Props) => {
     onClose();
   };
 
+  const customFilterState: CustomFilterInterface = useAppSelector(
+    (state) => state.customFilter
+  );
+
   const handleSaveButton = () => {
-    dispatch(submitCustomFilterAlertList());
+    dispatch(submitCustomFilterAlertList(customFilterState));
     dispatch(clearCustomFilterState());
+    handleClose();
   };
   return (
     <Modal open={modalOpen} onClose={handleClose}>

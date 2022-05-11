@@ -51,22 +51,35 @@ export const alertList = createReducer(initialState, (builder) => {
     }
   });
   builder.addCase(submitCustomFilterAlertList, (state, action) => {
-    const customFilterState = useAppSelector((state) => state.customFilter);
-    state.alerts = state.alerts.filter((alert) =>
-      customFilterState.location.includes(alert.location)
-    );
-    state.alerts = state.alerts.filter((alert) =>
-      customFilterState.agent.includes(alert.agentName)
-    );
-    state.alerts = state.alerts.filter((alert) =>
-      customFilterState.queue.includes(alert.alertQueue)
-    );
-    state.alerts = state.alerts.filter((alert) =>
-      customFilterState.status.includes(alert.status)
-    );
-    state.alerts = state.alerts.filter((alert) =>
-      customFilterState.type.includes(alert.alertType)
-    );
+    const customFilterState = action.payload;
+
+    if (customFilterState.location != []) {
+      state.alerts = state.alerts.filter((alert) =>
+        customFilterState.location.includes(alert.location)
+      );
+    }
+    if (customFilterState.agent.length > 0) {
+      state.alerts = state.alerts.filter((alert) =>
+        customFilterState.agent.includes(alert.agentName)
+      );
+    }
+    if (customFilterState.queue.length > 0) {
+      state.alerts = state.alerts.filter((alert) =>
+        customFilterState.queue.includes(alert.alertQueue)
+      );
+    }
+    if (customFilterState.type.length > 0) {
+      state.alerts = state.alerts.filter((alert) =>
+        customFilterState.type.includes(alert.alertType)
+      );
+    }
+
+    if (customFilterState.status.length > 0) {
+      state.alerts = state.alerts.filter((alert) =>
+        customFilterState.status.includes(alert.status)
+      );
+    }
+
     // let from = customFilterState.from;
     // let to = customFilterState.to;
     // if (from !== undefined && to !== undefined) {

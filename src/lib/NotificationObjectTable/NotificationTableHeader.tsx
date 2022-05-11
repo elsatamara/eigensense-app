@@ -8,7 +8,10 @@ import styles from "./NotificationObjectTable.module.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { filterByNotificationType } from "../../redux/actions/NotificationAction";
+import {
+  filterByNotificationPeriod,
+  filterByNotificationType,
+} from "../../redux/actions/NotificationAction";
 
 interface NotificationPeriodTypeFilterProps {
   isPeriodFilter?: boolean;
@@ -78,6 +81,8 @@ const NotificationPeriodTypeFilter = ({
                 console.log(item);
                 if (Object.values(NotificationType).includes(item)) {
                   dispatch(filterByNotificationType(item));
+                } else {
+                  dispatch(filterByNotificationPeriod(item));
                 }
                 handleDropdownClose();
               }}
@@ -97,7 +102,7 @@ const NotificationTableHeader = () => {
       <Paper elevation={0} sx={{ minWidth: "1000px", height: "70px" }}>
         <div className={styles.notficationTableHeaderContainer}>
           <div className={styles.notificationTableHeaderText}>
-            NOTIFICATIONS
+            <h3>NOTIFICATIONS</h3>
           </div>
           <div>
             <NotificationPeriodTypeFilter isPeriodFilter />

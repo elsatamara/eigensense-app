@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AlertListInterface } from "../../interfaces/AlertInterface";
+import { CustomFilterInterface } from "../../interfaces/CustomFilterInterface";
 import { AlertStatus } from "../../utils/AlertStatus";
 import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
@@ -42,6 +43,6 @@ export const filterAlertListByDate = createAction<{
   to: Date | undefined;
 }>("FILTER_ALERT_LIST_BY_DATE");
 
-export const submitCustomFilterAlertList = createAction(
+export const submitCustomFilterAlertList = createAction<CustomFilterInterface>(
   "SUBMIT_CUSTOM_FILTER_ALERT_LIST"
 );
