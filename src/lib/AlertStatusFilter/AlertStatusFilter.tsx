@@ -66,15 +66,6 @@ interface Props {
 }
 
 const AlertStatusFilter = ({ alertSelected }: Props) => {
-  const headers = [
-    "(" + alertSelected.length + " Selected)",
-    "Select Label: ",
-    "Review",
-    "Reassign",
-    "Monitor",
-    "Suppress",
-    "Close",
-  ];
   return (
     <Box
       sx={{

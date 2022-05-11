@@ -59,57 +59,6 @@ const columns: readonly Column[] = [
   { id: "agentName", label: "Agent Name", minWidth: 50 },
 ];
 
-interface Data {
-  checkBox: null;
-  patternId: string;
-  patternName: string;
-  date: string;
-  startTime: string;
-  eventStarts: string;
-  location: string;
-  regulator: string;
-  alertType: string;
-  keyAttribute: string;
-  alertQueue: string;
-  preview: string;
-  status: string;
-  agentName: string;
-}
-
-function createData(
-  checkBox: null,
-  patternId: string,
-  patternName: string,
-  date: string,
-  startTime: string,
-  eventStarts: string,
-  location: string,
-  regulator: string,
-  alertType: string,
-  keyAttribute: string,
-  alertQueue: string,
-  preview: string,
-  status: string,
-  agentName: string
-): Data {
-  return {
-    checkBox,
-    patternId,
-    patternName,
-    date,
-    startTime,
-    eventStarts,
-    location,
-    regulator,
-    alertType,
-    keyAttribute,
-    alertQueue,
-    preview,
-    status,
-    agentName,
-  };
-}
-
 const AlertObjectTable = () => {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
@@ -140,7 +89,7 @@ const AlertObjectTable = () => {
     setAlertClicked(newAlertClicked);
   };
 
-  function setRowValue(columnID: string, value: any, patternId: string) {
+  function setRowValue(columnID: string, patternId: string, value?: any) {
     if (columnID === "preview") {
       return (
         <div className={styles.preview}>
@@ -177,28 +126,7 @@ const AlertObjectTable = () => {
     }
   }
 
-  const alertListState = useAppSelector((state) => state.alertList);
-
-  const rows = alertListState.alerts.map((elem) => {
-    return createData(
-      null,
-      elem.patternId,
-      elem.patternName,
-      elem.date.toString().slice(0, 10),
-      elem.date.toString().slice(11, 16),
-      elem.date.toString(),
-      elem.location,
-      elem.regulator,
-      elem.alertType,
-      elem.keyAttribute,
-      elem.alertQueue,
-      elem.preview,
-      elem.status.toString(),
-      elem.agentName
-    );
-  });
-
-  console.log(rows);
+  const rows = useAppSelector((state) => state.alertList.alerts);
 
   return (
     <div id="tableFirstDiv" className={styles.alertTableContainer}>
@@ -268,7 +196,6 @@ const AlertObjectTable = () => {
                       }}
                     >
                       {columns.map((column) => {
-                        const value = row[column.id];
                         if (column.id == "checkBox") {
                           return (
                             <TableCell
@@ -281,10 +208,11 @@ const AlertObjectTable = () => {
                                 backgroundColor: "#f7fafb",
                               }}
                             >
-                              {setRowValue(column.id, value, row.patternId)}
+                              {setRowValue(column.id, row.patternId)}
                             </TableCell>
                           );
                         } else {
+                          const value = row[column.id];
                           return (
                             <TableCell
                               key={column.id}
@@ -294,7 +222,7 @@ const AlertObjectTable = () => {
                                 navigate(`/single-alert/${row.patternId}`);
                               }}
                             >
-                              {setRowValue(column.id, value, row.patternId)}
+                              {setRowValue(column.id, row.patternId, value)}
                             </TableCell>
                           );
                         }

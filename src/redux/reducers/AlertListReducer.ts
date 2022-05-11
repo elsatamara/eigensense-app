@@ -67,14 +67,14 @@ export const alertList = createReducer(initialState, (builder) => {
     state.alerts = state.alerts.filter((alert) =>
       customFilterState.type.includes(alert.alertType)
     );
-    let from = customFilterState.from;
-    let to = customFilterState.to;
-    if (from !== undefined && to !== undefined) {
-      state.alerts = state.alerts.filter(
-        (alert) =>
-          new Date(alert.date).getTime() <= to!.getTime() &&
-          new Date(alert.date).getTime() >= from!.getTime()
-      );
-    }
+    // let from = customFilterState.from;
+    // let to = customFilterState.to;
+    // if (from !== undefined && to !== undefined) {
+    //   state.alerts = state.alerts.filter(
+    //     (alert) =>
+    //       new Date(alert.date).getTime() <= to!.getTime() &&
+    //       new Date(alert.date).getTime() >= from!.getTime()
+    //   );
+    // }
   });
 });
