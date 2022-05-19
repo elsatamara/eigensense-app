@@ -1,0 +1,56 @@
+.agentTypeStatusFilterHeader {
+  padding: 1rem;
+  color: #778ca2;
+  display: inline-block;
+}
+
+.agentTypeStatusFilterContainer {
+  display: inline-block;
+  margin-left: 3rem;
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.searchBarAgentFilterContainer {
+  padding-left: 20rem;
+  margin-top: 1rem;
+}
+
+.profileTabHeaderContainer {
+  margin-left: 20rem;
+  padding-top: 2rem;
+}
+
+.agentListContainer {
+  padding-left: 16rem;
+  margin-top: 2rem;
+}
+
+.clearDiv {
+  height: 7rem;
+}
+
+.addNewUserModal {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  transform: translate(-20%; -35%);
+  background-color: white;
+  border-radius: 8px;
+  width: 493px;
+}
+
+.modalHeader {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 17px;
+  color: #414141;
+  padding: 2rem;
+}
+
+.modalText {
+  padding: 1rem;
+}

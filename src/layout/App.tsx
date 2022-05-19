@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdministrationPage from "../pages/administration/AdministrationPage";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import HomePage from "../pages/home/HomePage";
 import NotificationPage from "../pages/notification/NotificationPage";
@@ -16,6 +17,7 @@ function App() {
             <Route path=":id" element={<SingleAlertPage />} />
           </Route>
           <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/admin" element={<AdministrationPage />} />
         </Routes>
       </div>
     </BrowserRouter>

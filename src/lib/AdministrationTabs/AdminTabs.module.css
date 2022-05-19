@@ -1,0 +1,24 @@
+.inputFieldContainer {
+  padding-top: 2rem;
+  padding-left: 18rem;
+}
+
+.profileTabHeaderContainer {
+  padding-top: 2rem;
+  padding-left: 20rem;
+}
+
+.notifPreferenceContainer {
+  padding-left: 18rem;
+  margin-top: 2rem;
+}
+
+.passwordInputFieldContainer {
+  padding-top: 2rem;
+  padding-left: 37rem;
+}
+
+.passwordTabHeaderContainer {
+  padding-top: 2rem;
+  padding-left: 35rem;
+}

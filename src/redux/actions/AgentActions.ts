@@ -14,3 +14,14 @@ export const storeRecentlyViewedItems = createAsyncThunk(
     return res.data;
   }
 );
+
+export const getAgentList = createAsyncThunk(
+  "AgentReducer/GetAgentList",
+  async () => {
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/get_agent_list`
+    );
+    return res.data;
+  }
+);

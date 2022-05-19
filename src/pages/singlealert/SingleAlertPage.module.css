@@ -12,13 +12,6 @@
   align-content: center;
 }
 
-.rightColumnContainer {
-}
-
-.notesTableContainer {
-  /* position: absolute;
-  left: 72.92%;
-  right: 1.9%;
-  bottom: 9.42%;
-  top: 87.19%; */
+.tabsContainer {
+  margin-top: 4.5rem;
 }

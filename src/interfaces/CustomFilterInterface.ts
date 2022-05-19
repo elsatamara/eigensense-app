@@ -1,14 +1,14 @@
-// export interface CustomFilterInterface {
-//   filterHeaders: string[];
-//   filterItems: string[][];
-// }
-
 export interface CustomFilterInterface {
+  name: string;
   location: string[];
   agent: string[];
   queue: string[];
   status: string[];
   type: string[];
-  from: Date;
-  to: Date;
+  from: Date | undefined;
+  to: Date | undefined;
+}
+
+export interface CustomFilterListInterface {
+  customFilterList: CustomFilterInterface[];
 }

@@ -6,13 +6,14 @@ import {
 } from "../actions/CustomFilterAction";
 
 const initialState: CustomFilterInterface = {
+  name: "",
   location: [],
   agent: [],
   queue: [],
   status: [],
   type: [],
-  from: new Date(),
-  to: new Date(),
+  from: undefined,
+  to: undefined,
 };
 
 export const customFilter = createReducer(initialState, (builder) => {
