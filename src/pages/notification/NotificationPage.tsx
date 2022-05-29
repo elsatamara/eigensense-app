@@ -8,11 +8,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./NotificationPage.module.css";
 
 const NotificationPage = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getNotificationList());
-  }, []);
-
   return (
     <div id="notification-page-main">
       <HeaderBar />

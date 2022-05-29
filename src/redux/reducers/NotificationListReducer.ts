@@ -1,11 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
 import {
-  NotificationInterface,
   NotificationListInterface,
   NotificationPeriod,
   NotificationType,
 } from "../../interfaces/NotificationInterface";
 import {
+  deleteNotificationRedux,
   filterByNotificationPeriod,
   filterByNotificationType,
   getNotificationList,
@@ -14,7 +14,6 @@ import {
   selectMarkAsImportantRedux,
   selectMarkAsUnimportantRedux,
 } from "../actions/NotificationAction";
-import { useAppDispatch, useAppSelector } from "../hooks";
 
 const initialState: NotificationListInterface = {
   notificationList: [],
@@ -115,5 +114,12 @@ export const notificationList = createReducer(initialState, (builder) => {
         (notif) => new Date(notif.date).getTime() >= from
       );
     }
+  });
+
+  builder.addCase(deleteNotificationRedux, (state, action) => {
+    let notificationId = action.payload;
+    state.notificationList = state.notificationList.filter(
+      (notif) => !notificationId.includes(notif.alertId)
+    );
   });
 });

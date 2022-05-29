@@ -16,6 +16,7 @@ import NewFilterModal from "./NewFilterModal";
 import { setCustomFilterAlertList } from "../../redux/actions/CustomFilterAction";
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import { PatternInterface } from "../../interfaces/PatternInterface";
+import { filterPatternList } from "../../redux/actions/PatternAction";
 
 interface FilterProps {
   header: string;
@@ -114,7 +115,7 @@ const FilterDropdown = ({
           "aria-labelledby": "basic-button",
         }}
         onClose={handleDropdownClose}
-        sx={{ height: "314px", width: "250px" }}
+        sx={{ height: "314px", width: "210px" }}
       >
         <MenuItem
           sx={{
@@ -136,7 +137,7 @@ const FilterDropdown = ({
         </MenuItem>
         {filterToRender.map((elem: any) => {
           return (
-            <MenuItem sx={{ width: "176px", zIndex: 0 }}>
+            <MenuItem sx={{ width: "210px", zIndex: 0 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -150,7 +151,7 @@ const FilterDropdown = ({
                   />
                 }
                 label={elem}
-                sx={{ width: "100%" }}
+                sx={{ width: "210px" }}
               />
             </MenuItem>
           );
@@ -175,6 +176,13 @@ const FilterDropdown = ({
                   setCustomFilterAlertList({
                     filterHeaders: header,
                     filterItems: [...checkedFilter],
+                  })
+                );
+              } else if (isPatternSearchFilter) {
+                dispatch(
+                  filterPatternList({
+                    filter_id: header,
+                    filters: [...checkedFilter],
                   })
                 );
               } else {

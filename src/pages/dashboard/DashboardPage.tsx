@@ -8,6 +8,7 @@ import SearchPatternsTable from "../../lib/SearchPatternTable/SearchPatternTable
 import SideSearchBar from "../../lib/SideSearchBar/SideSearchBar";
 import PageTabs from "../../lib/Tabs/Tabs";
 import { getAlertsList } from "../../redux/actions/AlertListAction";
+import { getPatternList } from "../../redux/actions/PatternAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./DashboardPage.module.css";
 
@@ -20,6 +21,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     dispatch(getAlertsList());
+    dispatch(getPatternList());
   }, []);
   return (
     <div id="main-page">

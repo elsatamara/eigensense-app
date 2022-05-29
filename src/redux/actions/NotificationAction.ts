@@ -69,3 +69,18 @@ export const filterByNotificationType = createAction<string>(
 export const filterByNotificationPeriod = createAction<string>(
   "FILTER_BY_NOTIFICATION_PERIOD"
 );
+
+export const deleteNotificationDb = createAsyncThunk(
+  "NotificationReducer/DeleteNotification",
+  async (notificationId: string) => {
+    console.log(notificationId);
+    await axiosServerRequest<any>(
+      Methods.DELETE,
+      `api/v1/delete_notification/${notificationId}`
+    );
+  }
+);
+
+export const deleteNotificationRedux = createAction<string[]>(
+  "DELETE_NOTIFICATION_REDUX"
+);

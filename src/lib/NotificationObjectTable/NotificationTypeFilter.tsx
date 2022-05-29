@@ -1,6 +1,8 @@
 import { Box, Button, Paper } from "@mui/material";
 import React from "react";
 import {
+  deleteNotificationDb,
+  deleteNotificationRedux,
   markReadDb,
   markReadRedux,
   markUnreadDb,
@@ -13,11 +15,13 @@ import styles from "./NotificationObjectTable.module.css";
 interface NotificationButtonProps {
   header: string;
   notificationSelected: string[];
+  onClose?: () => void;
 }
 
 const NotificationTypeButton = ({
   header,
   notificationSelected,
+  onClose,
 }: NotificationButtonProps) => {
   const dispatch = useAppDispatch();
   return (
@@ -32,6 +36,12 @@ const NotificationTypeButton = ({
         } else if (header == "Mark as unread") {
           dispatch(markUnreadDb(notificationSelected.join(",")));
           dispatch(markUnreadRedux(notificationSelected));
+        } else {
+          dispatch(deleteNotificationDb(notificationSelected.join(",")));
+          dispatch(deleteNotificationRedux(notificationSelected));
+          if (onClose) {
+            onClose();
+          }
         }
       }}
     >
@@ -42,9 +52,10 @@ const NotificationTypeButton = ({
 
 interface Props {
   notficationSelected: string[];
+  onClose?: () => void;
 }
 
-const NotificationStatusFilter = ({ notficationSelected }: Props) => {
+const NotificationStatusFilter = ({ notficationSelected, onClose }: Props) => {
   return (
     <Box
       sx={{
@@ -80,6 +91,7 @@ const NotificationStatusFilter = ({ notficationSelected }: Props) => {
           <NotificationTypeButton
             header={"Delete"}
             notificationSelected={notficationSelected}
+            onClose={onClose}
           />
         </div>
       </Paper>

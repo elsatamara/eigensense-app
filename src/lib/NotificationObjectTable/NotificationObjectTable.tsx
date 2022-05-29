@@ -86,30 +86,30 @@ const NotificationObjectTable = () => {
     setPage(0);
   };
 
-  const handleSelectNotificationClick = (alertId: string) => {
+  const handleSelectNotificationClick = (notificationId: string) => {
     var newNotification = [...notificationClicked];
-    newNotification.push(alertId);
+    newNotification.push(notificationId);
     setNotificationClicked(newNotification);
   };
 
-  const handleDeselectNotificationClick = (alertId: string) => {
+  const handleDeselectNotificationClick = (notificationId: string) => {
     var newNotification = [...notificationClicked];
     newNotification = newNotification.filter(
-      (notification) => notification !== alertId
+      (notification) => notification !== notificationId
     );
     setNotificationClicked(newNotification);
   };
 
   const handleSelectMarkAsImportantClick = (
     e: React.ChangeEvent<HTMLInputElement>,
-    alertId: string
+    notificationId: string
   ) => {
     if (e.target.checked) {
-      dispatch(selectMarkAsImportantDb(alertId));
-      dispatch(selectMarkAsImportantRedux([alertId]));
+      dispatch(selectMarkAsImportantDb(notificationId));
+      dispatch(selectMarkAsImportantRedux([notificationId]));
     } else {
-      dispatch(deselectMarkAsImportantDb(alertId));
-      dispatch(selectMarkAsUnimportantRedux([alertId]));
+      dispatch(deselectMarkAsImportantDb(notificationId));
+      dispatch(selectMarkAsUnimportantRedux([notificationId]));
     }
   };
 
@@ -141,11 +141,17 @@ const NotificationObjectTable = () => {
       return value;
     }
   }
+
   return (
     <div>
       <NotificationTableHeader />
       {notificationClicked.length > 0 ? (
-        <NotificationTypeFilter notficationSelected={notificationClicked} />
+        <NotificationTypeFilter
+          notficationSelected={notificationClicked}
+          onClose={() => {
+            setNotificationClicked([]);
+          }}
+        />
       ) : (
         <></>
       )}

@@ -16,6 +16,7 @@ import styles from "./SideSearchBar.module.css";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import FilterDropdown from "../DashboardFilters/FilterDropdown";
 import { setSearchDrawerState } from "../../redux/actions/AlertListAction";
+import { getPatternList } from "../../redux/actions/PatternAction";
 
 const SideSearchBar = () => {
   const theme = useTheme();
@@ -81,7 +82,7 @@ const SideSearchBar = () => {
                 <h3>SEARCH PATTERNS</h3>
               </ListItem>
               <ListItem>
-                <CalendarPicker />
+                <CalendarPicker isPatternSearch />
               </ListItem>
               <ListItem>
                 <FilterDropdown header={"Location"} isPatternSearchFilter />
@@ -90,8 +91,14 @@ const SideSearchBar = () => {
                 <FilterDropdown header={"Regulator"} isPatternSearchFilter />
               </ListItem>
               <ListItem>
-                <Button>Reset All</Button>
-                <Button>Submit</Button>
+                <Button
+                  onClick={() => {
+                    dispatch(getPatternList());
+                  }}
+                >
+                  Reset All
+                </Button>
+                {/* <Button>Submit</Button> */}
               </ListItem>
             </>
           ) : (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "../../redux/hooks";
-import styles from "./AlertObjectTable.module.css";
+import styles from "./SearchPatternTable.module.css";
 import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
 import { useNavigate } from "react-router-dom";
 
@@ -52,6 +52,20 @@ const SearchPatternsTable = () => {
     setPage(0);
   };
 
+  const rows = useAppSelector((state) => state.patternList.patternList);
+
+  function setRowValue(columnID: string, patternId: string, value: any) {
+    if (columnID === "preview") {
+      return (
+        <div className={styles.preview}>
+          <img src={value} />
+        </div>
+      );
+    } else {
+      return value;
+    }
+  }
+
   return (
     <div>
       <Paper sx={{ width: "97.8%", overflow: "hidden", mx: 2 }}>
@@ -76,6 +90,28 @@ const SearchPatternsTable = () => {
                 })}
               </TableRow>
             </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell
+                            key={column.id}
+                            align="center"
+                            sx={{ p: 1 }}
+                          >
+                            {setRowValue(column.id, row.patternId, value)}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
           </Table>
         </TableContainer>
       </Paper>

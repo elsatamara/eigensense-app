@@ -7,12 +7,14 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { useAppDispatch } from "../../redux/hooks";
 import { filterAlertListByDate } from "../../redux/actions/AlertListAction";
 import { setCustomFilterAlertList } from "../../redux/actions/CustomFilterAction";
+import { filterPatternListByDate } from "../../redux/actions/PatternAction";
 
 interface Props {
   isCustomFilter?: boolean;
+  isPatternSearch?: boolean;
 }
 
-const CalendarPicker = ({ isCustomFilter }: Props) => {
+const CalendarPicker = ({ isCustomFilter, isPatternSearch }: Props) => {
   const currentDate = new Date();
   const dispatch = useAppDispatch();
   const [range, setRange] = React.useState<DateRange | undefined>(undefined);
@@ -97,6 +99,11 @@ const CalendarPicker = ({ isCustomFilter }: Props) => {
                   })
                 );
                 setAnchorEl(null);
+              } else if (isPatternSearch) {
+                console.log("here");
+                dispatch(
+                  filterPatternListByDate({ from: range?.from, to: range?.to })
+                );
               } else {
                 dispatch(
                   filterAlertListByDate({ from: range?.from, to: range?.to })

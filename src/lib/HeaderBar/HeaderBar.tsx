@@ -1,8 +1,8 @@
 import { AppBar, Box, Button, Menu, MenuItem, Toolbar } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import { storeRecentlyViewedItems } from "../../redux/actions/AgentActions";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Logo from "./logo.png";
 import styles from "./HeaderBar.module.css";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -11,6 +11,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useNavigate } from "react-router-dom";
+import { getNotificationList } from "../../redux/actions/NotificationAction";
+import LogoutModal from "../LogoutModal/LogoutModal";
 
 const UserProfileMenu = () => {
   const navigate = useNavigate();
@@ -24,6 +26,10 @@ const UserProfileMenu = () => {
     setEndArrow(<ArrowDropUpIcon />);
     setAnchorEl(event.currentTarget);
   };
+
+  const [isLogoutModalOpen, setLogoutModalOpen] =
+    React.useState<boolean>(false);
+
   const open = Boolean(anchorEl);
   return (
     <>
@@ -48,8 +54,17 @@ const UserProfileMenu = () => {
         >
           Your Profile
         </MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={() => setLogoutModalOpen(true)}>Logout</MenuItem>
       </Menu>
+      {isLogoutModalOpen ? (
+        <LogoutModal
+          onClose={() => {
+            setLogoutModalOpen(false);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -58,6 +73,14 @@ const NotificationList = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | SVGSVGElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getNotificationList());
+  }, []);
+
+  const notificationState = useAppSelector(
+    (state) => state.notificationList.notificationList
+  );
   return (
     <>
       <NotificationsNoneIcon
@@ -72,23 +95,28 @@ const NotificationList = () => {
         open={open}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem sx={{ width: "400px" }}>
-          <div className={styles.notificationList}>
-            <div className={styles.notificationHeader}>
-              October 13, 2021 05:23AM EST
-            </div>
-            <div className={styles.notificationText}>
-              Apple oranges boba matcha latte. This notification is to notify
-              the hungriness that persists most of the time.
-            </div>
-            <div className={styles.notificationLocationId}>
-              <div className={styles.notificationLocationIdText}>
-                San Francisco, CA
+        {notificationState.map((notif) => {
+          return (
+            <MenuItem sx={{ width: "400px" }}>
+              <div className={styles.notificationList}>
+                <div className={styles.notificationHeader}>
+                  {notif.date.slice(0, 21)}
+                </div>
+                <div className={styles.notificationText}>
+                  {notif.description.slice(0, 150)}
+                </div>
+                <div className={styles.notificationLocationId}>
+                  <div className={styles.notificationLocationIdText}>
+                    {notif.location}
+                  </div>
+                  <div className={styles.notificationLocationIdText}>
+                    {notif.alertId}
+                  </div>
+                </div>
               </div>
-              <div className={styles.notificationLocationIdText}>10012554</div>
-            </div>
-          </div>
-        </MenuItem>
+            </MenuItem>
+          );
+        })}
         <MenuItem sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             onClick={() => {

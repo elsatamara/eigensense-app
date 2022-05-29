@@ -15,6 +15,7 @@ export enum NotificationPeriod {
 export interface NotificationInterface {
   date: string;
   alertId: string;
+  notificationId: string;
   description: string;
   type: NotificationType;
   location: string;
