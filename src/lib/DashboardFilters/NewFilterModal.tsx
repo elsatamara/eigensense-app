@@ -34,6 +34,8 @@ const NewFilterModal = ({ onClose }: Props) => {
     onClose();
   };
 
+  const [newFilterName, setNewFilterName] = React.useState<string>("");
+
   const customFilterState: CustomFilterInterface = useAppSelector(
     (state) => state.customFilter
   );
@@ -42,7 +44,7 @@ const NewFilterModal = ({ onClose }: Props) => {
     dispatch(submitCustomFilterAlertList(customFilterState));
     dispatch(
       saveCustomFilterDb({
-        name: customFilterState.name,
+        name: newFilterName,
         agent: customFilterState.agent,
         location: customFilterState.location,
         queue: customFilterState.queue,
@@ -67,6 +69,9 @@ const NewFilterModal = ({ onClose }: Props) => {
           size="small"
           sx={{ m: 2, width: "176px" }}
           required
+          onChange={(e) => {
+            setNewFilterName(e.target.value);
+          }}
         />
         <div className={styles.filterDropdownContainer}>
           <CalendarPicker isCustomFilter />

@@ -34,6 +34,7 @@ const FilterDropdown = ({
 
   const alerts = JSON.parse(localStorage.getItem("alertList")!);
   const patterns = useAppSelector((state) => state.patternList.patternList);
+  const savedFilters = JSON.parse(sessionStorage.getItem("customFilterList")!);
 
   const alertList: AlertInterface[] | PatternInterface[] = isPatternSearchFilter
     ? patterns
@@ -41,7 +42,7 @@ const FilterDropdown = ({
 
   var filterToRender =
     header == "Saved Filter"
-      ? ["Apple", "Oranges"]
+      ? savedFilters.map((filter: any) => filter.name)
       : [
           ...new Set(
             alertList.map((alert: any) => alert[header.toLowerCase()])

@@ -8,10 +8,6 @@ import { getCustomFilterList } from "../../../redux/actions/CustomFilterAction";
 import NewFilterModal from "../../DashboardFilters/NewFilterModal";
 
 const CustomizedFiltersTab = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getCustomFilterList());
-  }, []);
   const [isCustomFilterModalOpen, setCustomFilterModalOpen] =
     React.useState(false);
   return (

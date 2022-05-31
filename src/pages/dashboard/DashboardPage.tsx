@@ -8,6 +8,7 @@ import SearchPatternsTable from "../../lib/SearchPatternTable/SearchPatternTable
 import SideSearchBar from "../../lib/SideSearchBar/SideSearchBar";
 import PageTabs from "../../lib/Tabs/Tabs";
 import { getAlertsList } from "../../redux/actions/AlertListAction";
+import { getCustomFilterList } from "../../redux/actions/CustomFilterAction";
 import { getPatternList } from "../../redux/actions/PatternAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./DashboardPage.module.css";
@@ -15,13 +16,19 @@ import styles from "./DashboardPage.module.css";
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
   const alertListState = useAppSelector((state) => state.alertList);
-  console.log("PRINTING STATE", alertListState.alerts);
+  const customFilterListState = useAppSelector(
+    (state) => state.customFilterList.customFilterList
+  );
 
   localStorage.setItem("alertList", JSON.stringify(alertListState.alerts));
-
+  sessionStorage.setItem(
+    "customFilterList",
+    JSON.stringify(customFilterListState)
+  );
   useEffect(() => {
     dispatch(getAlertsList());
     dispatch(getPatternList());
+    dispatch(getCustomFilterList());
   }, []);
 
   return (
