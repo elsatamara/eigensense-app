@@ -40,7 +40,18 @@ const NewFilterModal = ({ onClose }: Props) => {
 
   const handleSaveButton = () => {
     dispatch(submitCustomFilterAlertList(customFilterState));
-    dispatch(saveCustomFilterDb(customFilterState));
+    dispatch(
+      saveCustomFilterDb({
+        name: customFilterState.name,
+        agent: customFilterState.agent,
+        location: customFilterState.location,
+        queue: customFilterState.queue,
+        status: customFilterState.status,
+        type: customFilterState.status,
+        from: customFilterState.from,
+        to: customFilterState.to,
+      })
+    );
     dispatch(clearCustomFilterState());
     handleClose();
   };

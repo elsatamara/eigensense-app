@@ -36,18 +36,11 @@ export const deleteCustomFilterRedux = createAction<string>(
 
 export const saveCustomFilterDb = createAsyncThunk(
   "CustomFilterReducer/SaveCustomFilter",
-  async (params: CustomFilterInterface) => {
-    let name = params.name;
-    let location = params.location.join(",");
-    let agent = params.agent.join(",");
-    let queue = params.queue.join(",");
-    let status = params.status.join(",");
-    let type = params.type.join(",");
-    let from = params.from;
-    let to = params.to;
+  async (params: any) => {
+    let urlQuery = new URLSearchParams(params).toString();
     await axiosServerRequest<any>(
       Methods.POST,
-      `api/v1/post_new_filter/${name}/${location}/${agent}/${queue}/${status}/${type}/${from}/${to}`
+      `api/v1/post_new_filter/${urlQuery}`
     );
   }
 );
