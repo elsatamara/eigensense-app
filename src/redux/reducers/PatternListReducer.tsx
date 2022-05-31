@@ -21,8 +21,8 @@ export const patternList = createReducer(initialState, (builder) => {
     if (from !== undefined && to !== undefined) {
       state.patternList = state.patternList.filter(
         (pattern) =>
-          new Date(pattern.date).getTime() <= to!.getTime() &&
-          new Date(pattern.date).getTime() >= from!.getTime()
+          new Date(pattern.date).getTime() <= to! &&
+          new Date(pattern.date).getTime() >= from!
       );
     }
   });

@@ -2,7 +2,10 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import React from "react";
 import { CustomFilterInterface } from "../../interfaces/CustomFilterInterface";
 import { submitCustomFilterAlertList } from "../../redux/actions/AlertListAction";
-import { clearCustomFilterState } from "../../redux/actions/CustomFilterAction";
+import {
+  clearCustomFilterState,
+  saveCustomFilterDb,
+} from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import AlertTypeFilter from "./AlertTypeFilter";
@@ -37,6 +40,7 @@ const NewFilterModal = ({ onClose }: Props) => {
 
   const handleSaveButton = () => {
     dispatch(submitCustomFilterAlertList(customFilterState));
+    dispatch(saveCustomFilterDb(customFilterState));
     dispatch(clearCustomFilterState());
     handleClose();
   };

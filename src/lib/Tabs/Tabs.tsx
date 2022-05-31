@@ -1,11 +1,22 @@
 import React from "react";
-import { Drawer, List, ListItem, useTheme, Tab, Tabs } from "@mui/material";
+import {
+  Drawer,
+  List,
+  ListItem,
+  useTheme,
+  Tab,
+  Tabs,
+  Button,
+} from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import styles from "./Tabs.module.css";
 import clsx from "clsx";
 import SearchIcon from "@mui/icons-material/Search";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setSearchDrawerState } from "../../redux/actions/AlertListAction";
+import {
+  setSearchDrawerStateOpen,
+  setSearchDrawerStateClosed,
+} from "../../redux/actions/AlertListAction";
 
 const PageTabs = () => {
   const isDrawerOpen = useAppSelector((state) => state.alertList.isDrawerOpen);
@@ -14,17 +25,22 @@ const PageTabs = () => {
   return (
     <div>
       <div className={styles.tabsContainer}>
-        <Tabs
-          onChange={() => {
-            dispatch(setSearchDrawerState());
+        <Button
+          onClick={() => {
+            dispatch(setSearchDrawerStateClosed());
           }}
-          textColor="primary"
-          indicatorColor="primary"
-          aria-label="secondary tabs example"
+          sx={{ color: "#414141" }}
         >
-          <Tab value={false} label="Dashboard" />
-          <Tab value={!isDrawerOpen} label="Search Patterns" />
-        </Tabs>
+          Dashboard
+        </Button>
+        <Button
+          onClick={() => {
+            dispatch(setSearchDrawerStateOpen());
+          }}
+          sx={{ color: "#414141" }}
+        >
+          Search Patterns
+        </Button>
       </div>
     </div>
   );

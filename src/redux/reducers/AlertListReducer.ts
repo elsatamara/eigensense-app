@@ -2,10 +2,11 @@ import { createReducer } from "@reduxjs/toolkit";
 import { AlertListInterface } from "../../interfaces/AlertInterface";
 import {
   getAlertsList,
-  setSearchDrawerState,
+  setSearchDrawerStateOpen,
   filterAlertList,
   changeAlertStatus,
   filterAlertListByDate,
+  setSearchDrawerStateClosed,
 } from "../actions/AlertListAction";
 import { submitCustomFilterAlertList } from "../actions/AlertListAction";
 import { useAppSelector } from "../hooks";
@@ -21,8 +22,11 @@ export const alertList = createReducer(initialState, (builder) => {
     state.alerts = action.payload;
   });
   builder.addCase(getAlertsList.rejected, (state, action) => {});
-  builder.addCase(setSearchDrawerState, (state) => {
-    state.isDrawerOpen = !state.isDrawerOpen;
+  builder.addCase(setSearchDrawerStateOpen, (state) => {
+    state.isDrawerOpen = true;
+  });
+  builder.addCase(setSearchDrawerStateClosed, (state) => {
+    state.isDrawerOpen = false;
   });
   builder.addCase(filterAlertList, (state, action) => {
     let filter_id: string = action.payload.filter_id.toLowerCase();
@@ -45,8 +49,8 @@ export const alertList = createReducer(initialState, (builder) => {
     if (from !== undefined && to !== undefined) {
       state.alerts = state.alerts.filter(
         (alert) =>
-          new Date(alert.date).getTime() <= to!.getTime() &&
-          new Date(alert.date).getTime() >= from!.getTime()
+          new Date(alert.date).getTime() <= to! &&
+          new Date(alert.date).getTime() >= from!
       );
     }
   });
@@ -85,8 +89,8 @@ export const alertList = createReducer(initialState, (builder) => {
     if (from !== undefined && to !== undefined) {
       state.alerts = state.alerts.filter(
         (alert) =>
-          new Date(alert.date).getTime() <= to!.getTime() &&
-          new Date(alert.date).getTime() >= from!.getTime()
+          new Date(alert.date).getTime() <= to! &&
+          new Date(alert.date).getTime() >= from!
       );
     }
   });

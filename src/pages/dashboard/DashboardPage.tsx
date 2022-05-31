@@ -23,6 +23,7 @@ const DashboardPage = () => {
     dispatch(getAlertsList());
     dispatch(getPatternList());
   }, []);
+
   return (
     <div id="main-page">
       <div className={styles.headerContainer}>

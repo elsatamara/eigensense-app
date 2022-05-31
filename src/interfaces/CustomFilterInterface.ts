@@ -5,8 +5,8 @@ export interface CustomFilterInterface {
   queue: string[];
   status: string[];
   type: string[];
-  from: Date | undefined;
-  to: Date | undefined;
+  from: undefined | number;
+  to: undefined | number;
 }
 
 export interface CustomFilterListInterface {

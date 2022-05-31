@@ -21,7 +21,7 @@ export const customFilter = createReducer(initialState, (builder) => {
     let filterHeaders = action.payload.filterHeaders.toLowerCase();
     let filterItems = action.payload.filterItems;
     if (filterHeaders == "from" || filterHeaders == "to") {
-      state.filterHeaders = filterItems;
+      state[filterHeaders] = filterItems;
     } else {
       state[filterHeaders] = state[filterHeaders].concat(filterItems);
     }

@@ -14,8 +14,8 @@ export const getPatternList = createAsyncThunk(
 );
 
 export const filterPatternListByDate = createAction<{
-  from: Date | undefined;
-  to: Date | undefined;
+  from: number | undefined;
+  to: number | undefined;
 }>("FILTER_PATTERN_LIST_BY_DATE");
 
 export const filterPatternList = createAction<{

@@ -4,7 +4,7 @@ import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
 export const setCustomFilterAlertList = createAction<{
   filterHeaders: string;
-  filterItems: string[] | undefined | Date;
+  filterItems: string[] | undefined | number;
 }>("SET_CUSTOM_FILTER_ALERT_LIST");
 
 export const clearCustomFilterState = createAction("CLEAR_CUSTOM_FILTER_STATE");
@@ -32,4 +32,22 @@ export const deleteCustomFilter = createAsyncThunk(
 
 export const deleteCustomFilterRedux = createAction<string>(
   "DELETE_CUSTOM_FILTER"
+);
+
+export const saveCustomFilterDb = createAsyncThunk(
+  "CustomFilterReducer/SaveCustomFilter",
+  async (params: CustomFilterInterface) => {
+    let name = params.name;
+    let location = params.location.join(",");
+    let agent = params.agent.join(",");
+    let queue = params.queue.join(",");
+    let status = params.status.join(",");
+    let type = params.type.join(",");
+    let from = params.from;
+    let to = params.to;
+    await axiosServerRequest<any>(
+      Methods.POST,
+      `api/v1/post_new_filter/${name}/${location}/${agent}/${queue}/${status}/${type}/${from}/${to}`
+    );
+  }
 );

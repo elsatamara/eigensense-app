@@ -89,24 +89,29 @@ const CalendarPicker = ({ isCustomFilter, isPatternSearch }: Props) => {
                 dispatch(
                   setCustomFilterAlertList({
                     filterHeaders: "from",
-                    filterItems: range?.from,
+                    filterItems: range?.from?.getTime(),
                   })
                 );
                 dispatch(
                   setCustomFilterAlertList({
                     filterHeaders: "to",
-                    filterItems: range?.to,
+                    filterItems: range?.to?.getTime(),
                   })
                 );
                 setAnchorEl(null);
               } else if (isPatternSearch) {
-                console.log("here");
                 dispatch(
-                  filterPatternListByDate({ from: range?.from, to: range?.to })
+                  filterPatternListByDate({
+                    from: range?.from?.getTime(),
+                    to: range?.to?.getTime(),
+                  })
                 );
               } else {
                 dispatch(
-                  filterAlertListByDate({ from: range?.from, to: range?.to })
+                  filterAlertListByDate({
+                    from: range?.from?.getTime(),
+                    to: range?.to?.getTime(),
+                  })
                 );
               }
             }}

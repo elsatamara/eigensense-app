@@ -15,7 +15,10 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./SideSearchBar.module.css";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import FilterDropdown from "../DashboardFilters/FilterDropdown";
-import { setSearchDrawerState } from "../../redux/actions/AlertListAction";
+import {
+  setSearchDrawerStateOpen,
+  setSearchDrawerStateClosed,
+} from "../../redux/actions/AlertListAction";
 import { getPatternList } from "../../redux/actions/PatternAction";
 
 const SideSearchBar = () => {
@@ -76,7 +79,7 @@ const SideSearchBar = () => {
             <>
               <ListItem
                 onClick={() => {
-                  dispatch(setSearchDrawerState());
+                  dispatch(setSearchDrawerStateClosed());
                 }}
               >
                 <h3>SEARCH PATTERNS</h3>
@@ -106,7 +109,7 @@ const SideSearchBar = () => {
               <ListItem
                 style={{ display: "flex", justifyContent: "center" }}
                 onClick={() => {
-                  dispatch(setSearchDrawerState());
+                  dispatch(setSearchDrawerStateOpen());
                 }}
               >
                 <SearchIcon fontSize="medium" />

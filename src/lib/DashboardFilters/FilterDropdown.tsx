@@ -32,7 +32,7 @@ const FilterDropdown = ({
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [endArrow, setEndArrow] = React.useState(<KeyboardArrowDownIcon />);
 
-  const alerts = useAppSelector((state) => state.alertList.alerts);
+  const alerts = JSON.parse(localStorage.getItem("alertList")!);
   const patterns = useAppSelector((state) => state.patternList.patternList);
 
   const alertList: AlertInterface[] | PatternInterface[] = isPatternSearchFilter
