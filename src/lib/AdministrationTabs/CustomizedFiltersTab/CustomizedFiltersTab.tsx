@@ -10,6 +10,10 @@ import NewFilterModal from "../../DashboardFilters/NewFilterModal";
 const CustomizedFiltersTab = () => {
   const [isCustomFilterModalOpen, setCustomFilterModalOpen] =
     React.useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getCustomFilterList());
+  }, []);
   return (
     <div className={styles.customizedFilterTabContainer}>
       <div className={styles.customizedFiltersTabHeaderContainer}>

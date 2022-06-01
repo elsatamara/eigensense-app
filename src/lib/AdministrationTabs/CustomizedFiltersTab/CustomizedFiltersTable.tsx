@@ -28,7 +28,9 @@ const columns: readonly Column[] = [
 const CustomizedFiltersTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const rows = JSON.parse(sessionStorage.getItem("customFilterList")!);
+  const rows = useAppSelector(
+    (state) => state.customFilterList.customFilterList
+  );
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };

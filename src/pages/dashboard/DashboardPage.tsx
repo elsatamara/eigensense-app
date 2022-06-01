@@ -16,15 +16,9 @@ import styles from "./DashboardPage.module.css";
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
   const alertListState = useAppSelector((state) => state.alertList);
-  const customFilterListState = useAppSelector(
-    (state) => state.customFilterList.customFilterList
-  );
 
   localStorage.setItem("alertList", JSON.stringify(alertListState.alerts));
-  sessionStorage.setItem(
-    "customFilterList",
-    JSON.stringify(customFilterListState)
-  );
+
   useEffect(() => {
     dispatch(getAlertsList());
     dispatch(getPatternList());
