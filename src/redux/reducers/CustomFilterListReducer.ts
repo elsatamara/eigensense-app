@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { CustomFilterListInterface } from "../../interfaces/CustomFilterInterface";
 import {
   deleteCustomFilterRedux,
+  editCustomFilterRedux,
   getCustomFilterList,
 } from "../actions/CustomFilterAction";
 
@@ -17,5 +18,14 @@ export const customFilterList = createReducer(initialState, (builder) => {
     state.customFilterList = state.customFilterList.filter(
       (filter) => filter.name != action.payload
     );
+  });
+  builder.addCase(editCustomFilterRedux, (state, action) => {
+    let filterId = action.payload.customFilterId;
+    let newName = action.payload.newName;
+    state.customFilterList.forEach((filter) => {
+      if (filter.customFilterId == filterId) {
+        filter.name = newName;
+      }
+    });
   });
 });

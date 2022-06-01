@@ -122,7 +122,10 @@ const CustomizedFiltersTable = () => {
         </Table>
       </TableContainer>
       {isCustomFilterModalOpen ? (
-        <NewFilterModal onClose={() => setCustomFilterModalOpen(false)} />
+        <NewFilterModal
+          onClose={() => setCustomFilterModalOpen(false)}
+          isEditFilterModal
+        />
       ) : (
         <></>
       )}

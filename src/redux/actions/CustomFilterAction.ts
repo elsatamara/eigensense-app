@@ -44,3 +44,19 @@ export const saveCustomFilterDb = createAsyncThunk(
     );
   }
 );
+
+export const editCustomFilterDb = createAsyncThunk(
+  "CustomFilterReducer/EditCustomFilter",
+  async (params: any) => {
+    let urlQuery = new URLSearchParams(params).toString();
+    await axiosServerRequest<any>(
+      Methods.POST,
+      `api/v1/edit_filter/${urlQuery}`
+    );
+  }
+);
+
+export const editCustomFilterRedux = createAction<{
+  customFilterId: string;
+  newName: string;
+}>("EDIT_CUSTOM_FILTER_REDUX");

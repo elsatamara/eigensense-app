@@ -4,6 +4,8 @@ import { CustomFilterInterface } from "../../interfaces/CustomFilterInterface";
 import { submitCustomFilterAlertList } from "../../redux/actions/AlertListAction";
 import {
   clearCustomFilterState,
+  editCustomFilterDb,
+  editCustomFilterRedux,
   saveCustomFilterDb,
 } from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -12,21 +14,12 @@ import AlertTypeFilter from "./AlertTypeFilter";
 import styles from "./AllFilters.module.css";
 import FilterDropdown from "./FilterDropdown";
 
-const AlertStatusDropdown = () => {
-  return (
-    <form>
-      <select>
-        <option>Alert Status</option>
-      </select>
-    </form>
-  );
-};
-
 interface Props {
   onClose: () => void;
+  isEditFilterModal?: boolean;
 }
 
-const NewFilterModal = ({ onClose }: Props) => {
+const NewFilterModal = ({ onClose, isEditFilterModal }: Props) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = React.useState(true);
   const handleClose = () => {
@@ -57,10 +50,39 @@ const NewFilterModal = ({ onClose }: Props) => {
     dispatch(clearCustomFilterState());
     handleClose();
   };
+
+  const handleEditButton = () => {
+    dispatch(
+      editCustomFilterRedux({
+        newName: newFilterName,
+        customFilterId: customFilterState.customFilterId!,
+      })
+    );
+    dispatch(
+      editCustomFilterDb({
+        name: newFilterName,
+        agent: customFilterState.agent,
+        location: customFilterState.location,
+        queue: customFilterState.queue,
+        status: customFilterState.status,
+        type: customFilterState.status,
+        from: customFilterState.from,
+        to: customFilterState.to,
+        customFilterId: customFilterState.customFilterId,
+      })
+    );
+    dispatch(clearCustomFilterState());
+    handleClose();
+  };
+
   return (
     <Modal open={modalOpen} onClose={handleClose}>
       <Box className={styles.newFilterModal} sx={{ p: 3.5 }}>
-        <div className={styles.modalHeader}>Create Custom Filter</div>
+        {!isEditFilterModal ? (
+          <div className={styles.modalHeader}>Create Custom Filter</div>
+        ) : (
+          <div className={styles.modalHeader}>Edit Custom Filter</div>
+        )}
         <hr></hr>
         <TextField
           id="new-filter-name"
@@ -109,7 +131,15 @@ const NewFilterModal = ({ onClose }: Props) => {
             sx={{ m: 1, mr: 3.5, mt: 2 }}
             variant="contained"
             disableElevation
-            onClick={handleSaveButton}
+            onClick={
+              isEditFilterModal
+                ? () => {
+                    handleEditButton();
+                  }
+                : () => {
+                    handleSaveButton();
+                  }
+            }
           >
             Save
           </Button>
