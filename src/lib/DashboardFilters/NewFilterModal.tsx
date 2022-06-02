@@ -1,5 +1,5 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CustomFilterInterface,
   CustomFilterListInterface,
@@ -11,6 +11,7 @@ import {
   editCustomFilterRedux,
   saveCustomFilterDb,
   saveCustomFilterRedux,
+  setInitialStateRedux,
 } from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
@@ -45,6 +46,17 @@ const NewFilterModal = ({
   const customFilterListState: CustomFilterInterface[] = useAppSelector(
     (state) => state.customFilterList.customFilterList
   );
+
+  const filterSelected: CustomFilterInterface | undefined =
+    customFilterListState.find(
+      (filter) => filter.customFilterId === filterToEdit
+    );
+
+  useEffect(() => {
+    if (isEditFilterModal) {
+      dispatch(setInitialStateRedux(filterSelected!));
+    }
+  }, []);
 
   const [newFilterName, setNewFilterName] = React.useState<string>(
     filterNameToEdit!
@@ -81,27 +93,23 @@ const NewFilterModal = ({
   };
 
   const handleEditButton = () => {
-    const filterSelected: CustomFilterInterface | undefined =
-      customFilterListState.find(
-        (filter) => filter.customFilterId === filterToEdit
-      )!;
     dispatch(
       editCustomFilterRedux({
         newName: newFilterName,
-        customFilterId: filterSelected.customFilterId!,
+        customFilterId: customFilterState.customFilterId!,
       })
     );
     dispatch(
       editCustomFilterDb({
         name: newFilterName,
-        agent: filterSelected.agent,
-        location: filterSelected.location,
-        queue: filterSelected.queue,
-        status: filterSelected.status,
-        type: filterSelected.status,
-        from: filterSelected.from,
-        to: filterSelected.to,
-        customFilterId: filterSelected.customFilterId,
+        agent: customFilterState.agent,
+        location: customFilterState.location,
+        queue: customFilterState.queue,
+        status: customFilterState.status,
+        type: customFilterState.status,
+        from: customFilterState.from,
+        to: customFilterState.to,
+        customFilterId: filterSelected!.customFilterId,
       })
     );
     dispatch(clearCustomFilterState());

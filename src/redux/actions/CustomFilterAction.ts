@@ -49,6 +49,10 @@ export const saveCustomFilterRedux = createAction<CustomFilterInterface>(
   "SAVE_CUSTOM_FILTER_REDUX"
 );
 
+export const setInitialStateRedux = createAction<CustomFilterInterface>(
+  "SET_INITIAL_STATE_REDUX"
+);
+
 export const editCustomFilterDb = createAsyncThunk(
   "CustomFilterReducer/EditCustomFilter",
   async (params: any) => {
