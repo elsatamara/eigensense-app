@@ -48,7 +48,9 @@ const CustomizedFiltersTable = () => {
   const [isDeleteFilterModalOpen, setDeleteFilterModalOpen] =
     React.useState(false);
 
-  const [filterToDelete, setFilterToDelete] = React.useState<string>("");
+  const [filterNameToDelete, setFilterNameToDelete] =
+    React.useState<string>("");
+  const [filterIdToDelete, setFilterIdToDelete] = React.useState<string>("");
   const [filterToEdit, setFilterToEdit] = React.useState<string>("");
 
   return (
@@ -102,7 +104,8 @@ const CustomizedFiltersTable = () => {
                               sx={{ color: "#778CA2" }}
                               onClick={() => {
                                 setDeleteFilterModalOpen(true);
-                                setFilterToDelete(row.customFilterId);
+                                setFilterIdToDelete(row.customFilterId);
+                                setFilterNameToDelete(row.name);
                               }}
                             />
                           </TableCell>
@@ -136,10 +139,12 @@ const CustomizedFiltersTable = () => {
       )}
       {isDeleteFilterModalOpen ? (
         <DeleteFilterModal
-          filterName={filterToDelete}
+          filterName={filterNameToDelete}
+          filterId={filterIdToDelete}
           onClose={() => {
             setDeleteFilterModalOpen(false);
-            setFilterToDelete("");
+            setFilterNameToDelete("");
+            setFilterIdToDelete("");
           }}
         />
       ) : (

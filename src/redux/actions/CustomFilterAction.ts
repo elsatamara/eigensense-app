@@ -22,10 +22,10 @@ export const getCustomFilterList = createAsyncThunk(
 
 export const deleteCustomFilter = createAsyncThunk(
   "CustomFilterListReducer/DeleteCustomFilter",
-  async (name: string) => {
+  async (filterid: string) => {
     await axiosServerRequest<any>(
       Methods.POST,
-      `api/v1/delete_custom_filter/${name}`
+      `api/v1/delete_custom_filter/${filterid}`
     );
   }
 );

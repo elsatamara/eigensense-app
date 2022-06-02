@@ -9,10 +9,11 @@ import styles from "./CustomizedFiltersTab.module.css";
 
 interface Props {
   filterName: string;
+  filterId: string;
   onClose: () => void;
 }
 
-const DeleteFilterModal = ({ filterName, onClose }: Props) => {
+const DeleteFilterModal = ({ filterName, onClose, filterId }: Props) => {
   const [modalOpen, setModalOpen] = React.useState(true);
 
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ const DeleteFilterModal = ({ filterName, onClose }: Props) => {
   };
 
   const handleConfirmDelete = () => {
-    dispatch(deleteCustomFilter(filterName));
+    dispatch(deleteCustomFilter(filterId));
     dispatch(deleteCustomFilterRedux(filterName));
     handleCloseModal();
   };
