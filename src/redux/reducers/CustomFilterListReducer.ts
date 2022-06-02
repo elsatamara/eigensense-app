@@ -4,6 +4,7 @@ import {
   deleteCustomFilterRedux,
   editCustomFilterRedux,
   getCustomFilterList,
+  saveCustomFilterRedux,
 } from "../actions/CustomFilterAction";
 
 const initialState: CustomFilterListInterface = {
@@ -27,5 +28,8 @@ export const customFilterList = createReducer(initialState, (builder) => {
         filter.name = newName;
       }
     });
+  });
+  builder.addCase(saveCustomFilterRedux, (state, action) => {
+    state.customFilterList.push(action.payload);
   });
 });

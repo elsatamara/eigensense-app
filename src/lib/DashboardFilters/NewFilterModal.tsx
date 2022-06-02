@@ -1,12 +1,16 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import React from "react";
-import { CustomFilterInterface } from "../../interfaces/CustomFilterInterface";
+import {
+  CustomFilterInterface,
+  CustomFilterListInterface,
+} from "../../interfaces/CustomFilterInterface";
 import { submitCustomFilterAlertList } from "../../redux/actions/AlertListAction";
 import {
   clearCustomFilterState,
   editCustomFilterDb,
   editCustomFilterRedux,
   saveCustomFilterDb,
+  saveCustomFilterRedux,
 } from "../../redux/actions/CustomFilterAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
@@ -17,9 +21,14 @@ import FilterDropdown from "./FilterDropdown";
 interface Props {
   onClose: () => void;
   isEditFilterModal?: boolean;
+  filterToEdit?: string;
 }
 
-const NewFilterModal = ({ onClose, isEditFilterModal }: Props) => {
+const NewFilterModal = ({
+  onClose,
+  isEditFilterModal,
+  filterToEdit,
+}: Props) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = React.useState(true);
   const handleClose = () => {
@@ -31,6 +40,10 @@ const NewFilterModal = ({ onClose, isEditFilterModal }: Props) => {
 
   const customFilterState: CustomFilterInterface = useAppSelector(
     (state) => state.customFilter
+  );
+
+  const customFilterListState: CustomFilterInterface[] = useAppSelector(
+    (state) => state.customFilterList.customFilterList
   );
 
   const handleSaveButton = () => {
@@ -47,19 +60,8 @@ const NewFilterModal = ({ onClose, isEditFilterModal }: Props) => {
         to: customFilterState.to,
       })
     );
-    dispatch(clearCustomFilterState());
-    handleClose();
-  };
-
-  const handleEditButton = () => {
     dispatch(
-      editCustomFilterRedux({
-        newName: newFilterName,
-        customFilterId: customFilterState.customFilterId!,
-      })
-    );
-    dispatch(
-      editCustomFilterDb({
+      saveCustomFilterRedux({
         name: newFilterName,
         agent: customFilterState.agent,
         location: customFilterState.location,
@@ -68,7 +70,34 @@ const NewFilterModal = ({ onClose, isEditFilterModal }: Props) => {
         type: customFilterState.status,
         from: customFilterState.from,
         to: customFilterState.to,
-        customFilterId: customFilterState.customFilterId,
+      })
+    );
+    dispatch(clearCustomFilterState());
+    handleClose();
+  };
+
+  const handleEditButton = () => {
+    const filterSelected: CustomFilterInterface = customFilterListState.find(
+      (filter) => filter.customFilterId === filterToEdit
+    )!;
+
+    dispatch(
+      editCustomFilterRedux({
+        newName: newFilterName,
+        customFilterId: filterSelected.customFilterId!,
+      })
+    );
+    dispatch(
+      editCustomFilterDb({
+        name: newFilterName,
+        agent: filterSelected.agent,
+        location: filterSelected.location,
+        queue: filterSelected.queue,
+        status: filterSelected.status,
+        type: filterSelected.status,
+        from: filterSelected.from,
+        to: filterSelected.to,
+        customFilterId: filterSelected.customFilterId,
       })
     );
     dispatch(clearCustomFilterState());

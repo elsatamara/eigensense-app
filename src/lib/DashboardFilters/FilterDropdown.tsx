@@ -2,7 +2,10 @@ import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AddIcon from "@mui/icons-material/Add";
-import { filterAlertList } from "../../redux/actions/AlertListAction";
+import {
+  filterAlertList,
+  submitCustomFilterAlertList,
+} from "../../redux/actions/AlertListAction";
 import {
   Button,
   Checkbox,
@@ -17,6 +20,10 @@ import { setCustomFilterAlertList } from "../../redux/actions/CustomFilterAction
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import { PatternInterface } from "../../interfaces/PatternInterface";
 import { filterPatternList } from "../../redux/actions/PatternAction";
+import {
+  CustomFilterInterface,
+  CustomFilterListInterface,
+} from "../../interfaces/CustomFilterInterface";
 
 interface FilterProps {
   header: string;
@@ -32,7 +39,7 @@ const FilterDropdown = ({
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [endArrow, setEndArrow] = React.useState(<KeyboardArrowDownIcon />);
 
-  const alerts = JSON.parse(localStorage.getItem("alertList")!);
+  const alerts = useAppSelector((state) => state.alertList.alerts);
   const patterns = useAppSelector((state) => state.patternList.patternList);
   const savedFilters = useAppSelector(
     (state) => state.customFilterList.customFilterList
@@ -44,10 +51,13 @@ const FilterDropdown = ({
 
   var filterToRender =
     header == "Saved Filter"
-      ? savedFilters.map((filter: any) => filter.name)
+      ? savedFilters.map((filter: any) => [filter.name, filter.customFilterId])
       : [
           ...new Set(
-            alertList.map((alert: any) => alert[header.toLowerCase()])
+            alertList.map((alert: any) => [
+              alert[header.toLowerCase()],
+              alert[header.toLowerCase()],
+            ])
           ),
         ];
 
@@ -66,6 +76,15 @@ const FilterDropdown = ({
   const open = Boolean(anchorEl);
   let placeholder: string = "Type " + header + "...";
   const dispatch = useAppDispatch();
+
+  const handleSubmitCustomFilter = () => {
+    const filters: CustomFilterInterface[] = savedFilters.filter((elem) =>
+      checkedFilter.has(elem.customFilterId!)
+    );
+    filters.forEach((elem) => {
+      dispatch(submitCustomFilterAlertList(elem));
+    });
+  };
 
   const CreateNewButton = () => {
     const [isNewFilterModalOpen, setIsNewFilterModalOpen] =
@@ -146,14 +165,14 @@ const FilterDropdown = ({
                   <Checkbox
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
-                        checkedFilter.add(elem);
+                        checkedFilter.add(elem[1]);
                       } else {
-                        checkedFilter.delete(elem);
+                        checkedFilter.delete(elem[1]);
                       }
                     }}
                   />
                 }
-                label={elem}
+                label={elem[0]}
                 sx={{ width: "210px" }}
               />
             </MenuItem>
@@ -189,12 +208,16 @@ const FilterDropdown = ({
                   })
                 );
               } else {
-                dispatch(
-                  filterAlertList({
-                    filter_id: header,
-                    filters: [...checkedFilter],
-                  })
-                );
+                if (header === "Saved Filter") {
+                  handleSubmitCustomFilter();
+                } else {
+                  dispatch(
+                    filterAlertList({
+                      filter_id: header,
+                      filters: [...checkedFilter],
+                    })
+                  );
+                }
               }
               handleDropdownClose();
             }}

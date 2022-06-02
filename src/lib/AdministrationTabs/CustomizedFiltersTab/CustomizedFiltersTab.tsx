@@ -6,6 +6,7 @@ import CustomizedFiltersTable from "./CustomizedFiltersTable";
 import { useAppDispatch } from "../../../redux/hooks";
 import { getCustomFilterList } from "../../../redux/actions/CustomFilterAction";
 import NewFilterModal from "../../DashboardFilters/NewFilterModal";
+import { getAlertsList } from "../../../redux/actions/AlertListAction";
 
 const CustomizedFiltersTab = () => {
   const [isCustomFilterModalOpen, setCustomFilterModalOpen] =
@@ -13,6 +14,7 @@ const CustomizedFiltersTab = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getCustomFilterList());
+    dispatch(getAlertsList());
   }, []);
   return (
     <div className={styles.customizedFilterTabContainer}>

@@ -45,6 +45,10 @@ export const saveCustomFilterDb = createAsyncThunk(
   }
 );
 
+export const saveCustomFilterRedux = createAction<CustomFilterInterface>(
+  "SAVE_CUSTOM_FILTER_REDUX"
+);
+
 export const editCustomFilterDb = createAsyncThunk(
   "CustomFilterReducer/EditCustomFilter",
   async (params: any) => {

@@ -12,8 +12,8 @@ const initialState: CustomFilterInterface = {
   queue: [],
   status: [],
   type: [],
-  from: undefined,
-  to: undefined,
+  from: null,
+  to: null,
 };
 
 export const customFilter = createReducer(initialState, (builder) => {
@@ -32,5 +32,7 @@ export const customFilter = createReducer(initialState, (builder) => {
     state.queue = [];
     state.status = [];
     state.type = [];
+    state.from = null;
+    state.to = null;
   });
 });
