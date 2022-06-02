@@ -22,12 +22,14 @@ interface Props {
   onClose: () => void;
   isEditFilterModal?: boolean;
   filterToEdit?: string;
+  filterNameToEdit?: string;
 }
 
 const NewFilterModal = ({
   onClose,
   isEditFilterModal,
   filterToEdit,
+  filterNameToEdit,
 }: Props) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = React.useState(true);
@@ -36,14 +38,16 @@ const NewFilterModal = ({
     onClose();
   };
 
-  const [newFilterName, setNewFilterName] = React.useState<string>("");
-
   const customFilterState: CustomFilterInterface = useAppSelector(
     (state) => state.customFilter
   );
 
   const customFilterListState: CustomFilterInterface[] = useAppSelector(
     (state) => state.customFilterList.customFilterList
+  );
+
+  const [newFilterName, setNewFilterName] = React.useState<string>(
+    filterNameToEdit!
   );
 
   const handleSaveButton = () => {
@@ -77,10 +81,10 @@ const NewFilterModal = ({
   };
 
   const handleEditButton = () => {
-    const filterSelected: CustomFilterInterface = customFilterListState.find(
-      (filter) => filter.customFilterId === filterToEdit
-    )!;
-
+    const filterSelected: CustomFilterInterface | undefined =
+      customFilterListState.find(
+        (filter) => filter.customFilterId === filterToEdit
+      )!;
     dispatch(
       editCustomFilterRedux({
         newName: newFilterName,

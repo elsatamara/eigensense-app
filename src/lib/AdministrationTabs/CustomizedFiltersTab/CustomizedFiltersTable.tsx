@@ -52,6 +52,7 @@ const CustomizedFiltersTable = () => {
     React.useState<string>("");
   const [filterIdToDelete, setFilterIdToDelete] = React.useState<string>("");
   const [filterToEdit, setFilterToEdit] = React.useState<string>("");
+  const [filterNameToEdit, setFilterNameToEdit] = React.useState<string>("");
 
   return (
     <div>
@@ -97,6 +98,7 @@ const CustomizedFiltersTable = () => {
                               onClick={() => {
                                 setCustomFilterModalOpen(true);
                                 setFilterToEdit(row.customFilterId);
+                                setFilterNameToEdit(row.name);
                               }}
                             />
                             <DeleteOutlineIcon
@@ -133,6 +135,7 @@ const CustomizedFiltersTable = () => {
           onClose={() => setCustomFilterModalOpen(false)}
           isEditFilterModal
           filterToEdit={filterToEdit}
+          filterNameToEdit={filterNameToEdit}
         />
       ) : (
         <></>
