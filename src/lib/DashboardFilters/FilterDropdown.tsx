@@ -75,13 +75,10 @@ const FilterDropdown = ({
   const dispatch = useAppDispatch();
 
   const handleSubmitCustomFilter = () => {
-    const filters: CustomFilterInterface[] = savedFilters.filter((elem) =>
-      checkedFilter.has(elem.customFilterId!)
-    );
-
-    filters.forEach((elem) => {
-      dispatch(submitCustomFilterAlertList(elem));
-    });
+    const filter: CustomFilterInterface = savedFilters.find(
+      (elem) => elem.customFilterId === [...checkedFilter][0]
+    )!;
+    dispatch(submitCustomFilterAlertList(filter));
   };
 
   const CreateNewButton = () => {
