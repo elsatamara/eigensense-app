@@ -56,29 +56,31 @@ export const alertList = createReducer(initialState, (builder) => {
   });
   builder.addCase(submitCustomFilterAlertList, (state, action) => {
     const customFilterState = action.payload;
+    console.log("customFilterPayload", customFilterState);
 
-    if (customFilterState.location != []) {
+    if (customFilterState.location[0] !== "") {
       state.alerts = state.alerts.filter((alert) =>
         customFilterState.location.includes(alert.location)
       );
+      console.log(state.alerts);
     }
-    if (customFilterState.agent.length > 0) {
+    if (customFilterState.agent[0] !== "") {
       state.alerts = state.alerts.filter((alert) =>
         customFilterState.agent.includes(alert.agentName)
       );
     }
-    if (customFilterState.queue.length > 0) {
+    if (customFilterState.queue[0] !== "") {
       state.alerts = state.alerts.filter((alert) =>
         customFilterState.queue.includes(alert.alertQueue)
       );
     }
-    if (customFilterState.type.length > 0) {
+    if (customFilterState.type[0] !== "") {
       state.alerts = state.alerts.filter((alert) =>
         customFilterState.type.includes(alert.alertType)
       );
     }
 
-    if (customFilterState.status.length > 0) {
+    if (customFilterState.status[0] !== "") {
       state.alerts = state.alerts.filter((alert) =>
         customFilterState.status.includes(alert.status)
       );
@@ -86,7 +88,7 @@ export const alertList = createReducer(initialState, (builder) => {
 
     let from = customFilterState.from;
     let to = customFilterState.to;
-    if (from !== undefined && to !== undefined) {
+    if (from !== null && to !== null) {
       state.alerts = state.alerts.filter(
         (alert) =>
           new Date(alert.date).getTime() <= to! &&

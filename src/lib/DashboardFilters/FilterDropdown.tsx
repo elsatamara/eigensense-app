@@ -54,10 +54,7 @@ const FilterDropdown = ({
       ? savedFilters.map((filter: any) => [filter.name, filter.customFilterId])
       : [
           ...new Set(
-            alertList.map((alert: any) => [
-              alert[header.toLowerCase()],
-              alert[header.toLowerCase()],
-            ])
+            alertList.map((alert: any) => alert[header.toLowerCase()])
           ),
         ];
 
@@ -81,6 +78,7 @@ const FilterDropdown = ({
     const filters: CustomFilterInterface[] = savedFilters.filter((elem) =>
       checkedFilter.has(elem.customFilterId!)
     );
+
     filters.forEach((elem) => {
       dispatch(submitCustomFilterAlertList(elem));
     });
@@ -165,14 +163,22 @@ const FilterDropdown = ({
                   <Checkbox
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
-                        checkedFilter.add(elem[1]);
+                        {
+                          header === "Saved Filter"
+                            ? checkedFilter.add(elem[1])
+                            : checkedFilter.add(elem);
+                        }
                       } else {
-                        checkedFilter.delete(elem[1]);
+                        {
+                          header === "Saved Filter"
+                            ? checkedFilter.delete(elem[1])
+                            : checkedFilter.delete(elem);
+                        }
                       }
                     }}
                   />
                 }
-                label={elem[0]}
+                label={header === "Saved Filter" ? elem[0] : elem}
                 sx={{ width: "210px" }}
               />
             </MenuItem>

@@ -8,11 +8,11 @@ import {
 
 const initialState: CustomFilterInterface = {
   name: "",
-  location: [],
-  agent: [],
-  queue: [],
-  status: [],
-  type: [],
+  location: [""],
+  agent: [""],
+  queue: [""],
+  status: [""],
+  type: [""],
   from: null,
   to: null,
 };
@@ -25,15 +25,16 @@ export const customFilter = createReducer(initialState, (builder) => {
       state[filterHeaders] = filterItems;
       console.log(state[filterHeaders]);
     } else {
+      state[filterHeaders].shift();
       state[filterHeaders] = state[filterHeaders].concat(filterItems);
     }
   });
   builder.addCase(clearCustomFilterState, (state, action) => {
-    state.location = [];
-    state.agent = [];
-    state.queue = [];
-    state.status = [];
-    state.type = [];
+    state.location = [""];
+    state.agent = [""];
+    state.queue = [""];
+    state.status = [""];
+    state.type = [""];
     state.from = null;
     state.to = null;
   });
