@@ -7,7 +7,10 @@ import SearchPatternsHeader from "../../lib/SearchPatternsHeader/SearchPatternsH
 import SearchPatternsTable from "../../lib/SearchPatternTable/SearchPatternTable";
 import SideSearchBar from "../../lib/SideSearchBar/SideSearchBar";
 import PageTabs from "../../lib/Tabs/Tabs";
-import { getAlertsList } from "../../redux/actions/AlertListAction";
+import {
+  changeAgent,
+  getAlertsList,
+} from "../../redux/actions/AlertListAction";
 import { getCustomFilterList } from "../../redux/actions/CustomFilterAction";
 import { getPatternList } from "../../redux/actions/PatternAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -23,6 +26,7 @@ const DashboardPage = () => {
     dispatch(getAlertsList());
     dispatch(getPatternList());
     dispatch(getCustomFilterList());
+    // dispatch(changeAgent());
   }, []);
 
   return (

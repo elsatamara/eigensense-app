@@ -5,6 +5,7 @@ import ChartSingleAlert from "../../lib/ChartSingleAlert/ChartSingleAlert";
 import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
 import NavigatorRemote from "../../lib/NavigatorRemote/NavigatorRemote";
+import NavigatorRemoteDemo from "../../lib/NavigatorRemote/NavigatorRemoteDemo";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
 import NotesTable from "../../lib/NotesTable/NotesTable";
 import RecentlyViewedTable from "../../lib/RecentlyViewedTable/RecentlyViewedTable";
@@ -66,12 +67,13 @@ const SingleAlertPage = () => {
             location={alertObject.location}
           />
           <SingleAlertChartHeader
-            alertType="Sulfur"
-            keyAttributes="...."
-            date={new Date()}
+            alertType={alertObject.alertType}
+            keyAttributes={alertObject.keyAttribute}
+            date={new Date(alertObject.date)}
           />
           <ChartSingleAlert />
-          <NavigatorRemote />
+          <NavigatorRemoteDemo />
+          <div className={styles.clearDiv}></div>
         </div>
         <div className={styles.chartTableContainer}>
           <NextPreviousAlertButton previous={prevAlert} next={nextAlert} />

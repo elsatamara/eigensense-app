@@ -16,7 +16,6 @@ const ChartSingleAlert = () => {
 
   useEffect(() => {
     const getChartData = async () => {
-      console.log("i fireee");
       await dispatch(getChartDataAction());
       setLoading(false);
     };

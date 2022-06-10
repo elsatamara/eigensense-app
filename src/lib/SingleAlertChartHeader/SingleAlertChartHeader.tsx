@@ -44,7 +44,7 @@ const SingleAlertChartHeader = ({ alertType, keyAttributes, date }: Props) => {
               {headers.map((header) => {
                 return (
                   <TableCell sx={{ borderBottom: "none", pt: 3.75, pb: 0.25 }}>
-                    {header}
+                    <h3>{header}</h3>
                   </TableCell>
                 );
               })}
@@ -55,7 +55,7 @@ const SingleAlertChartHeader = ({ alertType, keyAttributes, date }: Props) => {
               {row.map((r) => {
                 return (
                   <TableCell sx={{ borderBottom: "none", pt: 0.25, pb: 3.75 }}>
-                    {r}
+                    <h3>{r}</h3>
                   </TableCell>
                 );
               })}
