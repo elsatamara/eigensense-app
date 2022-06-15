@@ -1,4 +1,3 @@
-import { Tab } from "@headlessui/react";
 import {
   Box,
   Button,
@@ -10,15 +9,20 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
-import styles from "./SingleAlertChartHeader.module.css";
 
 interface Props {
   alertType: string;
   keyAttributes: string;
   date: Date;
+  runSimilarSearch: () => void;
 }
 
-const SingleAlertChartHeader = ({ alertType, keyAttributes, date }: Props) => {
+const SingleAlertChartHeader = ({
+  alertType,
+  keyAttributes,
+  date,
+  runSimilarSearch,
+}: Props) => {
   const headers = ["Alert Type", "Key Attributes", "Date", "Time", "Agent"];
   const row = [
     alertType,
@@ -62,10 +66,15 @@ const SingleAlertChartHeader = ({ alertType, keyAttributes, date }: Props) => {
             </TableRow>
           </TableBody>
         </Table>
-        <Button variant="contained" sx={{ height: 34, width: 300, m: 5 }}>
+        <Button
+          variant="contained"
+          sx={{ height: 34, width: 300, m: 5 }}
+          onClick={() => {
+            runSimilarSearch();
+          }}
+        >
           Run Similar Search
         </Button>
-        {/* </div> */}
       </Paper>
     </Box>
   );

@@ -9,6 +9,7 @@ import NavigatorRemoteDemo from "../../lib/NavigatorRemote/NavigatorRemoteDemo";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
 import NotesTable from "../../lib/NotesTable/NotesTable";
 import RecentlyViewedTable from "../../lib/RecentlyViewedTable/RecentlyViewedTable";
+import SimilarSearchWindow from "../../lib/SimilarSearchWindow/SimilarSearchWindow";
 import SingleAlertChartHeader from "../../lib/SingleAlertChartHeader/SingleAlertChartHeader";
 import SingleAlertPageHeader from "../../lib/SingleAlertPageHeader/SingleAlertPageHeader";
 import PageTabs from "../../lib/Tabs/Tabs";
@@ -54,6 +55,9 @@ const SingleAlertPage = () => {
   const prevAlert: AlertInterface = alertListStored[alertObjectIndex - 1];
   const nextAlert: AlertInterface = alertListStored[alertObjectIndex + 1];
 
+  const [runSimilarSearch, setRunSimilarSearch] =
+    React.useState<boolean>(false);
+
   return (
     <div className={styles.mainPage}>
       <HeaderBar />
@@ -70,8 +74,12 @@ const SingleAlertPage = () => {
             alertType={alertObject.alertType}
             keyAttributes={alertObject.keyAttribute}
             date={new Date(alertObject.date)}
+            runSimilarSearch={() => {
+              setRunSimilarSearch(!runSimilarSearch);
+            }}
           />
           <ChartSingleAlert />
+          {runSimilarSearch ? <SimilarSearchWindow /> : <></>}
           <NavigatorRemoteDemo />
           <div className={styles.clearDiv}></div>
         </div>

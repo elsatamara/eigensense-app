@@ -1,0 +1,9 @@
+.preview {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  height: 75px;
+  width: 150px;
+}

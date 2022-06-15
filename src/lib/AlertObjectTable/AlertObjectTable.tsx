@@ -48,8 +48,8 @@ const columns: readonly Column[] = [
   { id: "patternName", label: "Alert Name", minWidth: 50 },
   { id: "preview", label: "Preview", minWidth: 100 },
   { id: "date", label: "Date", minWidth: 50 },
-  { id: "startTime", label: "Start Time", minWidth: 50 },
-  { id: "eventStarts", label: "Event Start", minWidth: 50 },
+  { id: "date", label: "Start Time", minWidth: 50 },
+  { id: "date", label: "Event Start", minWidth: 50 },
   { id: "keyAttribute", label: "Key Attribute", minWidth: 50 },
   { id: "alertType", label: "Alert Type", minWidth: 50 },
   { id: "location", label: "Location", minWidth: 50 },
@@ -89,7 +89,12 @@ const AlertObjectTable = () => {
     setAlertClicked(newAlertClicked);
   };
 
-  function setRowValue(columnID: string, patternId: string, value?: any) {
+  function setRowValue(
+    columnID: string,
+    patternId: string,
+    columnLabel: string,
+    value?: any
+  ) {
     if (columnID === "preview") {
       return (
         <div className={styles.preview}>
@@ -121,6 +126,13 @@ const AlertObjectTable = () => {
           }}
         />
       );
+    } else if (
+      columnID === "date" &&
+      (columnLabel === "Start Time" || columnLabel === "Event Start")
+    ) {
+      return value.slice(11, 16);
+    } else if (columnID === "date" && columnLabel === "Date") {
+      return value.slice(0, 10);
     } else {
       return value;
     }
@@ -208,7 +220,11 @@ const AlertObjectTable = () => {
                                 backgroundColor: "#f7fafb",
                               }}
                             >
-                              {setRowValue(column.id, row.patternId)}
+                              {setRowValue(
+                                column.id,
+                                row.patternId,
+                                column.label
+                              )}
                             </TableCell>
                           );
                         } else {
@@ -222,7 +238,12 @@ const AlertObjectTable = () => {
                                 navigate(`/single-alert/${row.patternId}`);
                               }}
                             >
-                              {setRowValue(column.id, row.patternId, value)}
+                              {setRowValue(
+                                column.id,
+                                row.patternId,
+                                column.label,
+                                value
+                              )}
                             </TableCell>
                           );
                         }

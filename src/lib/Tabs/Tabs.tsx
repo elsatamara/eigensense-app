@@ -1,17 +1,6 @@
 import React from "react";
-import {
-  Drawer,
-  List,
-  ListItem,
-  useTheme,
-  Tab,
-  Tabs,
-  Button,
-} from "@mui/material";
-import { makeStyles, createStyles } from "@mui/styles";
+import { Button } from "@mui/material";
 import styles from "./Tabs.module.css";
-import clsx from "clsx";
-import SearchIcon from "@mui/icons-material/Search";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   setSearchDrawerStateOpen,

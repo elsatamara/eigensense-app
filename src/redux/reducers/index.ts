@@ -6,6 +6,7 @@ import { customFilter } from "./CustomFilterReducer";
 import { notesList } from "./NotesReducer";
 import { notificationList } from "./NotificationListReducer";
 import { patternList } from "./PatternListReducer";
+import { similarPatternList } from "./SimilarPatternReducer";
 
 export const rootReducer = {
   reducer: {
@@ -17,5 +18,6 @@ export const rootReducer = {
     notificationList,
     agentList,
     customFilterList,
+    similarPatternList,
   },
 };

@@ -46,7 +46,7 @@ const LogoutModal = ({ onClose }: Props) => {
             variant="contained"
             disableElevation
             onClick={() => {
-              navigate("/dashboard");
+              navigate("/");
               onClose();
             }}
           >

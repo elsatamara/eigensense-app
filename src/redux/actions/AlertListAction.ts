@@ -51,7 +51,3 @@ export const filterAlertListByDate = createAction<{
 export const submitCustomFilterAlertList = createAction<CustomFilterInterface>(
   "SUBMIT_CUSTOM_FILTER_ALERT_LIST"
 );
-
-export const changeAgent = createAsyncThunk("RRR/RRR", async () => {
-  await axiosServerRequest<any>(Methods.POST, `api/v1/change_agent`);
-});

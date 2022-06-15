@@ -5,12 +5,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./SearchPatternTable.module.css";
-import AlertStatusObject from "../AlertStatusObject/AlertStatusObject";
-import { useNavigate } from "react-router-dom";
 
 interface Column {
   id:
@@ -32,7 +29,7 @@ const columns: readonly Column[] = [
   { id: "patternName", label: "Pattern Name", minWidth: 50 },
   { id: "preview", label: "Preview", minWidth: 100 },
   { id: "date", label: "Date", minWidth: 50 },
-  { id: "startTime", label: "Start Time", minWidth: 50 },
+  { id: "date", label: "Start Time", minWidth: 50 },
   { id: "location", label: "Location", minWidth: 50 },
   { id: "regulator", label: "Regulator", minWidth: 50 },
 ];
@@ -54,13 +51,22 @@ const SearchPatternsTable = () => {
 
   const rows = useAppSelector((state) => state.patternList.patternList);
 
-  function setRowValue(columnID: string, patternId: string, value: any) {
+  function setRowValue(
+    columnID: string,
+    patternId: string,
+    columnLabel: string,
+    value: any
+  ) {
     if (columnID === "preview") {
       return (
         <div className={styles.preview}>
           <img src={value} />
         </div>
       );
+    } else if (columnID === "date" && columnLabel === "Date") {
+      return value.slice(0, 10);
+    } else if (columnID === "date" && columnLabel === "Start Time") {
+      return value.slice(11, 16);
     } else {
       return value;
     }
@@ -104,7 +110,12 @@ const SearchPatternsTable = () => {
                             align="center"
                             sx={{ p: 1 }}
                           >
-                            {setRowValue(column.id, row.patternId, value)}
+                            {setRowValue(
+                              column.id,
+                              row.patternId,
+                              column.label,
+                              value
+                            )}
                           </TableCell>
                         );
                       })}

@@ -10,12 +10,12 @@ import {
   TextField,
 } from "@mui/material";
 import styles from "./LoginPage.module.css";
-import { textTransform } from "@mui/system";
-import { Translate } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginEmail, setLoginEmail] = React.useState<string>("");
   const [loginPassword, setLoginPassword] = React.useState<string>("");
+  const navigate = useNavigate();
   return (
     <div className={styles.parentContainer}>
       <div className={styles.leftColumn}>
@@ -32,7 +32,7 @@ const LoginPage = () => {
           alt="Your logo."
           src={Logo}
         />
-        {/* <img src={LoginImage} className={styles.bgImage} /> */}
+        <img src={LoginImage} className={styles.bgImage} />
       </div>
       <div className={styles.rightColumn}>
         <div className={styles.loginBox}>
@@ -86,6 +86,9 @@ const LoginPage = () => {
                 sx={{ width: "360px" }}
                 variant="contained"
                 disableElevation
+                onClick={() => {
+                  navigate(`/dashboard`);
+                }}
               >
                 Sign in
               </Button>

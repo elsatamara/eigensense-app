@@ -24,7 +24,12 @@ const MoreFilterPicker = () => {
   return (
     <Box p={2} pt={0} pb={0.25}>
       <Paper
-        sx={{ height: "80px", alignContent: "center", display: "flex" }}
+        sx={{
+          height: "80px",
+          alignContent: "center",
+          display: "flex",
+          minWidth: "1300px",
+        }}
         elevation={0}
       >
         <div className={styles.dropdownsContainer}>
