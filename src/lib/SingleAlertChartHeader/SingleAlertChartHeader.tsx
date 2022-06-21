@@ -31,6 +31,8 @@ const SingleAlertChartHeader = ({
     date.toTimeString().slice(0, 5),
     "Agent",
   ];
+  const [isRunSimilarSearchOpen, setIsRunSimilarSearchOpen] =
+    React.useState<boolean>(false);
   return (
     <Box sx={{ mx: 1.5, p: 1, mt: 0, pt: 0, pb: 0.5 }}>
       <Paper
@@ -66,15 +68,37 @@ const SingleAlertChartHeader = ({
             </TableRow>
           </TableBody>
         </Table>
-        <Button
-          variant="contained"
-          sx={{ height: 34, width: 300, m: 5 }}
-          onClick={() => {
-            runSimilarSearch();
-          }}
-        >
-          Run Similar Search
-        </Button>
+        {isRunSimilarSearchOpen ? (
+          <Button
+            variant="contained"
+            sx={{
+              height: 34,
+              width: 300,
+              m: 5,
+              backgroundColor: "red",
+              "&.MuiButtonBase-root:hover": {
+                bgcolor: "red",
+              },
+            }}
+            onClick={() => {
+              runSimilarSearch();
+              setIsRunSimilarSearchOpen(false);
+            }}
+          >
+            Close Similar Search
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            sx={{ height: 34, width: 300, m: 5 }}
+            onClick={() => {
+              runSimilarSearch();
+              setIsRunSimilarSearchOpen(true);
+            }}
+          >
+            Run Similar Search
+          </Button>
+        )}
       </Paper>
     </Box>
   );
