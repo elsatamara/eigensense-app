@@ -7,6 +7,9 @@ export interface SimilarPatternInterface {
   startTime: Date;
   location: string;
   regulator: string;
+  agent: string;
+  alertType: string;
+  keyAttribute: string;
 }
 
 export interface SimilarPatternListInterface {

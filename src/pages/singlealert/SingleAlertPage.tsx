@@ -1,10 +1,10 @@
-import { alertTitleClasses, Box, Paper } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
 import ChartSingleAlert from "../../lib/ChartSingleAlert/ChartSingleAlert";
+import CompareAlertDrawer from "../../lib/CompareAlertDrawer/CompareAlertDrawer";
 import FooterBar from "../../lib/FooterBar/FooterBar";
 import HeaderBar from "../../lib/HeaderBar/HeaderBar";
-import NavigatorRemote from "../../lib/NavigatorRemote/NavigatorRemote";
 import NavigatorRemoteDemo from "../../lib/NavigatorRemote/NavigatorRemoteDemo";
 import NextPreviousAlertButton from "../../lib/NextPreviousAlertButton/NextPreviousAlertButton";
 import NotesTable from "../../lib/NotesTable/NotesTable";
@@ -13,8 +13,6 @@ import SimilarSearchWindow from "../../lib/SimilarSearchWindow/SimilarSearchWind
 import SingleAlertChartHeader from "../../lib/SingleAlertChartHeader/SingleAlertChartHeader";
 import SingleAlertPageHeader from "../../lib/SingleAlertPageHeader/SingleAlertPageHeader";
 import PageTabs from "../../lib/Tabs/Tabs";
-import { getChartDataAction } from "../../redux/actions/ChartActions";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./SingleAlertPage.module.css";
 
 const SingleAlertPage = () => {
@@ -89,6 +87,7 @@ const SingleAlertPage = () => {
           <NotesTable patternId={patternId} />
         </div>
       </div>
+
       <FooterBar />
     </div>
   );

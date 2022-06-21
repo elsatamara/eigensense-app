@@ -1,18 +1,9 @@
 import React from "react";
-import {
-  Drawer,
-  List,
-  ListItem,
-  useTheme,
-  Tab,
-  Tabs,
-  Button,
-} from "@mui/material";
+import { Drawer, List, ListItem, useTheme, Button } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import styles from "./SideSearchBar.module.css";
 import CalendarPicker from "../CalendarPicker/CalendarPicker";
 import FilterDropdown from "../DashboardFilters/FilterDropdown";
 import {
@@ -101,7 +92,6 @@ const SideSearchBar = () => {
                 >
                   Reset All
                 </Button>
-                {/* <Button>Submit</Button> */}
               </ListItem>
             </>
           ) : (

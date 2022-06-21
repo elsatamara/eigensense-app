@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { SimilarPatternListInterface } from "../../interfaces/SimilarPattern";
+import { SimilarPatternListInterface } from "../../interfaces/SimilarPatternInterface";
 import { getSimilarPatternList } from "../actions/SimilarPatternAction";
 
 const initialState: SimilarPatternListInterface = {

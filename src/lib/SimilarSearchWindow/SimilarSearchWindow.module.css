@@ -1,3 +1,10 @@
 .similarSearchWindowText {
   margin-bottom: 0.75rem;
 }
+
+.dropdownsContainer {
+  margin-bottom: 0.5rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}

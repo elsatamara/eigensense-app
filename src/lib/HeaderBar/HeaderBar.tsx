@@ -154,6 +154,7 @@ const HeaderBar = () => {
         bgcolor: "#202c34",
         height: "70px",
         minWidth: "800px",
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
       elevation={0}
     >

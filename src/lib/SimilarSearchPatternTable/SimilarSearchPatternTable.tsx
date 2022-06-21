@@ -13,6 +13,8 @@ import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlin
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./SimilarSearchPatternTable.module.css";
+import { SimilarPatternInterface } from "../../interfaces/SimilarPatternInterface";
+import { PatternInterface } from "../../interfaces/PatternInterface";
 
 interface Column {
   id:
@@ -36,8 +38,8 @@ const columns: readonly Column[] = [
     label: <IndeterminateCheckBoxOutlinedIcon />,
     minWidth: 50,
   },
-  { id: "patternId", label: "Alert ID", minWidth: 50 },
-  { id: "patternName", label: "Alert Name", minWidth: 50 },
+  { id: "patternId", label: "Pattern ID", minWidth: 50 },
+  { id: "patternName", label: "Pattern Name", minWidth: 50 },
   { id: "preview", label: "Preview", minWidth: 100 },
   { id: "matchScore", label: "Match Score", minWidth: 50 },
   { id: "date", label: "Date", minWidth: 50 },
@@ -46,52 +48,56 @@ const columns: readonly Column[] = [
   { id: "regulator", label: "Regulator", minWidth: 50 },
 ];
 
-const SimilarSearchPatternTable = () => {
+interface Props {
+  onCompareButtonClicked: (patternToCompare: SimilarPatternInterface[]) => void;
+}
+
+const SimilarSearchPatternTable = ({ onCompareButtonClicked }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const [patternClicked, setPatternClicked] = React.useState<
+    SimilarPatternInterface[]
+  >([]);
+  const handleSelectPatternClick = (
+    similarPattern: SimilarPatternInterface
   ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const [patternClicked, setPatternClicked] = React.useState<string[]>([]);
-
-  const handleSelectPatternClick = (patternId: string) => {
     var newPatternClicked = [...patternClicked];
-    newPatternClicked.push(patternId);
+    newPatternClicked.push(similarPattern);
     setPatternClicked(newPatternClicked);
   };
 
-  const handleDeselectPatternClick = (patternId: string) => {
+  const handleDeselectPatternClick = (
+    similarPattern: SimilarPatternInterface
+  ) => {
     var newPatternClicked = [...patternClicked];
     newPatternClicked = newPatternClicked.filter(
-      (alert) => alert !== patternId
+      (pattern) => pattern !== similarPattern
     );
     setPatternClicked(newPatternClicked);
   };
 
-  function setRowValue(columnID: string, patternId: string, value?: any) {
+  function setRowValue(
+    similarPattern: SimilarPatternInterface,
+    columnID: string,
+    value?: any
+  ) {
     if (columnID === "checkBox") {
-      return !patternClicked.includes(patternId) ? (
+      return !patternClicked.includes(similarPattern) ? (
         <CheckBoxOutlineBlankOutlinedIcon
           onClick={() => {
-            handleSelectPatternClick(patternId);
+            handleSelectPatternClick(similarPattern);
           }}
         />
       ) : (
         <CheckBoxOutlinedIcon
           onClick={() => {
-            handleDeselectPatternClick(patternId);
+            handleDeselectPatternClick(similarPattern);
           }}
         />
       );
+    } else if (columnID === "preview") {
+      return <img src={value} />;
     } else {
       return value;
     }
@@ -155,7 +161,13 @@ const SimilarSearchPatternTable = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow>
+                  <TableRow
+                    sx={{
+                      backgroundColor: patternClicked.includes(row)
+                        ? "#f3fdf7"
+                        : "white",
+                    }}
+                  >
                     {columns.map((column) => {
                       if (column.id == "checkBox") {
                         return (
@@ -169,7 +181,7 @@ const SimilarSearchPatternTable = () => {
                               backgroundColor: "#f7fafb",
                             }}
                           >
-                            {setRowValue(column.id, row.patternId)}
+                            {setRowValue(row, column.id)}
                           </TableCell>
                         );
                       } else {
@@ -180,7 +192,7 @@ const SimilarSearchPatternTable = () => {
                             align="center"
                             sx={{ p: 1 }}
                           >
-                            {setRowValue(column.id, row.patternId, value)}
+                            {setRowValue(row, column.id, value)}
                           </TableCell>
                         );
                       }
@@ -209,7 +221,14 @@ const SimilarSearchPatternTable = () => {
           </Button>
         )}
 
-        <Button variant="contained" size="small" sx={{ m: 1 }}>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{ m: 1 }}
+          onClick={() => {
+            onCompareButtonClicked(patternClicked);
+          }}
+        >
           Compare
         </Button>
       </div>

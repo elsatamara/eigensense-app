@@ -1,6 +1,7 @@
 import { agentList } from "./AgentReducer";
 import { alertList } from "./AlertListReducer";
 import { chart } from "./ChartReducer";
+import { compareChart } from "./CompareChartReducer";
 import { customFilterList } from "./CustomFilterListReducer";
 import { customFilter } from "./CustomFilterReducer";
 import { notesList } from "./NotesReducer";
@@ -19,5 +20,6 @@ export const rootReducer = {
     agentList,
     customFilterList,
     similarPatternList,
+    compareChart,
   },
 };
