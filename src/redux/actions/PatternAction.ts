@@ -21,4 +21,4 @@ export const filterPatternListByDate = createAction<{
 export const filterPatternList = createAction<{
   filter_id: string;
   filters: Array<string>;
-}>("FILTER_ALERT_LIST");
+}>("FILTER_PATTERN_LIST");

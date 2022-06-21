@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AddIcon from "@mui/icons-material/Add";
@@ -24,17 +24,21 @@ import {
   CustomFilterInterface,
   CustomFilterListInterface,
 } from "../../interfaces/CustomFilterInterface";
+import { SimilarPatternInterface } from "../../interfaces/SimilarPatternInterface";
+import { filterSimilarPatternList } from "../../redux/actions/SimilarPatternAction";
 
 interface FilterProps {
   header: string;
   isCustomFilter?: boolean;
   isPatternSearchFilter?: boolean;
+  isSimilarPatternFilter?: boolean;
 }
 
 const FilterDropdown = ({
   header,
   isCustomFilter,
   isPatternSearchFilter,
+  isSimilarPatternFilter,
 }: FilterProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [endArrow, setEndArrow] = React.useState(<KeyboardArrowDownIcon />);
@@ -44,10 +48,18 @@ const FilterDropdown = ({
   const savedFilters = useAppSelector(
     (state) => state.customFilterList.customFilterList
   );
+  const similarPatterns = useAppSelector(
+    (state) => state.similarPatternList.similarPatternList
+  );
 
-  const alertList: AlertInterface[] | PatternInterface[] = isPatternSearchFilter
-    ? patterns
-    : alerts;
+  let alertList:
+    | AlertInterface[]
+    | PatternInterface[]
+    | SimilarPatternInterface[] = isPatternSearchFilter ? patterns : alerts;
+
+  if (isSimilarPatternFilter) {
+    alertList = similarPatterns;
+  }
 
   var filterToRender =
     header == "Saved Filter"
@@ -58,7 +70,23 @@ const FilterDropdown = ({
           ),
         ];
 
+  const [filterToRenderState, setFilterToRenderState] =
+    React.useState(filterToRender);
   const [textfieldValue, setTextfieldValue] = React.useState<string>("");
+
+  useEffect(() => {
+    let itemRegex = new RegExp(textfieldValue, "i");
+    if (textfieldValue.length > 0) {
+      let newItems = [...filterToRenderState].filter((item) =>
+        itemRegex.test(item)
+      );
+      console.log("new items", newItems);
+      setFilterToRenderState(newItems);
+    } else if (textfieldValue.length === 0) {
+      setFilterToRenderState([...filterToRender]);
+    }
+  }, [textfieldValue]);
+
   let checkedFilter = new Set<string>();
   const handleDropdownClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setEndArrow(<KeyboardArrowUpIcon />);
@@ -68,7 +96,6 @@ const FilterDropdown = ({
     setAnchorEl(null);
     setEndArrow(<KeyboardArrowDownIcon />);
   };
-  const handleMenuItemChange = () => {};
 
   const open = Boolean(anchorEl);
   let placeholder: string = "Type " + header + "...";
@@ -144,15 +171,18 @@ const FilterDropdown = ({
             backgroundColor: "white",
             zIndex: 2,
           }}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+          }}
         >
           <TextField
             placeholder={placeholder}
             size="small"
             value={textfieldValue}
-            // onChange={(e) => handleTextFieldChange(e)}
+            onChange={(e) => setTextfieldValue(e.target.value)}
           />
         </MenuItem>
-        {filterToRender.map((elem: any) => {
+        {filterToRenderState.map((elem: any) => {
           return (
             <MenuItem sx={{ width: "210px", zIndex: 0 }}>
               <FormControlLabel
@@ -206,6 +236,13 @@ const FilterDropdown = ({
               } else if (isPatternSearchFilter) {
                 dispatch(
                   filterPatternList({
+                    filter_id: header,
+                    filters: [...checkedFilter],
+                  })
+                );
+              } else if (isSimilarPatternFilter) {
+                dispatch(
+                  filterSimilarPatternList({
                     filter_id: header,
                     filters: [...checkedFilter],
                   })

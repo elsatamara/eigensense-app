@@ -1,6 +1,5 @@
 import { Box, Button, Paper } from "@mui/material";
 import React, { useEffect } from "react";
-import { PatternInterface } from "../../interfaces/PatternInterface";
 import { SimilarPatternInterface } from "../../interfaces/SimilarPatternInterface";
 import { getSimilarPatternList } from "../../redux/actions/SimilarPatternAction";
 import { useAppDispatch } from "../../redux/hooks";
@@ -10,6 +9,7 @@ import CompareAlertDrawer from "../CompareAlertDrawer/CompareAlertDrawer";
 import FilterDropdown from "../DashboardFilters/FilterDropdown";
 import SimilarSearchPatternTable from "../SimilarSearchPatternTable/SimilarSearchPatternTable";
 import styles from "./SimilarSearchWindow.module.css";
+import CachedOutlinedIcon from "@mui/icons-material/CachedOutlined";
 
 const SimilarSearchWindow = () => {
   const dispatch = useAppDispatch();
@@ -44,10 +44,19 @@ const SimilarSearchWindow = () => {
           ) : (
             <>
               <div className={styles.dropdownsContainer}>
-                <FilterDropdown header={"Location"} />
-                <FilterDropdown header={"Regulator"} />
-                <FilterDropdown header={"Match Score"} />
-                <FilterDropdown header={"Algorithm"} />
+                <FilterDropdown header={"Location"} isSimilarPatternFilter />
+                <FilterDropdown header={"Regulator"} isSimilarPatternFilter />
+                <FilterDropdown header={"Match Score"} isSimilarPatternFilter />
+                <FilterDropdown header={"Algorithm"} isSimilarPatternFilter />
+                <Button
+                  id="resetFilter"
+                  onClick={() => {
+                    dispatch(getSimilarPatternList());
+                  }}
+                >
+                  <CachedOutlinedIcon fontSize="small" sx={{ mr: 0.5 }} />
+                  Reset All Filters
+                </Button>
               </div>
               <SimilarSearchPatternTable
                 onCompareButtonClicked={(

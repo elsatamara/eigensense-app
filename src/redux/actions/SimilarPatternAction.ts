@@ -12,3 +12,8 @@ export const getSimilarPatternList = createAsyncThunk(
     return res.data;
   }
 );
+
+export const filterSimilarPatternList = createAction<{
+  filter_id: string;
+  filters: Array<string>;
+}>("FILTER_SIMILAR_PATTERN_LIST");
