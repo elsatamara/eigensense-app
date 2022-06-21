@@ -61,14 +61,26 @@ const FilterDropdown = ({
     alertList = similarPatterns;
   }
 
-  var filterToRender =
-    header == "Saved Filter"
-      ? savedFilters.map((filter: any) => [filter.name, filter.customFilterId])
-      : [
-          ...new Set(
-            alertList.map((alert: any) => alert[header.toLowerCase()])
-          ),
-        ];
+  let filterToRender: any;
+
+  if (header === "Saved Filter") {
+    filterToRender = savedFilters.map((filter: any) => [
+      filter.name,
+      filter.customFilterId,
+    ]);
+  } else if (header === "Queue") {
+    filterToRender = [
+      ...new Set(alertList.map((alert: any) => alert.alertQueue)),
+    ];
+  } else if (header === "Agent") {
+    filterToRender = [
+      ...new Set(alertList.map((alert: any) => alert.agentName)),
+    ];
+  } else {
+    filterToRender = [
+      ...new Set(alertList.map((alert: any) => alert[header.toLowerCase()])),
+    ];
+  }
 
   const [filterToRenderState, setFilterToRenderState] =
     React.useState(filterToRender);
@@ -80,7 +92,6 @@ const FilterDropdown = ({
       let newItems = [...filterToRenderState].filter((item) =>
         itemRegex.test(item)
       );
-      console.log("new items", newItems);
       setFilterToRenderState(newItems);
     } else if (textfieldValue.length === 0) {
       setFilterToRenderState([...filterToRender]);
