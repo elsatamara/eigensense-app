@@ -6,11 +6,16 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  OutlinedInput,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import EditIcon from "@mui/icons-material/Edit";
 import AgentStatusObject from "./AgentStatusObject";
+import SearchIcon from "@mui/icons-material/Search";
+import AgentTypeStatusDropdownMenu from "./AgentTypeStatusDropdownMenu";
+import styles from "./UserManagement.module.css";
+import { AgentInterface } from "../../../interfaces/AgentInterface";
 
 interface Column {
   id:
@@ -43,7 +48,31 @@ const columns: readonly Column[] = [
 const AgentListTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const rows = useAppSelector((state) => state.agentList.agentList);
+  const rowState = useAppSelector((state) => state.agentList.agentList);
+
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+
+  const [rows, setRows] = React.useState<AgentInterface[]>(rowState);
+
+  useEffect(() => {
+    setRows(rowState);
+  }, [rowState]);
+
+  useEffect(() => {
+    const agentRegex = new RegExp(searchQuery, "i");
+    if (searchQuery.length > 0) {
+      const newAgentList = [...rows].filter(
+        (agent) =>
+          agentRegex.test(agent.firstName) ||
+          agentRegex.test(agent.lastName) ||
+          agentRegex.test(agent.agentId)
+      );
+      setRows(newAgentList);
+    } else if (searchQuery.length === 0) {
+      setRows([...rowState]);
+    }
+  }, [searchQuery]);
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -55,73 +84,100 @@ const AgentListTable = () => {
     setPage(0);
   };
   return (
-    <TableContainer sx={{ width: "1040px" }}>
-      <Table stickyHeader sx={{ backgroundColor: "#FAFAFA" }}>
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => {
-              return (
-                <TableCell
-                  key={column.id}
-                  align="center"
-                  sx={{
-                    minWidth: column.minWidth,
-                    borderBottom: "none",
-                    zIndex: 1,
-                    backgroundColor: "#FAFAFA",
-                  }}
-                >
-                  <h3>{column.label}</h3>
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => {
-              return (
-                <TableRow>
-                  {columns.map((column) => {
-                    if (column.id == "actions") {
-                      return (
-                        <TableCell key={column.id} align="center" sx={{ p: 1 }}>
-                          <EditIcon
-                            fontSize="small"
-                            sx={{ color: "#4D7CFE" }}
-                          />
-                        </TableCell>
-                      );
-                    } else if (column.id == "status") {
-                      return (
-                        <TableCell key={column.id} align="center" sx={{ p: 1 }}>
-                          <AgentStatusObject agentStatus={row[column.id]} />
-                        </TableCell>
-                      );
-                    } else {
-                      return (
-                        <TableCell key={column.id} align="center" sx={{ p: 1 }}>
-                          {row[column.id]}
-                        </TableCell>
-                      );
-                    }
-                  })}
-                </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </TableContainer>
+    <>
+      <div className={styles.searchBarAgentFilterContainer}>
+        <OutlinedInput
+          endAdornment={<SearchIcon sx={{ color: "#778CA2" }} />}
+          placeholder="Search"
+          size="small"
+          sx={{ width: "487px" }}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
+        />
+        <AgentTypeStatusDropdownMenu isAgentTypeFilter />
+        <AgentTypeStatusDropdownMenu isAgentStatusFilter />
+      </div>
+      <TableContainer sx={{ width: "1040px" }}>
+        <Table stickyHeader sx={{ backgroundColor: "#FAFAFA" }}>
+          <TableHead>
+            <TableRow key={"userTableHeader"}>
+              {columns.map((column) => {
+                return (
+                  <TableCell
+                    key={column.id}
+                    align="center"
+                    sx={{
+                      minWidth: column.minWidth,
+                      borderBottom: "none",
+                      zIndex: 1,
+                      backgroundColor: "#FAFAFA",
+                    }}
+                  >
+                    <h3>{column.label}</h3>
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow key={row.agentId}>
+                    {columns.map((column) => {
+                      if (column.id == "actions") {
+                        return (
+                          <TableCell
+                            key={column.id + row.agentId}
+                            align="center"
+                            sx={{ p: 1 }}
+                          >
+                            <EditIcon
+                              fontSize="small"
+                              sx={{ color: "#4D7CFE" }}
+                            />
+                          </TableCell>
+                        );
+                      } else if (column.id == "status") {
+                        return (
+                          <TableCell
+                            key={column.id + row.agentId}
+                            align="center"
+                            sx={{ p: 1 }}
+                          >
+                            <AgentStatusObject agentStatus={row[column.id]} />
+                          </TableCell>
+                        );
+                      } else {
+                        return (
+                          <TableCell
+                            key={column.id + row.agentId}
+                            align="center"
+                            sx={{ p: 1 }}
+                          >
+                            {row[column.id]}
+                          </TableCell>
+                        );
+                      }
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </TableContainer>
+    </>
   );
 };
 

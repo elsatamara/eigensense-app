@@ -153,12 +153,12 @@ const AlertObjectTable = () => {
         >
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
+              <TableRow key={"alertObjectTableHeader"}>
                 {columns.map((column) => {
                   if (column.id == "checkBox") {
                     return (
                       <TableCell
-                        key={column.id}
+                        key={column.label}
                         align="center"
                         sx={{
                           p: 1,
@@ -176,7 +176,7 @@ const AlertObjectTable = () => {
                   } else {
                     return (
                       <TableCell
-                        key={column.id}
+                        key={column.label}
                         align="center"
                         sx={{
                           minWidth: column.minWidth,
@@ -211,7 +211,7 @@ const AlertObjectTable = () => {
                         if (column.id == "checkBox") {
                           return (
                             <TableCell
-                              key={column.id}
+                              key={column.label + row.patternId}
                               align="center"
                               sx={{
                                 p: 1,
@@ -231,7 +231,7 @@ const AlertObjectTable = () => {
                           const value = row[column.id];
                           return (
                             <TableCell
-                              key={column.id}
+                              key={column.label + row.patternId}
                               align="center"
                               sx={{ p: 1 }}
                               onClick={() => {

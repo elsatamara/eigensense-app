@@ -46,9 +46,17 @@ const AgentTypeStatusDropdownMenu = ({
       <Menu anchorEl={anchorEl} open={open} onClose={handleDropdownClose}>
         {agentListState.map((agent) => {
           if (isAgentTypeFilter) {
-            return <MenuItem>{agent.userType}</MenuItem>;
+            return (
+              <MenuItem key={agent.agentId + agent.userType}>
+                {agent.userType}
+              </MenuItem>
+            );
           } else {
-            return <MenuItem>{agent.status}</MenuItem>;
+            return (
+              <MenuItem key={agent.agentId + agent.status}>
+                {agent.status}
+              </MenuItem>
+            );
           }
         })}
       </Menu>

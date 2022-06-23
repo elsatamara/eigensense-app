@@ -161,13 +161,13 @@ const NotificationObjectTable = () => {
         >
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
+              <TableRow key={"notifTableHeader"}>
                 {columns.map((column) => {
                   if (column.id == "checkBox") {
                     return (
                       <TableCell
-                        key={column.id}
                         align="center"
+                        key={column.id}
                         sx={{
                           p: 1,
                           position: "sticky",
@@ -184,8 +184,8 @@ const NotificationObjectTable = () => {
                   } else {
                     return (
                       <TableCell
-                        key={column.id}
                         align="center"
+                        key={column.id}
                         sx={{
                           minWidth: column.minWidth,
                           borderBottom: "none",
@@ -208,7 +208,7 @@ const NotificationObjectTable = () => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.alertId}
+                      key={row.notificationId}
                       sx={{
                         backgroundColor: notificationClicked.includes(
                           row.alertId
@@ -221,8 +221,8 @@ const NotificationObjectTable = () => {
                         if (column.id == "checkBox") {
                           return (
                             <TableCell
-                              key={column.id}
                               align="center"
+                              key={column.id + row.notificationId}
                               sx={{
                                 p: 1,
                                 position: "sticky",
@@ -236,7 +236,7 @@ const NotificationObjectTable = () => {
                         } else if (column.id == "bookmark") {
                           return (
                             <TableCell
-                              key={column.id}
+                              key={column.id + row.notificationId}
                               align="center"
                               sx={{ p: 1 }}
                             >
@@ -251,7 +251,7 @@ const NotificationObjectTable = () => {
                           if (row.type == NotificationType.Unread) {
                             return (
                               <TableCell
-                                key={column.id}
+                                key={column.id + row.notificationId}
                                 align="center"
                                 sx={{ p: 1 }}
                               >
@@ -263,7 +263,7 @@ const NotificationObjectTable = () => {
                             );
                           } else {
                             return (
-                              <TableCell>
+                              <TableCell key={"empty" + row.notificationId}>
                                 <div></div>
                               </TableCell>
                             );
@@ -272,9 +272,9 @@ const NotificationObjectTable = () => {
                           const value = row[column.id];
                           return (
                             <TableCell
-                              key={column.id}
                               align="left"
                               sx={{ p: 1 }}
+                              key={column.id + row.notificationId}
                               onClick={() => {
                                 dispatch(markReadDb(row.alertId));
                                 dispatch(markReadRedux([row.alertId]));

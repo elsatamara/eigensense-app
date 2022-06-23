@@ -66,7 +66,7 @@ const RecentlyViewedTable = () => {
                 >
                   <ListItemText
                     primary={<h2>{row.regulator}</h2>}
-                    secondary={<h4>{date}</h4>}
+                    secondary={date}
                     onClick={() => {
                       navigate(`/single-alert/${row.patternId}`);
                       navigate(0);

@@ -51,7 +51,7 @@ const AlertTypeFilter = () => {
       >
         {[...alertTypes].map((elem) => {
           return (
-            <MenuItem sx={{ width: "176px" }}>
+            <MenuItem key={elem} sx={{ width: "176px" }}>
               <ListItemIcon>
                 <Checkbox />
               </ListItemIcon>

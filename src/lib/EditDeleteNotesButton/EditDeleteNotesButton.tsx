@@ -70,7 +70,7 @@ const EditDeleteNotesButton = ({ noteId, patternId }: Props) => {
         MenuListProps={{
           "aria-labelledby": "notes-button",
         }}
-        elevation={0.05}
+        elevation={1}
       >
         <MenuItem
           onClick={() => {

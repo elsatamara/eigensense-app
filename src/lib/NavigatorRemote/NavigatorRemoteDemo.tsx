@@ -2,6 +2,8 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./NavigatorRemote.module.css";
 import React from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
 
 const NavigatorRemoteDemo = () => {
   let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
@@ -10,11 +12,18 @@ const NavigatorRemoteDemo = () => {
       return [new Date(elem.date).getTime(), 50];
     })
     .sort();
+
+  const dispatch = useAppDispatch();
   const options = {
-    title: { text: "Regulator Remote", x: -410, y: 20, margin: 0 },
+    title: {
+      text: "Regulator Remote",
+      x: -410,
+      y: 50,
+    },
     chart: {
-      height: 270,
+      height: 215,
       width: 996,
+      spacingTop: -20,
     },
     series: [
       {
@@ -37,13 +46,11 @@ const NavigatorRemoteDemo = () => {
     rangeSelector: {
       buttonPosition: {
         align: "right",
-        y: -15,
+        y: 0,
         x: -110,
-        margin: 0,
       },
       inputPosition: {
-        y: -47,
-        margin: 0,
+        y: -33,
       },
       dropdown: "never",
       buttons: [
@@ -79,13 +86,24 @@ const NavigatorRemoteDemo = () => {
         },
       },
     },
-    // yAxis: {
-    //   height: 0,
-    //   gridLineWidth: 0,
-    //   labels: {
-    //     enabled: false,
-    //   },
-    // },
+    plotOptions: {
+      series: {
+        allowPointSelect: true,
+        marker: {
+          states: {
+            select: {
+              fillColor: "red",
+              lineWidth: 0,
+            },
+          },
+        },
+        events: {
+          click: () => {
+            dispatch(getAnotherChartDataAction());
+          },
+        },
+      },
+    },
     tooltip: {
       enabled: false,
     },

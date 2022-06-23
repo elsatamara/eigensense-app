@@ -76,6 +76,7 @@ const NotificationPeriodTypeFilter = ({
         {arrayToRender.map((item: any) => {
           return (
             <MenuItem
+              key={item}
               onClick={() => {
                 setCurrentState(item);
                 console.log(item);

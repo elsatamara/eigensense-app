@@ -46,10 +46,13 @@ const SingleAlertChartHeader = ({
       >
         <Table sx={{ mr: 3, ml: 2 }}>
           <TableHead>
-            <TableRow>
+            <TableRow key={"singleAlertChartHeaderTableHeader"}>
               {headers.map((header) => {
                 return (
-                  <TableCell sx={{ borderBottom: "none", pt: 3.75, pb: 0.25 }}>
+                  <TableCell
+                    key={header}
+                    sx={{ borderBottom: "none", pt: 3.75, pb: 0.25 }}
+                  >
                     <h3>{header}</h3>
                   </TableCell>
                 );
@@ -60,7 +63,10 @@ const SingleAlertChartHeader = ({
             <TableRow>
               {row.map((r) => {
                 return (
-                  <TableCell sx={{ borderBottom: "none", pt: 0.25, pb: 3.75 }}>
+                  <TableCell
+                    key={r}
+                    sx={{ borderBottom: "none", pt: 0.25, pb: 3.75 }}
+                  >
                     <h3>{r}</h3>
                   </TableCell>
                 );

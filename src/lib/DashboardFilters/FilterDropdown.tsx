@@ -195,7 +195,7 @@ const FilterDropdown = ({
         </MenuItem>
         {filterToRenderState.map((elem: any) => {
           return (
-            <MenuItem sx={{ width: "210px", zIndex: 0 }}>
+            <MenuItem key={elem} sx={{ width: "210px", zIndex: 0 }}>
               <FormControlLabel
                 control={
                   <Checkbox

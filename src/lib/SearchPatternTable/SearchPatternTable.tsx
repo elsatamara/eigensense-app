@@ -78,11 +78,11 @@ const SearchPatternsTable = () => {
         <TableContainer sx={{ maxHeight: 520 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
+              <TableRow key={"searchPatternTableHeader"}>
                 {columns.map((column) => {
                   return (
                     <TableCell
-                      key={column.id}
+                      key={column.label}
                       align="center"
                       sx={{
                         minWidth: column.minWidth,
@@ -101,12 +101,12 @@ const SearchPatternsTable = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <TableRow>
+                    <TableRow key={row.patternId}>
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
                           <TableCell
-                            key={column.id}
+                            key={column.label + row.patternId}
                             align="center"
                             sx={{ p: 1 }}
                           >

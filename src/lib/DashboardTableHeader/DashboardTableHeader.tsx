@@ -13,10 +13,8 @@ const DashboardTableHeader = () => {
         <Paper elevation={0} sx={{ minWidth: "1300px" }}>
           <div className={styles.headerContainer}>
             <div className={styles.leftHeader}>
-              <Tabs>
-                <Tab label="ALERT MANAGEMENT" />
-                <Tab label="FLAGGED PATTERNS" />
-              </Tabs>
+              <Button disabled>Alert Management</Button>
+              <Button disabled>Flagged Patterns</Button>
             </div>
             <div className={styles.rightHeader}>
               <CalendarPicker />

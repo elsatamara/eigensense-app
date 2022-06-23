@@ -35,16 +35,7 @@ const UserManagementTab = () => {
           Add new user
         </Button>
       </div>
-      <div className={styles.searchBarAgentFilterContainer}>
-        <OutlinedInput
-          endAdornment={<SearchIcon sx={{ color: "#778CA2" }} />}
-          placeholder="Search"
-          size="small"
-          sx={{ width: "487px" }}
-        ></OutlinedInput>
-        <AgentTypeStatusDropdownMenu isAgentTypeFilter />
-        <AgentTypeStatusDropdownMenu isAgentStatusFilter />
-      </div>
+
       <div className={styles.agentListContainer}>
         <AgentListTable />
       </div>

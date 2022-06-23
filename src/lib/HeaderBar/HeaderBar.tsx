@@ -97,7 +97,7 @@ const NotificationList = () => {
       >
         {notificationState.map((notif) => {
           return (
-            <MenuItem sx={{ width: "400px" }}>
+            <MenuItem key={notif.notificationId} sx={{ width: "400px" }}>
               <div className={styles.notificationList}>
                 <div className={styles.notificationHeader}>
                   {notif.date.slice(0, 21)}

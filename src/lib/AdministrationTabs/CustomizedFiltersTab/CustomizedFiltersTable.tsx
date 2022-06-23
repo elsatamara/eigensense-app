@@ -59,7 +59,7 @@ const CustomizedFiltersTable = () => {
       <TableContainer sx={{ width: "900px", ml: 35, mt: 2, mb: 3 }}>
         <Table stickyHeader sx={{ backgroundColor: "#FAFAFA" }}>
           <TableHead>
-            <TableRow>
+            <TableRow key={"customFilterTableHeader"}>
               {columns.map((column) => {
                 return (
                   <TableCell
@@ -83,12 +83,12 @@ const CustomizedFiltersTable = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row: any) => {
                 return (
-                  <TableRow>
+                  <TableRow key={row.customFilterId}>
                     {columns.map((column) => {
                       if (column.id == "actions") {
                         return (
                           <TableCell
-                            key={column.id}
+                            key={column.id + row.customFilterId}
                             align="center"
                             sx={{ p: 1 }}
                           >
@@ -115,7 +115,7 @@ const CustomizedFiltersTable = () => {
                       } else {
                         return (
                           <TableCell
-                            key={column.id}
+                            key={column.id + row.customFilterId}
                             align="left"
                             sx={{ p: 1, pl: 2 }}
                           >
