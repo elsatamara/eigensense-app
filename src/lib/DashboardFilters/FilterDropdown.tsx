@@ -49,7 +49,7 @@ const FilterDropdown = ({
     (state) => state.customFilterList.customFilterList
   );
   const similarPatterns = useAppSelector(
-    (state) => state.similarPatternList.similarPatternList
+    (state) => state.similarPatternList.similarPatternAlgoList
   );
 
   let alertList:
@@ -57,9 +57,9 @@ const FilterDropdown = ({
     | PatternInterface[]
     | SimilarPatternInterface[] = isPatternSearchFilter ? patterns : alerts;
 
-  if (isSimilarPatternFilter) {
-    alertList = similarPatterns;
-  }
+  // if (isSimilarPatternFilter) {
+  //   alertList = similarPatterns;
+  // }
 
   let filterToRender: any;
 

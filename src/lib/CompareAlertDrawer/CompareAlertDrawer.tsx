@@ -12,7 +12,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./CompareAlertDrawer.module.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { SimilarPatternInterface } from "../../interfaces/SimilarPatternInterface";
+import { SimilarPatternAlgoInterface } from "../../interfaces/SimilarPatternInterface";
 import {
   clearCompareChartData,
   getCompareChartData,
@@ -20,8 +20,8 @@ import {
 import { PatternInterface } from "../../interfaces/PatternInterface";
 
 interface Props {
-  similarPatternList: SimilarPatternInterface[];
-  setPatternSelected: (patternSelected: SimilarPatternInterface) => void;
+  similarPatternList: SimilarPatternAlgoInterface[];
+  setPatternSelected: (patternSelected: SimilarPatternAlgoInterface) => void;
   closeDrawer: () => void;
 }
 
@@ -31,10 +31,10 @@ const CompareAlertDrawer = ({
   closeDrawer,
 }: Props) => {
   const [similarPatternListState, setSimilarPatternListState] =
-    React.useState<SimilarPatternInterface[]>(similarPatternList);
+    React.useState<SimilarPatternAlgoInterface[]>(similarPatternList);
 
   const handleComparedAlertDeletion = (
-    patternToDelete: SimilarPatternInterface
+    patternToDelete: SimilarPatternAlgoInterface
   ) => {
     let text =
       "Are you sure you want to delete this alert from the Compare List?";

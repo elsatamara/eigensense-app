@@ -17,3 +17,17 @@ export const filterSimilarPatternList = createAction<{
   filter_id: string;
   filters: Array<string>;
 }>("FILTER_SIMILAR_PATTERN_LIST");
+
+export const getSimilarPatternDemo = createAsyncThunk(
+  "SimilarPatternReducer/GetSimilarPatternDemo",
+  async (sequence: (number | boolean)[]) => {
+    const urlQuery = new URLSearchParams(sequence.toString()).toString();
+    console.log(urlQuery);
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/get_similar_pattern_demo/${urlQuery}`
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);

@@ -1,5 +1,6 @@
 import { agentList } from "./AgentReducer";
 import { alertList } from "./AlertListReducer";
+import { chartCSVList } from "./ChartCSV.reducer";
 import { chart } from "./ChartReducer";
 import { compareChart } from "./CompareChartReducer";
 import { customFilterList } from "./CustomFilterListReducer";
@@ -21,5 +22,6 @@ export const rootReducer = {
     customFilterList,
     similarPatternList,
     compareChart,
+    chartCSVList,
   },
 };

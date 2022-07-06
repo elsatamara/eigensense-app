@@ -104,7 +104,7 @@ const SimilarSearchPatternTable = ({ onCompareButtonClicked }: Props) => {
   }
 
   const similarPatternState = useAppSelector(
-    (state) => state.similarPatternList.similarPatternList
+    (state) => state.similarPatternList.similarPatternAlgoList
   );
 
   return (
@@ -157,7 +157,7 @@ const SimilarSearchPatternTable = ({ onCompareButtonClicked }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {similarPatternState
+            {/* {similarPatternState
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -199,7 +199,7 @@ const SimilarSearchPatternTable = ({ onCompareButtonClicked }: Props) => {
                     })}
                   </TableRow>
                 );
-              })}
+              })} */}
           </TableBody>
         </Table>
       </TableContainer>

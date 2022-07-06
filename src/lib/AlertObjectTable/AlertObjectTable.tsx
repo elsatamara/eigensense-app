@@ -15,13 +15,14 @@ import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/Indeterminate
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import AlertStatusFilter from "../AlertStatusFilter/AlertStatusFilter";
+import ChartPreview from "../ChartPreview/ChartPreview";
 
 interface Column {
   id:
     | "checkBox"
     | "patternId"
     | "patternName"
-    | "preview"
+    | "previewData"
     | "date"
     | "startTime"
     | "location"
@@ -46,7 +47,7 @@ const columns: readonly Column[] = [
   },
   { id: "patternId", label: "Alert ID", minWidth: 50 },
   { id: "patternName", label: "Alert Name", minWidth: 50 },
-  { id: "preview", label: "Preview", minWidth: 100 },
+  { id: "previewData", label: "Preview", minWidth: 100 },
   { id: "date", label: "Date", minWidth: 50 },
   { id: "date", label: "Start Time", minWidth: 50 },
   { id: "date", label: "Event Start", minWidth: 50 },
@@ -95,10 +96,10 @@ const AlertObjectTable = () => {
     columnLabel: string,
     value?: any
   ) {
-    if (columnID === "preview") {
+    if (columnID === "previewData") {
       return (
         <div className={styles.preview}>
-          <img src={value} />
+          <ChartPreview previewData={value} />
         </div>
       );
     } else if (columnID === "status") {

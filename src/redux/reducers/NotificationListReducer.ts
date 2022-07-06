@@ -18,6 +18,7 @@ import {
 const initialState: NotificationListInterface = {
   notificationList: [],
   originalList: [],
+  testString: "",
 };
 
 export const notificationList = createReducer(initialState, (builder) => {

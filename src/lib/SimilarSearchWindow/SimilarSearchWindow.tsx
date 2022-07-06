@@ -1,8 +1,14 @@
 import { Box, Button, Paper } from "@mui/material";
 import React, { useEffect } from "react";
-import { SimilarPatternInterface } from "../../interfaces/SimilarPatternInterface";
-import { getSimilarPatternList } from "../../redux/actions/SimilarPatternAction";
-import { useAppDispatch } from "../../redux/hooks";
+import {
+  SimilarPatternAlgoInterface,
+  SimilarPatternInterface,
+} from "../../interfaces/SimilarPatternInterface";
+import {
+  getSimilarPatternDemo,
+  getSimilarPatternList,
+} from "../../redux/actions/SimilarPatternAction";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CompareAlertChart from "../CompareAlertChart/CompareAlertChart";
 import CompareAlertChartHeader from "../CompareAlertChartHeader/CompareAlertChartHeader";
 import CompareAlertDrawer from "../CompareAlertDrawer/CompareAlertDrawer";
@@ -10,21 +16,38 @@ import FilterDropdown from "../DashboardFilters/FilterDropdown";
 import SimilarSearchPatternTable from "../SimilarSearchPatternTable/SimilarSearchPatternTable";
 import styles from "./SimilarSearchWindow.module.css";
 import CachedOutlinedIcon from "@mui/icons-material/CachedOutlined";
+import BeatLoader from "react-spinners/BeatLoader";
+import SimilarSearchPatternAlgoTable from "../SimilarSearchPatternAlgoTable/SimilarSearchPatternAlgoTable";
 
 const SimilarSearchWindow = () => {
   const dispatch = useAppDispatch();
+  const chartCSVState = useAppSelector(
+    (state) => state.chartCSVList.chartCSVList
+  );
+
+  const sequence = chartCSVState.slice(0, 421).map((elem) => {
+    return elem[1];
+  });
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
   useEffect(() => {
-    dispatch(getSimilarPatternList());
+    const fetchSimilarPatternData = async () => {
+      await dispatch(getSimilarPatternDemo(sequence));
+      setIsLoading(false);
+    };
+    fetchSimilarPatternData();
   }, []);
+
   const [isCompareAlertDrawerOpen, setIsCompareAlertDrawerOpen] =
     React.useState<boolean>(false);
 
   const [patternToCompare, setPatternToCompare] = React.useState<
-    SimilarPatternInterface[]
+    SimilarPatternAlgoInterface[]
   >([]);
 
   const [currentPatternSelected, setCurrentPatternSelected] =
-    React.useState<SimilarPatternInterface>();
+    React.useState<SimilarPatternAlgoInterface>();
 
   return (
     <div>
@@ -36,9 +59,9 @@ const SimilarSearchWindow = () => {
 
           {isCompareAlertDrawerOpen ? (
             <>
-              <CompareAlertChartHeader
+              {/* <CompareAlertChartHeader
                 currentPatternSelected={currentPatternSelected!}
-              />
+              /> */}
               <CompareAlertChart />
             </>
           ) : (
@@ -58,14 +81,20 @@ const SimilarSearchWindow = () => {
                   Reset All Filters
                 </Button>
               </div>
-              <SimilarSearchPatternTable
-                onCompareButtonClicked={(
-                  patternPassed: SimilarPatternInterface[]
-                ) => {
-                  setIsCompareAlertDrawerOpen(true);
-                  setPatternToCompare(patternPassed);
-                }}
-              />
+              {isLoading ? (
+                <div className={styles.loaderContainer}>
+                  <BeatLoader color={"#2196f3"} size={12} />
+                </div>
+              ) : (
+                <SimilarSearchPatternAlgoTable
+                  onCompareButtonClicked={(
+                    patternPassed: SimilarPatternAlgoInterface[]
+                  ) => {
+                    setIsCompareAlertDrawerOpen(true);
+                    setPatternToCompare(patternPassed);
+                  }}
+                />
+              )}
             </>
           )}
         </Paper>
@@ -73,7 +102,7 @@ const SimilarSearchWindow = () => {
       {isCompareAlertDrawerOpen ? (
         <CompareAlertDrawer
           similarPatternList={patternToCompare}
-          setPatternSelected={(pattern: SimilarPatternInterface) => {
+          setPatternSelected={(pattern: SimilarPatternAlgoInterface) => {
             setCurrentPatternSelected(pattern);
           }}
           closeDrawer={() => {

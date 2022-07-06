@@ -13,7 +13,7 @@ export enum Methods {
 
 const instance = axios.create({
   baseURL: URLS.DEV,
-  timeout: 20000,
+  timeout: 300000,
 });
 
 export interface ServerResponse<D> {

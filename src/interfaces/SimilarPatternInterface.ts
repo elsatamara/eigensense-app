@@ -15,3 +15,20 @@ export interface SimilarPatternInterface {
 export interface SimilarPatternListInterface {
   similarPatternList: SimilarPatternInterface[];
 }
+
+export interface SimilarPatternAlgoInterface {
+  patternId: string;
+  patternName: string;
+  date: Date;
+  startTime: Date;
+  preview: string;
+  location: string;
+  regulator: string;
+  agent: string;
+  matchScore: number;
+  dataPoints: (Date | number)[][];
+}
+
+export interface SimilarPatternAlgoListInterface {
+  similarPatternAlgoList: SimilarPatternAlgoInterface[];
+}

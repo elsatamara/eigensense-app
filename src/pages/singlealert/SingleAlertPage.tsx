@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { AlertInterface } from "../../interfaces/AlertInterface";
+import ChartDemo from "../../lib/ChartDemo/ChartDemo";
+import ChartPreview from "../../lib/ChartPreview/ChartPreview";
 import ChartSingleAlert from "../../lib/ChartSingleAlert/ChartSingleAlert";
 import CompareAlertDrawer from "../../lib/CompareAlertDrawer/CompareAlertDrawer";
 import FooterBar from "../../lib/FooterBar/FooterBar";
@@ -76,7 +78,7 @@ const SingleAlertPage = () => {
               setRunSimilarSearch(!runSimilarSearch);
             }}
           />
-          <ChartSingleAlert />
+          <ChartDemo />
           {runSimilarSearch ? <SimilarSearchWindow /> : <></>}
           <NavigatorRemoteDemo />
           <div className={styles.clearDiv}></div>

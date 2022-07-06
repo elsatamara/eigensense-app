@@ -25,6 +25,8 @@ const DashboardPage = () => {
     dispatch(getCustomFilterList());
   }, []);
 
+  console.log(alertListState);
+
   return (
     <div id="main-page">
       <div className={styles.headerContainer}>

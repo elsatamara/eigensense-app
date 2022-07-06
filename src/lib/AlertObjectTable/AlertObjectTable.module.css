@@ -4,8 +4,8 @@ img {
 }
 
 .preview {
-  display: flex;
-  justify-content: center;
+  padding: 1rem;
+  height: 75px;
 }
 
 .alertStatusObject {

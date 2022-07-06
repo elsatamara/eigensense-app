@@ -39,3 +39,15 @@ export const addNotesAction = createAsyncThunk(
     return res.data;
   }
 );
+
+export const getChartCSV = createAsyncThunk(
+  "ChartReducer/GetChartCSV",
+  async () => {
+    const res = await axiosServerRequest<any>(
+      Methods.GET,
+      `api/v1/get_chart_csv`
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);

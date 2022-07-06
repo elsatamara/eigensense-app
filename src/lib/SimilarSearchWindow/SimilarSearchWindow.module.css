@@ -8,3 +8,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  height: 500px;
+  align-items: center;
+}

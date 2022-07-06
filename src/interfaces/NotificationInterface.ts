@@ -25,4 +25,5 @@ export interface NotificationInterface {
 export interface NotificationListInterface {
   notificationList: NotificationInterface[];
   originalList: NotificationInterface[];
+  testString: string;
 }
