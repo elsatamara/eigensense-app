@@ -62,7 +62,9 @@ const SimilarSearchWindow = () => {
               {/* <CompareAlertChartHeader
                 currentPatternSelected={currentPatternSelected!}
               /> */}
-              <CompareAlertChart />
+              <CompareAlertChart
+                chartData={currentPatternSelected?.dataPoints}
+              />
             </>
           ) : (
             <>

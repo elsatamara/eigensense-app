@@ -46,6 +46,11 @@ const ChartDemo = () => {
       buttons: [
         {
           type: "second",
+          count: 1,
+          text: "1s",
+        },
+        {
+          type: "second",
           count: 3,
           text: "3s",
         },
@@ -58,11 +63,6 @@ const ChartDemo = () => {
           type: "minute",
           count: 1,
           text: "1m",
-        },
-        {
-          type: "minute",
-          count: 3,
-          text: "3m",
         },
       ],
       // selected: 1,

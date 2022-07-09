@@ -54,20 +54,23 @@ const ChartPreview = ({ previewData }: Props) => {
     legend: {
       enabled: false,
     },
+    // tooltip: {
+    //   // backgroundColor: "white",
+    //   borderWidth: 1,
+    //   hideDelay: 0,
+    //   shared: true,
+    //   useHTML: true,
+    //   percentageDecimals: 2,
+    //   backgroundColor: "rgba(255,255,255,1)",
+    //   padding: 2,
+    //   borderColor: "silver",
+    //   borderRadius: 3,
+    //   positioner: function (w: any, h: any, point: any) {
+    //     return { x: point.plotX - w / 3, y: point.plotY - h };
+    //   },
+    // },
     tooltip: {
-      // backgroundColor: "white",
-      borderWidth: 1,
-      hideDelay: 0,
-      shared: true,
-      useHTML: true,
-      percentageDecimals: 2,
-      backgroundColor: "rgba(255,255,255,1)",
-      padding: 2,
-      borderColor: "silver",
-      borderRadius: 3,
-      positioner: function (w: any, h: any, point: any) {
-        return { x: point.plotX - w / 3, y: point.plotY - h };
-      },
+      enabled: false,
     },
     plotOptions: {
       series: {

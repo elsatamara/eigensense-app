@@ -3,9 +3,14 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-const CompareAlertChart = () => {
+interface Props {
+  chartData: number[][] | undefined;
+}
+
+const CompareAlertChart = ({ chartData }: Props) => {
   const chartComponent = React.useRef(null);
-  const chartData = useAppSelector((state) => state.compareChart.list);
+  console.log("chart data", chartData);
+  // const chartData = useAppSelector((state) => state.compareChart.list);
   const options = {
     series: [
       {
@@ -18,24 +23,24 @@ const CompareAlertChart = () => {
     rangeSelector: {
       buttons: [
         {
-          type: "day",
+          type: "second",
           count: 1,
-          text: "1D",
+          text: "1S",
         },
         {
-          type: "day",
+          type: "second",
           count: 3,
-          text: "3D",
+          text: "3S",
         },
         {
-          type: "day",
-          count: 7,
-          text: "7D",
-        },
-        {
-          type: "month",
+          type: "minute",
           count: 1,
-          text: "1m",
+          text: "1M",
+        },
+        {
+          type: "minute",
+          count: 3,
+          text: "3M",
         },
       ],
     },
@@ -46,16 +51,16 @@ const CompareAlertChart = () => {
       enabled: true,
     },
   };
-  return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        constructorType={"stockChart"}
-        allowChartUpdate={true}
-        options={options}
-        ref={chartComponent}
-      />
-    </div>
+  return chartData ? (
+    <HighchartsReact
+      highcharts={Highcharts}
+      constructorType={"stockChart"}
+      allowChartUpdate={true}
+      options={options}
+      ref={chartComponent}
+    />
+  ) : (
+    <></>
   );
 };
 

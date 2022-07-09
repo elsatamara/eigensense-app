@@ -15,6 +15,7 @@ import { useAppSelector } from "../../redux/hooks";
 import styles from "./SimilarSearchPatternAlgoTable.module.css";
 import { SimilarPatternAlgoInterface } from "../../interfaces/SimilarPatternInterface";
 import { PatternInterface } from "../../interfaces/PatternInterface";
+import ChartPreview from "../ChartPreview/ChartPreview";
 
 interface Column {
   id:
@@ -104,7 +105,7 @@ const SimilarSearchPatternAlgoTable = ({ onCompareButtonClicked }: Props) => {
         />
       );
     } else if (columnID === "preview") {
-      return "TBD";
+      return <ChartPreview previewData={similarPattern.dataPoints} />;
     } else if (columnID === "matchScore") {
       return similarPattern.matchScore.toFixed(2);
     } else if (columnID === "startTime" || columnID === "date") {

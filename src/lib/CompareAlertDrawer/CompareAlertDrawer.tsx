@@ -18,6 +18,7 @@ import {
   getCompareChartData,
 } from "../../redux/actions/CompareChartAction";
 import { PatternInterface } from "../../interfaces/PatternInterface";
+import ChartPreview from "../ChartPreview/ChartPreview";
 
 interface Props {
   similarPatternList: SimilarPatternAlgoInterface[];
@@ -81,10 +82,10 @@ const CompareAlertDrawer = ({
                   >
                     <ListItemText
                       primary={item.patternName}
-                      secondary={"Match score: " + item.matchScore}
+                      secondary={"Match score: " + item.matchScore.toFixed(2)}
                     ></ListItemText>
                     <ListItemAvatar>
-                      <img src={item.preview} />
+                      <ChartPreview previewData={item.dataPoints} />
                     </ListItemAvatar>
                     <ListItemIcon>
                       <DeleteOutlineIcon

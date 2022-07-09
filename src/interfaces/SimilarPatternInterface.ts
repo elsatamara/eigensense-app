@@ -26,7 +26,7 @@ export interface SimilarPatternAlgoInterface {
   regulator: string;
   agent: string;
   matchScore: number;
-  dataPoints: (Date | number)[][];
+  dataPoints: number[][];
 }
 
 export interface SimilarPatternAlgoListInterface {
