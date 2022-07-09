@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect } from "react";
 import AlertObjectTable from "../../lib/AlertObjectTable/AlertObjectTable";
 import DashboardTableHeader from "../../lib/DashboardTableHeader/DashboardTableHeader";
@@ -12,6 +13,8 @@ import { getCustomFilterList } from "../../redux/actions/CustomFilterAction";
 import { getPatternList } from "../../redux/actions/PatternAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./DashboardPage.module.css";
+import BeatLoader from "react-spinners/BeatLoader";
+import { Paper } from "@mui/material";
 
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +22,17 @@ const DashboardPage = () => {
 
   localStorage.setItem("alertList", JSON.stringify(alertListState.alerts));
 
+  const [isAlertTableLoading, setIsAlertTableLoading] =
+    React.useState<boolean>(true);
+
   useEffect(() => {
-    dispatch(getAlertsList());
+    const getAlerts = async () => {
+      await dispatch(getAlertsList());
+      setIsAlertTableLoading(false);
+    };
     dispatch(getPatternList());
     dispatch(getCustomFilterList());
+    getAlerts();
   }, []);
 
   console.log(alertListState);
@@ -53,7 +63,18 @@ const DashboardPage = () => {
         ) : (
           <>
             <DashboardTableHeader />
-            <AlertObjectTable />
+            {isAlertTableLoading ? (
+              <Paper
+                elevation={0}
+                sx={{ width: "97.8%", ml: 2, height: 520, mt: 0.25 }}
+              >
+                <div className={styles.loaderContainer}>
+                  <BeatLoader color={"#2196f3"} size={12} />
+                </div>
+              </Paper>
+            ) : (
+              <AlertObjectTable />
+            )}
           </>
         )}
       </div>
