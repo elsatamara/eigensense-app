@@ -84,16 +84,6 @@ const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
 
   return !isLoading ? (
     <div className={styles.chartContainer}>
-      <Button
-        onClick={async () => {
-          setIsLoading(true);
-          setMaxOptions(1440546788000);
-          await new Promise((f) => setTimeout(f, 10));
-          setIsLoading(false);
-        }}
-      >
-        change max
-      </Button>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
