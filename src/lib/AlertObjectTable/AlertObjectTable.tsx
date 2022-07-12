@@ -140,6 +140,7 @@ const AlertObjectTable = () => {
   }
 
   const rows = useAppSelector((state) => state.alertList.alerts);
+  console.log("length", rows.length);
 
   return (
     <div id="tableFirstDiv" className={styles.alertTableContainer}>

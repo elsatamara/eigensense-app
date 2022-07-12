@@ -1,4 +1,4 @@
-import { Paper, useEventCallback } from "@mui/material";
+import { Button, Paper, useEventCallback } from "@mui/material";
 import React, { useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -8,30 +8,35 @@ import {
   getAnotherChartDataAction,
   getChartDataAction,
 } from "../../redux/actions/ChartActions";
+import BeatLoader from "react-spinners/BeatLoader";
 
-const ChartSingleAlert = () => {
+interface Props {
+  regulatorName: string;
+}
+
+const ChartSingleAlert = ({ regulatorName }: Props) => {
   const dispatch = useAppDispatch();
 
-  const [isLoading, setLoading] = React.useState(true);
+  const chartData = JSON.parse(localStorage.getItem("regulatorMap")!)[
+    regulatorName
+  ];
 
-  useEffect(() => {
-    const getChartData = async () => {
-      await dispatch(getChartDataAction());
-      setLoading(false);
-    };
-    getChartData();
-  }, []);
+  // const [chartData, setChartData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
-  const navigatorData = storedAlertList.map(
-    (elem: { date: string | number | Date }) => {
-      return [new Date(elem.date).getTime(), 0];
-    }
-  );
+  // useEffect(() => {
+  //   if (data) {
+  //     setChartData(data);
+  //     setIsLoading(false);
+  //   }
+  // }, [data]);
 
-  const chartData = useAppSelector((state) => state.chart.list);
+  const [chartMinOptions, setMinOptions] =
+    React.useState<number>(1461276997000);
+  const [chartMaxOptions, setMaxOptions] =
+    React.useState<number>(1461327855000);
 
-  const options = {
+  const option = {
     series: [
       {
         data: chartData,
@@ -40,6 +45,10 @@ const ChartSingleAlert = () => {
         },
       },
     ],
+    xAxis: {
+      min: chartMinOptions,
+      max: chartMaxOptions,
+    },
     rangeSelector: {
       buttons: [
         {
@@ -63,7 +72,7 @@ const ChartSingleAlert = () => {
           text: "1m",
         },
       ],
-      // selected: 1,
+      selected: 1,
     },
     navigator: {
       enabled: false,
@@ -75,14 +84,27 @@ const ChartSingleAlert = () => {
 
   return !isLoading ? (
     <div className={styles.chartContainer}>
+      <Button
+        onClick={async () => {
+          setIsLoading(true);
+          setMinOptions(1440532499000);
+          setMaxOptions(1440546788000);
+          await new Promise((f) => setTimeout(f, 10));
+          setIsLoading(false);
+        }}
+      >
+        change max
+      </Button>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
-        options={options}
+        options={option}
       />
     </div>
   ) : (
-    <></>
+    <div className={styles.loaderContainer}>
+      <BeatLoader color={"#2196f3"} size={12} />
+    </div>
   );
 };
 

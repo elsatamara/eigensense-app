@@ -8,3 +8,12 @@
   margin-left: 1.25rem;
   margin-top: 2rem;
 }
+
+.loaderContainer {
+  width: 996px;
+  margin-left: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}

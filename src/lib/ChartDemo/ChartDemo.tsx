@@ -41,7 +41,10 @@ const ChartDemo = () => {
         turboThreshold: 10000,
       },
     },
-
+    xAxis: {
+      min: 1262304000000,
+      max: 1262304001680,
+    },
     rangeSelector: {
       buttons: [
         {

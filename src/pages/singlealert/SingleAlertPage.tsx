@@ -79,6 +79,7 @@ const SingleAlertPage = () => {
             }}
           />
           <ChartDemo />
+          {/* <ChartSingleAlert regulatorName={alertObject.regulator} /> */}
           {runSimilarSearch ? <SimilarSearchWindow /> : <></>}
           <NavigatorRemoteDemo />
           <div className={styles.clearDiv}></div>

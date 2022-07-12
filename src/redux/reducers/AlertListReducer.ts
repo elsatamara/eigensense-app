@@ -19,20 +19,7 @@ const initialState: AlertListInterface = {
 export const alertList = createReducer(initialState, (builder) => {
   builder.addCase(getAlertsList.pending, (state, action) => {});
   builder.addCase(getAlertsList.fulfilled, (state, action) => {
-    state.alerts = action.payload[0];
-    const regulatorMap: any = Object.fromEntries(action.payload[1]);
-    state.alerts.forEach((alert) => {
-      let regulator = alert.regulator;
-      let lastMonthDate: Date = new Date(alert.date);
-      lastMonthDate.setMonth(new Date(alert.date).getMonth() - 1);
-      let lastMonthTime = lastMonthDate.getTime();
-      let thisRegulatorMap = regulatorMap[regulator];
-      let currDate: number = new Date(alert.date).getTime();
-      thisRegulatorMap = thisRegulatorMap.filter(
-        (elem: number[]) => lastMonthTime < elem[0] && elem[0] < currDate
-      );
-      alert.previewData = thisRegulatorMap;
-    });
+    state.alerts = action.payload;
   });
   builder.addCase(getAlertsList.rejected, (state, action) => {});
   builder.addCase(setSearchDrawerStateOpen, (state) => {

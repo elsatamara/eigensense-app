@@ -5,6 +5,10 @@ import React from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
 
+interface Props {
+  setChartDisplayRange: () => void;
+}
+
 const NavigatorRemoteDemo = () => {
   let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
   const navigatorData = storedAlertList
@@ -12,6 +16,12 @@ const NavigatorRemoteDemo = () => {
       return [new Date(elem.date).getTime(), 50];
     })
     .sort();
+
+  // function click(this: any) {
+  //     if (this.dataGroup) {
+  //       setSelectedData(this.series.options.data.slice(this.dataGroup.start, this.dataGroup.start + this.dataGroup.length));
+  //     }
+  //   }
 
   const dispatch = useAppDispatch();
   const options = {
