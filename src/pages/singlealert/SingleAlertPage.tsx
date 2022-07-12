@@ -58,6 +58,10 @@ const SingleAlertPage = () => {
   const [runSimilarSearch, setRunSimilarSearch] =
     React.useState<boolean>(false);
 
+  const [chartRangeMax, setChartRangeMax] = React.useState<number>(
+    new Date(alertObject.date).getTime()
+  );
+
   return (
     <div className={styles.mainPage}>
       <HeaderBar />
@@ -78,9 +82,16 @@ const SingleAlertPage = () => {
               setRunSimilarSearch(!runSimilarSearch);
             }}
           />
-          <ChartDemo />
+          <ChartSingleAlert
+            regulatorName={alertObject.regulator}
+            chartRangeMax={chartRangeMax}
+          />
           {runSimilarSearch ? <SimilarSearchWindow /> : <></>}
-          <NavigatorRemoteDemo />
+          <NavigatorRemoteDemo
+            setChartRange={(max: number) => {
+              setChartRangeMax(max);
+            }}
+          />
           <div className={styles.clearDiv}></div>
         </div>
         <div className={styles.chartTableContainer}>

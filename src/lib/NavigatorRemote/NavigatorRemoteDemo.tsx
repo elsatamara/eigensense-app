@@ -1,17 +1,23 @@
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./NavigatorRemote.module.css";
-import React from "react";
+import React, { useRef } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
 
-const NavigatorRemoteDemo = () => {
+interface Props {
+  setChartRange: (max: number) => void;
+}
+
+const NavigatorRemoteDemo = ({ setChartRange }: Props) => {
   let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
   const navigatorData = storedAlertList
     .map((elem: { date: string | number | Date }) => {
       return [new Date(elem.date).getTime(), 50];
     })
     .sort();
+
+  const navRef = useRef();
 
   const dispatch = useAppDispatch();
   const options = {
@@ -98,8 +104,8 @@ const NavigatorRemoteDemo = () => {
           },
         },
         events: {
-          click: () => {
-            dispatch(getAnotherChartDataAction());
+          click: (e: any) => {
+            setChartRange(e.point.options.x);
           },
         },
       },
@@ -111,6 +117,7 @@ const NavigatorRemoteDemo = () => {
       enabled: true,
     },
   };
+
   return (
     <div className={styles.navigatorContainer}>
       <HighchartsReact
