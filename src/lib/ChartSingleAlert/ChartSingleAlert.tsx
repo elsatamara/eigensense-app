@@ -48,6 +48,13 @@ const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
     ],
     xAxis: {
       max: chartMaxOptions,
+      plotLines: [
+        {
+          color: "#FF0000",
+          width: 2,
+          value: chartMaxOptions,
+        },
+      ],
     },
     rangeSelector: {
       buttons: [
