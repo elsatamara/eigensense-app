@@ -3,7 +3,6 @@ import HighchartsReact from "highcharts-react-official";
 import styles from "./NavigatorRemote.module.css";
 import React, { useRef } from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
 
 interface Props {
   setChartRange: (max: number) => void;

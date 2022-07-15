@@ -1,14 +1,10 @@
-import { Button, Paper, useEventCallback } from "@mui/material";
 import React, { useEffect } from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./ChartSingleAlert.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  getAnotherChartDataAction,
-  getChartDataAction,
-} from "../../redux/actions/ChartActions";
 import BeatLoader from "react-spinners/BeatLoader";
+import { getChartDataAction } from "../../redux/actions/ChartActions";
 
 interface Props {
   regulatorName: string;
@@ -17,10 +13,18 @@ interface Props {
 
 const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    const getChart = async () => {
+      await dispatch(getChartDataAction(regulatorName)).then(() => {
+        // setIsLoading(false);
+      });
+    };
+    getChart();
+  }, []);
 
-  const chartData = JSON.parse(localStorage.getItem("regulatorMap")!)[
-    regulatorName
-  ];
+  const chartData = useAppSelector((state) => state.chart.chartData);
+
+  console.log(chartData);
 
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
@@ -28,11 +32,21 @@ const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
     const delay = async () => {
       await new Promise((f) => setTimeout(f, 10));
     };
+    const getChart = async () => {
+      await dispatch(getChartDataAction(regulatorName));
+    };
     setIsLoading(true);
     setMaxOptions(chartRangeMax);
-    delay().then(() => {
-      setIsLoading(false);
-    });
+    if (chartData.length > 0) {
+      delay().then(() => {
+        setIsLoading(false);
+      });
+    } else {
+      getChart().then(() => {
+        console.log("here");
+        setIsLoading(false);
+      });
+    }
   }, [chartRangeMax]);
 
   const [chartMaxOptions, setMaxOptions] = React.useState<number>(0);

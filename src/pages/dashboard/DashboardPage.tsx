@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./DashboardPage.module.css";
 import BeatLoader from "react-spinners/BeatLoader";
 import { Paper } from "@mui/material";
+import { getChartDataAction } from "../../redux/actions/ChartActions";
 
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
@@ -27,8 +28,9 @@ const DashboardPage = () => {
 
   useEffect(() => {
     const getAlerts = async () => {
-      await dispatch(getAlertsList());
-      setIsAlertTableLoading(false);
+      await dispatch(getAlertsList()).then(() => {
+        setIsAlertTableLoading(false);
+      });
     };
     dispatch(getPatternList());
     dispatch(getCustomFilterList());

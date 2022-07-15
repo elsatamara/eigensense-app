@@ -3,22 +3,10 @@ import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
 export const getChartDataAction = createAsyncThunk(
   "ChartReducer/getChartDataAction",
-  async () => {
+  async (regulator: string) => {
     const res = await axiosServerRequest<any>(
       Methods.GET,
-      `api/v1/getchartdemo`
-    );
-    console.log(res.data);
-    return res.data;
-  }
-);
-
-export const getAnotherChartDataAction = createAsyncThunk(
-  "ChartReducer/getAnotherChartDataAction",
-  async () => {
-    const res = await axiosServerRequest<any>(
-      Methods.GET,
-      `api/v1/getanotherchartdemo`
+      `api/v1/getchartdata/${regulator}`
     );
     console.log(res.data);
     return res.data;

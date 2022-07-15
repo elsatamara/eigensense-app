@@ -3,7 +3,6 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import styles from "./NavigatorRemote.module.css";
 import { useAppDispatch } from "../../redux/hooks";
-import { getAnotherChartDataAction } from "../../redux/actions/ChartActions";
 
 const NavigatorRemote = () => {
   let storedAlertList = JSON.parse(localStorage.getItem("alertList")!);
@@ -65,9 +64,7 @@ const NavigatorRemote = () => {
           },
         },
         events: {
-          click: () => {
-            dispatch(getAnotherChartDataAction());
-          },
+          click: () => {},
         },
       },
     },

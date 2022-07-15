@@ -15,6 +15,8 @@ import SimilarSearchWindow from "../../lib/SimilarSearchWindow/SimilarSearchWind
 import SingleAlertChartHeader from "../../lib/SingleAlertChartHeader/SingleAlertChartHeader";
 import SingleAlertPageHeader from "../../lib/SingleAlertPageHeader/SingleAlertPageHeader";
 import PageTabs from "../../lib/Tabs/Tabs";
+import { getChartDataAction } from "../../redux/actions/ChartActions";
+import { useAppDispatch } from "../../redux/hooks";
 import styles from "./SingleAlertPage.module.css";
 
 const SingleAlertPage = () => {
