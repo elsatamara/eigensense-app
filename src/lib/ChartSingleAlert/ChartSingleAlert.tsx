@@ -13,17 +13,11 @@ interface Props {
 
 const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    const getChart = async () => {
-      await dispatch(getChartDataAction(regulatorName)).then(() => {
-        // setIsLoading(false);
-      });
-    };
-    getChart();
-  }, []);
+  const regulatorData = JSON.parse(localStorage.getItem("regulatorMap")!)
+    [regulatorName].join(",")
+    .toString();
 
   const chartData = useAppSelector((state) => state.chart.chartData);
-
   console.log(chartData);
 
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -33,7 +27,7 @@ const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
       await new Promise((f) => setTimeout(f, 10));
     };
     const getChart = async () => {
-      await dispatch(getChartDataAction(regulatorName));
+      await dispatch(getChartDataAction(regulatorData));
     };
     setIsLoading(true);
     setMaxOptions(chartRangeMax);
@@ -43,7 +37,6 @@ const ChartSingleAlert = ({ regulatorName, chartRangeMax }: Props) => {
       });
     } else {
       getChart().then(() => {
-        console.log("here");
         setIsLoading(false);
       });
     }

@@ -9,6 +9,6 @@ const initialState: ChartDataListInterface = {
 export const chart = createReducer(initialState, (builder) => {
   builder.addCase(getChartDataAction.pending, (state, action) => {});
   builder.addCase(getChartDataAction.fulfilled, (state, action) => {
-    state.chartData = action.payload;
+    state.chartData = action.payload[0];
   });
 });
