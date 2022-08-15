@@ -19,7 +19,8 @@ const initialState: AlertListInterface = {
 export const alertList = createReducer(initialState, (builder) => {
   builder.addCase(getAlertsList.pending, (state, action) => {});
   builder.addCase(getAlertsList.fulfilled, (state, action) => {
-    state.alerts = action.payload;
+    state.alerts = action.payload[0];
+    localStorage.setItem("regulatorMap", JSON.stringify(action.payload[1]));
   });
   builder.addCase(getAlertsList.rejected, (state, action) => {});
   builder.addCase(setSearchDrawerStateOpen, (state) => {
