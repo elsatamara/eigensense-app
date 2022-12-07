@@ -41,10 +41,10 @@ const ChartDemo = () => {
         turboThreshold: 10000,
       },
     },
-    xAxis: {
-      min: 1262304000000,
-      max: 1262304001680,
-    },
+    // xAxis: {
+    //   min: 1262304000000,
+    //   max: 1262304001680,
+    // },
     rangeSelector: {
       buttons: [
         {
@@ -83,6 +83,7 @@ const ChartDemo = () => {
     </div>
   ) : (
     <div className={styles.chartContainer}>
+      {console.log(options.series[0].data)}
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
