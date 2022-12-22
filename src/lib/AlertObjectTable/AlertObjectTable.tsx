@@ -140,6 +140,7 @@ const AlertObjectTable = () => {
   }
 
   const rows = useAppSelector((state) => state.alertList.alerts);
+  console.log(rows)
 
   return (
     <div id="tableFirstDiv" className={styles.alertTableContainer}>
@@ -193,7 +194,7 @@ const AlertObjectTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {Array.from(rows)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -258,7 +259,7 @@ const AlertObjectTable = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={Array.from(rows).length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
