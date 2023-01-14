@@ -15,7 +15,7 @@ import styles from "./AllFilters.module.css";
 const AlertTypeFilter = () => {
   const alertListState = useAppSelector((state) => state.alertList.alerts);
   const alertTypes: Set<string> = new Set();
-  alertListState.forEach((elem) => alertTypes.add(elem.alertType));
+  Array.from(alertListState).forEach((elem) => alertTypes.add(elem.alertType));
 
   const [endArrow, setEndArrow] = React.useState(<KeyboardArrowDownIcon />);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

@@ -25,6 +25,7 @@ const ChartDemo = () => {
   const chartData = chartCSVState.map((elem) => {
     return [elem[0], elem[1]];
   });
+  console.log(chartData)
 
   const options = {
     series: [

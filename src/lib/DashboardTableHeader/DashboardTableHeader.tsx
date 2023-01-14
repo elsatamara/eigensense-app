@@ -9,8 +9,8 @@ const DashboardTableHeader = () => {
   const [moreFilters, setMoreFilters] = React.useState(false);
   return (
     <div>
-      <Box p={2} pb={0.25} sx={{ minWidth: "1300px" }}>
-        <Paper elevation={0} sx={{ minWidth: "1300px" }}>
+      <Box p={2} pb={0.25} sx={{ minWidth: "1005px" }}>
+        <Paper elevation={0} sx={{ minWidth: "1005px" }}>
           <div className={styles.headerContainer}>
             <div className={styles.leftHeader}>
               <Button disabled>Alert Management</Button>

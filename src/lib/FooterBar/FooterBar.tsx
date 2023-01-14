@@ -1,5 +1,6 @@
 import { AppBar, Toolbar } from "@mui/material";
 import React from "react";
+import styles from './FooterBar.module.css'
 
 const FooterBar = () => {
   return (
@@ -9,12 +10,12 @@ const FooterBar = () => {
         top: "auto",
         bottom: 0,
         bgcolor: "#202c34",
-        height: "60px",
+        height: "50px",
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
       <Toolbar>
-        <div>
+        <div className={styles.footer}>
           <h4>© 2021 EigenPatterns - All Rights Reserved</h4>
         </div>
       </Toolbar>

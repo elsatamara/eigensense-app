@@ -25,7 +25,7 @@ const SimilarSearchWindow = () => {
     (state) => state.chartCSVList.chartCSVList
   );
 
-  const sequence = chartCSVState.slice(0, 421).map((elem) => {
+  const sequence = chartCSVState.slice(0, 5000).map((elem) => {
     return elem[1];
   });
 

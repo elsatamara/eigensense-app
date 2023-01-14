@@ -1,4 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { axiosServerRequest, Methods } from "../../utils/AxiosUtils";
 
 export const getSimilarPatternList = createAsyncThunk(
@@ -21,13 +22,9 @@ export const filterSimilarPatternList = createAction<{
 export const getSimilarPatternDemo = createAsyncThunk(
   "SimilarPatternReducer/GetSimilarPatternDemo",
   async (sequence: (number | boolean)[]) => {
-    const urlQuery = new URLSearchParams(sequence.toString()).toString();
-    console.log(urlQuery);
-    const res = await axiosServerRequest<any>(
-      Methods.GET,
-      `api/v1/get_similar_pattern_demo/${urlQuery}`
-    );
-    console.log(res.data);
-    return res.data;
+    const parsedSequence = sequence.toString()
+    console.log(parsedSequence)
+    const { data } = await axios.post(`http://localhost:3003/api/v1/get_similar_pattern_demo/123`, {data: parsedSequence})
+    return data.data;
   }
 );

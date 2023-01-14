@@ -47,7 +47,6 @@ export const getChartCSV = createAsyncThunk(
       Methods.GET,
       `api/v1/get_chart_csv`
     );
-    console.log(res.data);
     return res.data;
   }
 );
